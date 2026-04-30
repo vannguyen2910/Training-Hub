@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Journey Mapping Workshop Guide — Winnie Nguyen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent: #3B5B8C;
+      --accent-light: #EEF2F8;
+      --bg: #F9F7F4;
+      --surface: #FFFFFF;
+      --text: #1A1A1A;
+      --muted: #6B7280;
+      --border: #E5E0D8;
+      --font-serif: 'DM Serif Display', Georgia, serif;
+      --font-sans: 'Instrument Sans', system-ui, sans-serif;
+      --radius: 10px;
+      --shadow: 0 1px 3px rgba(0,0,0,.07), 0 4px 16px rgba(0,0,0,.05);
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(249,247,244,.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex; align-items: center; gap: 1.5rem;
+      height: 56px;
+    }
+    .nav-back {
+      display: flex; align-items: center; gap: .5rem;
+      color: var(--accent); text-decoration: none;
+      font-size: .875rem; font-weight: 500; flex-shrink: 0;
+    }
+    .nav-back:hover { opacity: .75; }
+    .nav-back svg { width: 16px; height: 16px; }
+    .nav-title {
+      font-family: var(--font-serif);
+      font-size: 1rem; color: var(--text);
+      flex: 1;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .nav-type-badge {
+      font-size: .7rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+      padding: .25rem .6rem; border-radius: 99px;
+      background: var(--accent-light); color: var(--accent); flex-shrink: 0;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--accent);
+      color: white;
+      padding: 3rem 2rem 2.5rem;
+    }
+    .hero-inner { max-width: 1100px; margin: 0 auto; }
+    .hero-meta {
+      display: flex; align-items: center; gap: .75rem;
+      margin-bottom: 1rem; flex-wrap: wrap;
+    }
+    .badge {
+      font-size: .7rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+      padding: .25rem .65rem; border-radius: 99px;
+    }
+    .badge-type     { background: rgba(255,255,255,.15); color: white; }
+    .badge-program  { background: rgba(255,255,255,.1);  color: rgba(255,255,255,.85); }
+    .badge-audience { background: rgba(255,255,255,.1);  color: rgba(255,255,255,.85); }
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      line-height: 1.2; margin-bottom: .75rem;
+    }
+    .hero-desc {
+      font-size: 1.05rem; opacity: .85;
+      max-width: 620px; margin-bottom: 1.5rem; line-height: 1.6;
+    }
+    .hero-stats {
+      display: flex; gap: 0; flex-wrap: wrap;
+      border-top: 1px solid rgba(255,255,255,.2);
+      padding-top: 1.25rem; margin-top: .25rem;
+    }
+    .hero-stat {
+      font-size: .8rem; opacity: .75;
+      padding-right: 2rem; margin-right: 2rem;
+      border-right: 1px solid rgba(255,255,255,.2);
+    }
+    .hero-stat:last-child { border-right: none; padding-right: 0; margin-right: 0; }
+    .hero-stat strong { opacity: 1; display: block; font-size: 1rem; margin-bottom: .1rem; }
+
+    /* ── LAYOUT ── */
+    .layout {
+      max-width: 1100px; margin: 0 auto;
+      padding: 3rem 2rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 308px;
+      gap: 3.5rem;
+      align-items: start;
+    }
+    /* Critical: prevents grid children from overflowing their columns */
+    .content, .sidebar { min-width: 0; }
+    @media (max-width: 800px) { .layout { grid-template-columns: 1fr; } }
+
+    /* ── CONTENT SECTIONS ── */
+    .overview-section { margin-bottom: 3rem; }
+    .overview-section:last-child { margin-bottom: 0; }
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 1.25rem; color: var(--text);
+      margin-bottom: 1.25rem;
+      padding-bottom: .6rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    /* ── OBJECTIVES ── */
+    .objectives-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .objectives-list li { display: flex; gap: .75rem; align-items: flex-start; font-size: .95rem; }
+    .obj-num {
+      flex-shrink: 0; width: 22px; height: 22px;
+      background: var(--accent); color: white;
+      border-radius: 50%; font-size: .72rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 2px;
+    }
+
+    /* ── TAGS ── */
+    .tag-row { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .tag {
+      font-size: .75rem; font-weight: 500;
+      padding: .2rem .6rem; border-radius: 99px;
+      background: var(--accent-light); color: var(--accent);
+    }
+
+    /* ── CONCEPT CARDS ── */
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    @media (max-width: 500px) { .concept-grid { grid-template-columns: 1fr; } }
+    .concept-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.25rem;
+      box-shadow: var(--shadow);
+    }
+    .concept-name {
+      font-family: var(--font-serif);
+      font-size: 1rem; color: var(--accent);
+      margin-bottom: .4rem;
+    }
+    .concept-body { font-size: .875rem; color: #374151; line-height: 1.55; }
+
+    /* ── PHASE TIMELINE ── */
+    .phase-timeline { display: flex; flex-direction: column; gap: .5rem; }
+    .phase-block {
+      display: flex; align-items: center; gap: 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .75rem 1rem;
+    }
+    .phase-time {
+      font-size: .75rem; font-weight: 700; font-family: monospace;
+      color: var(--muted); flex-shrink: 0; width: 42px;
+    }
+    .phase-content { flex: 1; display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; }
+    .phase-name { font-size: .9rem; font-weight: 600; flex: 1; min-width: 120px; }
+    .phase-meta { display: flex; align-items: center; gap: .5rem; flex-shrink: 0; }
+    .phase-type {
+      font-size: .68rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+      padding: .2rem .55rem; border-radius: 4px;
+    }
+    .type-warmup     { background: #FEF3C7; color: #92400E; }
+    .type-concept    { background: #DBEAFE; color: #1E40AF; }
+    .type-explain    { background: #EDE9FE; color: #4C1D95; }
+    .type-activity   { background: #D1FAE5; color: #065F46; }
+    .type-bridge     { background: #F3F4F6; color: #4B5563; }
+    .type-wrapup     { background: #DBEAFE; color: #1E40AF; }
+    .type-discussion { background: #F3F4F6; color: #4B5563; }
+    .type-other      { background: #F3F4F6; color: #4B5563; }
+    .phase-duration  { font-size: .78rem; color: var(--muted); white-space: nowrap; }
+
+    /* ── TOOLS CHECKLIST ── */
+    .tools-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .tools-list li { display: flex; align-items: flex-start; gap: .65rem; font-size: .9rem; }
+    .check-icon {
+      flex-shrink: 0; width: 20px; height: 20px;
+      background: var(--accent-light); color: var(--accent);
+      border-radius: 50%; font-size: .7rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 1px;
+    }
+
+    /* ── ACTIVITY CARDS ── */
+    .activity-cards { display: flex; flex-direction: column; gap: .875rem; }
+    .activity-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1rem 1.25rem;
+    }
+    .activity-label {
+      font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: .25rem;
+    }
+    .activity-name { font-size: .95rem; font-weight: 700; margin-bottom: .4rem; }
+    .activity-body { font-size: .875rem; color: #374151; line-height: 1.55; }
+
+    /* ── MARKDOWN BODY (script + learnings) ── */
+    .md-body h1, .md-body h2 {
+      font-family: var(--font-serif);
+      margin: 1.75rem 0 .6rem; line-height: 1.25;
+    }
+    .md-body h1 { font-size: 1.5rem; }
+    .md-body h2 { font-size: 1.2rem; color: var(--accent); }
+    .md-body h3 { font-size: 1rem; font-weight: 700; margin: 1.25rem 0 .4rem; color: #1f2937; }
+    .md-body h4 { font-size: .9rem; font-weight: 700; margin: 1rem 0 .3rem; }
+    .md-body p  { margin: .5rem 0; font-size: .95rem; }
+    .md-body ul, .md-body ol { margin: .5rem 0 .5rem 1.4rem; }
+    .md-body li { margin: .25rem 0; font-size: .95rem; }
+    .md-body blockquote {
+      border-left: 3px solid var(--accent);
+      margin: 1rem 0; padding: .5rem 1rem;
+      background: var(--accent-light);
+      border-radius: 0 6px 6px 0;
+      font-style: italic; color: #374151;
+    }
+    .md-body code {
+      background: #F3F4F6; border-radius: 4px;
+      padding: .1rem .35rem; font-size: .85em;
+      font-family: 'Fira Code', monospace;
+    }
+    .md-body pre {
+      background: #1E293B; color: #E2E8F0;
+      border-radius: 8px; padding: 1rem 1.25rem;
+      overflow-x: auto; margin: 1rem 0;
+    }
+    .md-body pre code { background: none; color: inherit; padding: 0; font-size: .85rem; }
+    .md-body hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+    .md-body a  { color: var(--accent); }
+    .md-body .md-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .875rem; }
+    .md-body .md-table th, .md-body .md-table td {
+      border: 1px solid var(--border); padding: .5rem .75rem; text-align: left;
+    }
+    .md-body .md-table th { background: var(--accent-light); font-weight: 600; }
+    .md-body .md-table tr:nth-child(even) { background: #FAFAF9; }
+
+    /* ── LEARNINGS TABS ── */
+    .learnings-tabs { display: flex; gap: .25rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+    .tab-btn {
+      font-family: var(--font-sans);
+      font-size: .8rem; font-weight: 600;
+      padding: .35rem .85rem;
+      border: 1.5px solid var(--border);
+      border-radius: 99px;
+      background: transparent; color: var(--muted);
+      cursor: pointer; transition: all .15s;
+    }
+    .tab-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .tab-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      display: flex; flex-direction: column; gap: 1.25rem;
+      position: sticky; top: 72px;
+      max-height: calc(100vh - 88px);
+      overflow-y: auto;
+    }
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+    }
+    .sidebar-card h3 {
+      font-size: .75rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .08em;
+      color: var(--muted); margin-bottom: .875rem;
+    }
+    .prereq-list { list-style: none; display: flex; flex-direction: column; gap: .4rem; }
+    .prereq-list li { font-size: .875rem; display: flex; gap: .5rem; align-items: flex-start; }
+    .prereq-list li::before { content: "→"; color: var(--accent); flex-shrink: 0; }
+
+    /* CrossRef */
+    .crossref-card {
+      display: flex; align-items: flex-start; gap: .75rem;
+      padding: .65rem .75rem;
+      border-radius: 7px; margin-bottom: .5rem;
+      text-decoration: none; color: var(--text);
+      border: 1px solid var(--border); transition: box-shadow .15s;
+    }
+    .crossref-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+    .crossref-card:last-child { margin-bottom: 0; }
+    .rel-badge {
+      font-size: .65rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+      padding: .15rem .45rem; border-radius: 4px; white-space: nowrap; flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .rel-requires  .rel-badge { background: #FEF3C7; color: #92400E; }
+    .rel-uses      .rel-badge { background: #DBEAFE; color: #1E40AF; }
+    .rel-extends   .rel-badge { background: #D1FAE5; color: #065F46; }
+    .rel-companion .rel-badge { background: #EDE9FE; color: #4C1D95; }
+    .crossref-title { font-size: .85rem; font-weight: 500; line-height: 1.3; }
+    .crossref-type  { font-size: .75rem; color: var(--muted); margin-top: .1rem; }
+
+    /* Related */
+    .related-card {
+      display: block; padding: .65rem .75rem;
+      border: 1px solid var(--border); border-radius: 7px;
+      margin-bottom: .5rem; text-decoration: none; color: var(--text);
+      transition: box-shadow .15s;
+    }
+    .related-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+    .related-card:last-child { margin-bottom: 0; }
+    .related-title { font-size: .85rem; font-weight: 500; }
+    .related-meta  { font-size: .75rem; color: var(--muted); margin-top: .1rem; }
+
+    /* ── SLIDE DECK CARD ── */
+    .slide-deck-card {
+      background: linear-gradient(135deg, #EEF2F8 0%, #E4EBF5 100%);
+      border-color: var(--accent-light);
+    }
+    .slide-deck-link {
+      display: flex; align-items: center; gap: .6rem;
+      padding: .65rem .75rem;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      text-decoration: none; color: var(--text);
+      margin-top: .5rem;
+      transition: box-shadow .15s, transform .15s;
+    }
+    .slide-deck-link:hover {
+      box-shadow: 0 3px 12px rgba(59,91,140,.15);
+      transform: translateY(-1px);
+    }
+    .slide-icon {
+      font-size: .7rem; color: white;
+      background: var(--accent); border-radius: 50%;
+      width: 22px; height: 22px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .slide-deck-name {
+      font-size: .83rem; font-weight: 500; flex: 1; line-height: 1.3;
+    }
+    .slide-open-label {
+      font-size: .75rem; color: var(--accent);
+      font-weight: 600; white-space: nowrap; flex-shrink: 0;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 2rem;
+      font-size: .8rem; color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../../index.html" class="nav-back">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M10 3L5 8l5 5"/>
+      </svg>
+      Library
+    </a>
+    <span class="nav-title">Journey Mapping Workshop Guide</span>
+    <span class="nav-type-badge">Framework</span>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-meta">
+        <span class="badge badge-type">Framework</span>
+        <span class="badge badge-program">Both</span>
+        <span class="badge badge-audience">Intermediate</span>
+      </div>
+      <h1>Journey Mapping Workshop Guide</h1>
+      <p class="hero-desc">A step-by-step facilitation guide for running a 2-hour journey mapping session with cross-functional teams. Includes warmup activities, facilitation cues, and debrief prompts.</p>
+      <div class="hero-stats">
+        <div class="hero-stat"><strong>2 hr workshop</strong>Duration</div>
+        <div class="hero-stat"><strong>Jan 2025</strong>Last updated</div>
+        <div class="hero-stat"><strong>3</strong>Objectives</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <main class="content">
+
+      <section class="overview-section">
+        <h2 class="section-title">Learning Objectives</h2>
+        <ul class="objectives-list"><li><span class="obj-num">1</span><span>Facilitate a structured journey mapping session with a mixed team</span></li><li><span class="obj-num">2</span><span>Guide participants from raw touchpoints to emotional insight</span></li><li><span class="obj-num">3</span><span>Extract actionable opportunities from the completed map</span></li></ul>
+      </section>
+
+      
+
+      
+        <section class="overview-section">
+          <h2 class="section-title">Learnings</h2>
+          <div class="learnings-tabs"><button class="tab-btn active" data-tab="references">References</button><button class="tab-btn" data-tab="resources-and-tools">Resources & Tools</button><button class="tab-btn" data-tab="teaching-notes">Teaching Notes</button><button class="tab-btn" data-tab="student-examples">Student Examples</button></div>
+          <div class="tab-panel active" id="tab-references"><div class="md-body"><ul>
+<li>Add key books, articles, or papers that inform this material</li>
+</ul>
+
+<hr></div></div><div class="tab-panel" id="tab-resources-and-tools"><div class="md-body"><ul>
+<li>Add tools, templates, or links students use during this session</li>
+</ul>
+
+<hr></div></div><div class="tab-panel" id="tab-teaching-notes"><div class="md-body"><h3>Month YYYY · Context</h3>
+
+<p>Add notes about how this session ran, what worked, what to change.</p>
+
+<hr></div></div><div class="tab-panel" id="tab-student-examples"><div class="md-body"><ul>
+<li>Add standout student work or responses here</li>
+</ul></div></div>
+        </section>
+
+    </main>
+
+    <aside class="sidebar">
+
+      
+
+      <div class="sidebar-card"><h3>Tags</h3><div class="tag-row"><span class="tag">Research</span><span class="tag">Workshop</span><span class="tag">Facilitation</span></div></div>
+
+      <div class="sidebar-card">
+        <h3>Prerequisites</h3>
+        <ul class="prereq-list"><li>Some prior exposure to user research</li></ul>
+      </div>
+
+      <div class="sidebar-card"><h3>Building on</h3>
+        <a href="../../slides/intro-to-ux-research-methods/intro-to-ux-research-methods.html" class="crossref-card rel-requires">
+          <span class="rel-badge">Prerequisite</span>
+          <span>
+            <div class="crossref-title">Intro to UX Research Methods</div>
+            <div class="crossref-type">Slides</div>
+          </span>
+        </a>
+        <a href="../../lessons/synthesis-problem-definition-in-ux/synthesis-problem-definition-in-ux.html" class="crossref-card rel-companion">
+          <span class="rel-badge">Pair with</span>
+          <span>
+            <div class="crossref-title">Synthesis & Problem Definition in UX</div>
+            <div class="crossref-type">Lesson</div>
+          </span>
+        </a></div>
+
+      
+
+    </aside>
+  </div>
+
+  <footer>
+    <p>Winnie Nguyen · UX Mentoring Hub · Jan 2025</p>
+    <p style="margin-top:.25rem">
+      <a href="../../index.html" style="color:var(--accent)">← Back to Library</a>
+    </p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.tab;
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        const panel = document.getElementById('tab-' + target);
+        if (panel) panel.classList.add('active');
+      });
+    });
+  </script>
+
+</body>
+</html>

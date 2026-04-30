@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Winnie Nguyen — Training Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #FFFFFF;
+      --off-white: #F9F7F4;
+      --warm-gray: #EDEBE7;
+      --text-primary: #1A1A1A;
+      --text-secondary: #6B6B6B;
+      --text-tertiary: #9A9A9A;
+      --accent: #3B5B8C;
+      --accent-light: #EEF2F8;
+      --accent-mid: #C4D0E6;
+      --rule: #E0DDD9;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'Instrument Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background-color: var(--white);
+      color: var(--text-primary);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── ANIMATIONS ─────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes lineGrow {
+      from { transform: scaleX(0); }
+      to   { transform: scaleX(1); }
+    }
+
+    .animate { opacity: 0; animation: fadeUp 0.7s ease forwards; }
+    .d1 { animation-delay: 0.1s; }
+    .d2 { animation-delay: 0.25s; }
+    .d3 { animation-delay: 0.4s; }
+    .d4 { animation-delay: 0.55s; }
+    .d5 { animation-delay: 0.7s; }
+    .d6 { animation-delay: 0.85s; }
+
+    /* ── NAV ─────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--rule);
+      padding: 0 48px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    .nav-cta {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent) !important;
+      border: 1.5px solid var(--accent-mid);
+      padding: 6px 16px;
+      border-radius: 100px;
+      transition: background 0.2s, color 0.2s !important;
+    }
+    .nav-cta:hover {
+      background: var(--accent) !important;
+      color: var(--white) !important;
+    }
+
+    /* ── HERO ─────────────────────────────────────── */
+    .hero {
+      padding: 96px 48px 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero-left {}
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 32px;
+      height: 1.5px;
+      background: var(--accent);
+      transform-origin: left;
+      animation: lineGrow 0.6s ease 0.3s both;
+    }
+
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 28px;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      max-width: 440px;
+      margin-bottom: 40px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--white);
+      padding: 12px 28px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    .btn-ghost {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+    .btn-ghost:hover { color: var(--accent); }
+    .btn-ghost::after { content: '→'; transition: transform 0.2s; }
+    .btn-ghost:hover::after { transform: translateX(4px); }
+
+    /* Hero Right — Visual Card Stack */
+    .hero-right {
+      position: relative;
+      height: 420px;
+    }
+
+    .hero-card {
+      position: absolute;
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .hero-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(59,91,140,0.12);
+    }
+
+    .hero-card-main {
+      width: 300px;
+      top: 40px;
+      left: 40px;
+      z-index: 3;
+    }
+
+    .hero-card-secondary {
+      width: 240px;
+      top: 20px;
+      right: 0;
+      z-index: 2;
+      background: var(--accent-light);
+      border-color: var(--accent-mid);
+    }
+
+    .hero-card-tertiary {
+      width: 200px;
+      bottom: 30px;
+      right: 20px;
+      z-index: 1;
+      background: var(--off-white);
+    }
+
+    .card-tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 3px 10px;
+      border-radius: 100px;
+      margin-bottom: 12px;
+    }
+
+    .card-tag.green {
+      color: #2D6A4F;
+      background: #D8F3DC;
+    }
+
+    .card-tag.warm {
+      color: #7B4F2E;
+      background: #F5E6D8;
+    }
+
+    .hero-card h3 {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      color: var(--text-primary);
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+    .hero-card p {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .avatar-w { background: var(--accent); }
+    .avatar-s { background: #2D6A4F; }
+
+    .card-meta span {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    /* ── RULE DIVIDER ─────────────────────────────── */
+    .section-divider {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+    .rule {
+      height: 1px;
+      background: var(--rule);
+    }
+
+    /* ── STATS STRIP ──────────────────────────────── */
+    .stats-strip {
+      background: var(--off-white);
+      padding: 40px 48px;
+    }
+
+    .stats-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: var(--serif);
+      font-size: 2.4rem;
+      color: var(--text-primary);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── SECTION COMMONS ──────────────────────────── */
+    section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 48px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 48px;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .view-all {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      padding-bottom: 4px;
+      transition: gap 0.2s;
+    }
+    .view-all:hover { gap: 10px; }
+    .view-all::after { content: '→'; }
+
+    /* ── ABOUT ──────────────────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-text {}
+
+    .about-text p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .about-text p:last-of-type { margin-bottom: 32px; }
+
+    .about-text strong { color: var(--text-primary); font-weight: 600; }
+
+    .about-visual {
+      position: relative;
+    }
+
+    .about-photo-frame {
+      width: 100%;
+      aspect-ratio: 4/5;
+      background: var(--warm-gray);
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .about-photo-placeholder {
+      font-family: var(--serif);
+      font-size: 1rem;
+      color: var(--text-tertiary);
+      text-align: center;
+    }
+
+    .about-badge {
+      position: absolute;
+      bottom: -16px;
+      left: -20px;
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      padding: 16px 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      z-index: 2;
+    }
+
+    .about-badge-number {
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .about-badge-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    /* ── EXPERTISE PILLS ──────────────────────────── */
+    .expertise-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .pill {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-light);
+      border: 1px solid var(--accent-mid);
+      padding: 5px 14px;
+      border-radius: 100px;
+    }
+
+    /* ── LIBRARY ────────────────────────────────────── */
+    .library-bg {
+      background: var(--off-white);
+      width: 100%;
+    }
+
+    .library-filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .filter-btn {
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: 1.5px solid var(--rule);
+      background: var(--white);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: var(--accent);
+      color: var(--white);
+      border-color: var(--accent);
+    }
+
+    .library-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .lib-card {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      padding: 28px;
+      transition: transform 0.25s, box-shadow 0.25s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lib-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--accent);
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 0.25s ease;
+    }
+
+    .lib-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(59,91,140,0.1);
+    }
+
+    .lib-card:hover::before { transform: scaleY(1); }
+
+    .lib-card-type {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 14px;
+    }
+
+    .lib-card h3 {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      line-height: 1.3;
+      margin-bottom: 10px;
+    }
+
+    .lib-card p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 20px;
+    }
+
+    .lib-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .lib-tags {
+      display: flex;
+      gap: 6px;
+    }
+
+    .lib-tag {
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 3px 9px;
+      border-radius: 100px;
+    }
+
+    .lib-date {
+      font-size: 0.75rem;
+      color: var(--text-tertiary);
+    }
+
+    /* ── SHOWCASE ──────────────────────────────────── */
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .showcase-card {
+      background: var(--off-white);
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+      cursor: pointer;
+    }
+
+    .showcase-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.09);
+    }
+
+    .showcase-thumb {
+      width: 100%;
+      aspect-ratio: 16/10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      position: relative;
+    }
+
+    .sc-blue  { background: linear-gradient(135deg, #C4D0E6, #EEF2F8); }
+    .sc-green { background: linear-gradient(135deg, #B7E4C7, #D8F3DC); }
+    .sc-warm  { background: linear-gradient(135deg, #F5D6C0, #FAE8D8); }
+    .sc-purple{ background: linear-gradient(135deg, #D4C8E8, #EBE6F4); }
+
+    .showcase-info {
+      padding: 18px 20px;
+    }
+
+    .showcase-cohort {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 6px;
+    }
+
+    .showcase-info h4 {
+      font-family: var(--serif);
+      font-size: 0.95rem;
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+
+    .showcase-info p {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+
+    /* ── FEATURED QUOTE ────────────────────────────── */
+    .quote-section {
+      background: var(--accent);
+      width: 100%;
+    }
+
+    .quote-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 48px;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .quote-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-mid);
+      margin-bottom: 16px;
+    }
+
+    .quote-side-title {
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      color: var(--white);
+      line-height: 1.2;
+    }
+
+    .quote-text {
+      font-family: var(--serif);
+      font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+      color: var(--white);
+      line-height: 1.45;
+      font-style: italic;
+      position: relative;
+      padding-left: 28px;
+    }
+
+    .quote-text::before {
+      content: '"';
+      position: absolute;
+      left: -8px;
+      top: -12px;
+      font-size: 5rem;
+      color: var(--accent-mid);
+      line-height: 1;
+      font-family: var(--serif);
+    }
+
+    .quote-author {
+      margin-top: 24px;
+      font-size: 0.85rem;
+      color: var(--accent-mid);
+      font-weight: 500;
+    }
+
+    /* ── FOOTER ────────────────────────────────────── */
+    footer {
+      background: var(--text-primary);
+      color: var(--white);
+      padding: 60px 48px 40px;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 64px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 36px;
+    }
+
+    .footer-brand h3 {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+    }
+
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.7;
+      max-width: 260px;
+    }
+
+    .footer-col h4 {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 16px;
+    }
+
+    .footer-col ul { list-style: none; }
+
+    .footer-col ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-col ul li a {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover { color: var(--white); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom p {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.35);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 16px;
+    }
+
+    .social-link {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+    }
+
+    .social-link:hover {
+      border-color: rgba(255,255,255,0.4);
+      color: var(--white);
+    }
+
+    /* ── DESIGN NOTE OVERLAY ──────────────────────── */
+    .design-note {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--text-primary);
+      color: var(--white);
+      padding: 14px 20px;
+      border-radius: 10px;
+      font-size: 0.78rem;
+      line-height: 1.5;
+      max-width: 260px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      z-index: 999;
+      animation: fadeUp 0.6s ease 1.2s both;
+    }
+
+    .design-note strong {
+      display: block;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-mid);
+      margin-bottom: 4px;
+    }
+
+    .note-close {
+      position: absolute;
+      top: 8px; right: 10px;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.4);
+      cursor: pointer;
+      font-size: 1rem;
+      line-height: 1;
+    }
+    .note-close:hover { color: var(--white); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">Winnie Nguyen</a>
+    <ul class="nav-links">
+      <li><a href="../Library/index.html">Library</a></li>
+      <li><a href="#showcase">Showcase</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="mailto:nguyenphuctuongvan@gmail.com" class="nav-cta">Get in touch</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div style="max-width:1200px; margin:0 auto;">
+    <div class="hero">
+      <div class="hero-left">
+        <p class="hero-eyebrow animate d1">UX Educator · Product Trainer</p>
+        <h1 class="hero-title animate d2">
+          Designing<br /><em>better</em><br />designers.
+        </h1>
+        <p class="hero-desc animate d3">
+          A living archive of training experiences, UX frameworks, and student outcomes — built for learning that lasts beyond the classroom.
+        </p>
+        <div class="hero-actions animate d4">
+          <a href="../Library/index.html" class="btn-primary">Explore the Library</a>
+          <a href="#showcase" class="btn-ghost">View Student Showcase</a>
+        </div>
+      </div>
+
+      <div class="hero-right animate d3">
+        <!-- Card 1 — main -->
+        <div class="hero-card hero-card-main">
+          <span class="card-tag">Lesson · UX Research</span>
+          <h3>Mental Models in UX Design</h3>
+          <p>How users build expectations — and how we design for them.</p>
+          <div class="card-meta">
+            <div class="avatar avatar-w">W</div>
+            <span>Winnie Nguyen · UX Product Class</span>
+          </div>
+        </div>
+        <!-- Card 2 — secondary -->
+        <div class="hero-card hero-card-secondary">
+          <span class="card-tag green">Showcase · Cohort '25</span>
+          <h3>Student Artifact</h3>
+          <p>User journey mapping exercise — private training cohort.</p>
+          <div class="card-meta">
+            <div class="avatar avatar-s">S</div>
+            <span>Sarah · Private Training</span>
+          </div>
+        </div>
+        <!-- Card 3 — tertiary -->
+        <div class="hero-card hero-card-tertiary">
+          <span class="card-tag warm">Framework</span>
+          <h3>UX Design Principles</h3>
+          <p>Core reference sheet — 12 principles.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-strip">
+    <div class="stats-inner">
+      <div class="stat animate d1">
+        <div class="stat-number">3+</div>
+        <div class="stat-label">Years Teaching</div>
+      </div>
+      <div class="stat animate d2">
+        <div class="stat-number">40+</div>
+        <div class="stat-label">Students Mentored</div>
+      </div>
+      <div class="stat animate d3">
+        <div class="stat-number">24</div>
+        <div class="stat-label">Training Resources</div>
+      </div>
+      <div class="stat animate d4">
+        <div class="stat-number">2</div>
+        <div class="stat-label">Active Programs</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-grid">
+      <div class="about-text animate d1">
+        <p class="section-label">About</p>
+        <h2 class="section-title" style="margin-bottom:28px;">Training that <em>sticks.</em></h2>
+        <p>
+          I'm a <strong>UX educator and product trainer</strong> based in Vietnam, helping designers and teams build genuine design intuition — not just surface-level skills.
+        </p>
+        <p>
+          This hub is my <strong>living knowledge base</strong>: a place to consolidate frameworks, lesson materials, and the real work of students who've gone through my programs. Everything here is meant to be used, referenced, and built on.
+        </p>
+        <div class="expertise-pills animate d2">
+          <span class="pill">UX Research</span>
+          <span class="pill">Product Thinking</span>
+          <span class="pill">Mental Models</span>
+          <span class="pill">Prototyping</span>
+          <span class="pill">Design Systems</span>
+          <span class="pill">1:1 Coaching</span>
+        </div>
+      </div>
+
+      <div class="about-visual animate d3">
+        <div class="about-photo-frame">
+          <div class="about-photo-placeholder">
+            Your photo<br />goes here
+          </div>
+        </div>
+        <div class="about-badge">
+          <div class="about-badge-number">40+</div>
+          <div class="about-badge-label">students trained</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIBRARY -->
+  <div class="library-bg">
+    <section>
+      <div class="section-header animate d1">
+        <div>
+          <p class="section-label">Knowledge Library</p>
+          <h2 class="section-title">Training <em>materials</em><br />& frameworks</h2>
+        </div>
+        <a href="../Library/index.html" class="view-all">View all resources</a>
+      </div>
+
+      <div class="library-filters animate d2">
+        <button class="filter-btn active">All</button>
+        <button class="filter-btn">UX Research</button>
+        <button class="filter-btn">Product Thinking</button>
+        <button class="filter-btn">Prototyping</button>
+        <button class="filter-btn">Design Systems</button>
+        <button class="filter-btn">Coaching</button>
+      </div>
+
+      <!-- Cards injected by JS from library-data.js, sorted newest first -->
+      <div class="library-grid" id="hub-library-grid"></div>
+    </section>
+  </div>
+
+  <!-- SHOWCASE -->
+  <section id="showcase">
+    <div class="section-header animate d1">
+      <div>
+        <p class="section-label">Student Showcase</p>
+        <h2 class="section-title">Learning made <em>visible.</em></h2>
+      </div>
+      <a href="../Showcase/" class="view-all">View all work</a>
+    </div>
+
+    <div class="showcase-grid">
+      <div class="showcase-card animate d1">
+        <div class="showcase-thumb sc-blue">🗺️</div>
+        <div class="showcase-info">
+          <p class="showcase-cohort">Cohort 2025 · UX Class</p>
+          <h4>Customer Journey Map — Banking App</h4>
+          <p>Sarah T. · Journey Mapping Project</p>
+        </div>
+      </div>
+
+      <div class="showcase-card animate d2">
+        <div class="showcase-thumb sc-green">📱</div>
+        <div class="showcase-info">
+          <p class="showcase-cohort">Private Training · 2024</p>
+          <h4>Mobile Prototype — Health Tracker</h4>
+          <p>Minh L. · Prototyping Sprint</p>
+        </div>
+      </div>
+
+      <div class="showcase-card animate d3">
+        <div class="showcase-thumb sc-warm">🧩</div>
+        <div class="showcase-info">
+          <p class="showcase-cohort">Cohort 2024 · UX Class</p>
+          <h4>Design System Audit Report</h4>
+          <p>Thao N. · Systems Thinking Module</p>
+        </div>
+      </div>
+
+      <div class="showcase-card animate d4">
+        <div class="showcase-thumb sc-purple">🔍</div>
+        <div class="showcase-info">
+          <p class="showcase-cohort">Private Training · 2025</p>
+          <h4>User Research Synthesis</h4>
+          <p>Huy P. · Research Methods</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <div class="quote-section">
+    <div class="quote-inner">
+      <div>
+        <p class="quote-label">Philosophy</p>
+        <h3 class="quote-side-title">What I believe about design education</h3>
+      </div>
+      <div>
+        <p class="quote-text">
+          Good design education doesn't just teach tools or processes — it teaches people how to see. My job is to build that vision in every student I work with.
+        </p>
+        <p class="quote-author">— Winnie Nguyen, UX Educator</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h3>Winnie Nguyen</h3>
+          <p>UX Educator & Product Trainer — sharing knowledge, frameworks, and the real work of learning design.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigate</h4>
+          <ul>
+            <li><a href="../Library/index.html">Knowledge Library</a></li>
+            <li><a href="#showcase">Student Showcase</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="mailto:nguyenphuctuongvan@gmail.com">Get in Touch</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Programs</h4>
+          <ul>
+            <li><a href="../Library/index.html?filter=lesson">UX Product Class</a></li>
+            <li><a href="../Sessions/">Private Training</a></li>
+            <li><a href="../Library/index.html?filter=slides">Workshop Materials</a></li>
+            <li><a href="../Library/index.html">Resources</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Winnie Nguyen. All rights reserved.</p>
+        <div class="social-links">
+          <a href="#" class="social-link">in</a>
+          <a href="#" class="social-link">tw</a>
+          <a href="#" class="social-link">be</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Load library data then render cards sorted newest → oldest -->
+  <script src="../Library/library-data.js"></script>
+  <script>
+    // ── Built-in session entries (always available, even without library-data.js) ──
+    const BUILTIN_ENTRIES = [
+      {
+        type: 'slides',
+        title: 'Session 3 · Synthesis & Problem Definition',
+        description: 'Turn raw interview data into actionable insights. Covers affinity mapping, insight statements, How Might We, and problem statement writing — with AI practice prompts.',
+        tags: ['UX Research', 'Synthesis'],
+        date: 'Apr 2026',
+        directHref: '../synthesis-problem-definition-in-ux/session-3-synthesis.html',
+      },
+    ];
+
+    // Merge with external LIBRARY_DATA if it loaded
+    window.LIBRARY_DATA = [...(window.LIBRARY_DATA || []), ...BUILTIN_ENTRIES];
+
+    // ── Filter button interaction ──────────────────────────────────────────
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    // ── Library card renderer ──────────────────────────────────────────────
+    const TYPE_ICON = {
+      lesson:    '📖',
+      framework: '🗺️',
+      slides:    '🎯',
+      guide:     '💡',
+    };
+
+    const MONTH_INDEX = {
+      Jan:0, Feb:1, Mar:2,  Apr:3,  May:4,  Jun:5,
+      Jul:6, Aug:7, Sep:8,  Oct:9,  Nov:10, Dec:11
+    };
+
+    function parseLibDate(str) {
+      if (!str) return new Date(0);
+      const parts = str.trim().split(' ');
+      const mon  = MONTH_INDEX[parts[0]] ?? 0;
+      const year = parseInt(parts[1]) || 0;
+      return new Date(year, mon);
+    }
+
+    function renderHubLibrary() {
+      const grid = document.getElementById('hub-library-grid');
+      if (!grid || !window.LIBRARY_DATA) return;
+
+      const delays = ['d1','d2','d3','d4','d5','d6'];
+
+      const cards = [...window.LIBRARY_DATA]
+        .sort((a, b) => parseLibDate(b.date) - parseLibDate(a.date))
+        .slice(0, 6);
+
+      grid.innerHTML = cards.map((m, i) => {
+        const icon      = TYPE_ICON[m.type] || '📄';
+        const typeLabel = m.type.charAt(0).toUpperCase() + m.type.slice(1);
+        const tags      = (m.tags || []).slice(0, 2)
+                            .map(t => `<span class="lib-tag">${t}</span>`)
+                            .join('');
+        // directHref overrides the library-relative path — use for deck files living in Training_Hub
+        const href      = m.directHref
+                            ? m.directHref
+                            : m.page
+                              ? `../Library/${m.page}`
+                              : '../Library/index.html';
+
+        return `
+          <div class="lib-card animate ${delays[i]}" onclick="window.location.href='${href}'" style="cursor:pointer;">
+            <span class="lib-card-type">${icon} ${typeLabel}</span>
+            <h3>${m.title}</h3>
+            <p>${m.description}</p>
+            <div class="lib-card-footer">
+              <div class="lib-tags">${tags}</div>
+              <span class="lib-date">${m.date}</span>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    renderHubLibrary();
+  </script>
+</body>
+</html>
