@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Synthesis & Problem Definition in UX — Winnie Nguyen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent: #3B5B8C;
+      --accent-light: #EEF2F8;
+      --bg: #F9F7F4;
+      --surface: #FFFFFF;
+      --text: #1A1A1A;
+      --muted: #6B7280;
+      --border: #E5E0D8;
+      --font-serif: 'DM Serif Display', Georgia, serif;
+      --font-sans: 'Instrument Sans', system-ui, sans-serif;
+      --radius: 10px;
+      --shadow: 0 1px 3px rgba(0,0,0,.07), 0 4px 16px rgba(0,0,0,.05);
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(249,247,244,.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex; align-items: center; gap: 1.5rem;
+      height: 56px;
+    }
+    .nav-back {
+      display: flex; align-items: center; gap: .5rem;
+      color: var(--accent); text-decoration: none;
+      font-size: .875rem; font-weight: 500; flex-shrink: 0;
+    }
+    .nav-back:hover { opacity: .75; }
+    .nav-back svg { width: 16px; height: 16px; }
+    .nav-title {
+      font-family: var(--font-serif);
+      font-size: 1rem; color: var(--text);
+      flex: 1;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .nav-type-badge {
+      font-size: .7rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+      padding: .25rem .6rem; border-radius: 99px;
+      background: var(--accent-light); color: var(--accent); flex-shrink: 0;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--accent);
+      color: white;
+      padding: 3rem 2rem 2.5rem;
+    }
+    .hero-inner { max-width: 1100px; margin: 0 auto; }
+    .hero-meta {
+      display: flex; align-items: center; gap: .75rem;
+      margin-bottom: 1rem; flex-wrap: wrap;
+    }
+    .badge {
+      font-size: .7rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+      padding: .25rem .65rem; border-radius: 99px;
+    }
+    .badge-type     { background: rgba(255,255,255,.15); color: white; }
+    .badge-program  { background: rgba(255,255,255,.1);  color: rgba(255,255,255,.85); }
+    .badge-audience { background: rgba(255,255,255,.1);  color: rgba(255,255,255,.85); }
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      line-height: 1.2; margin-bottom: .75rem;
+    }
+    .hero-desc {
+      font-size: 1.05rem; opacity: .85;
+      max-width: 620px; margin-bottom: 1.5rem; line-height: 1.6;
+    }
+    .hero-stats {
+      display: flex; gap: 0; flex-wrap: wrap;
+      border-top: 1px solid rgba(255,255,255,.2);
+      padding-top: 1.25rem; margin-top: .25rem;
+    }
+    .hero-stat {
+      font-size: .8rem; opacity: .75;
+      padding-right: 2rem; margin-right: 2rem;
+      border-right: 1px solid rgba(255,255,255,.2);
+    }
+    .hero-stat:last-child { border-right: none; padding-right: 0; margin-right: 0; }
+    .hero-stat strong { opacity: 1; display: block; font-size: 1rem; margin-bottom: .1rem; }
+
+    /* ── LAYOUT ── */
+    .layout {
+      max-width: 1100px; margin: 0 auto;
+      padding: 3rem 2rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 308px;
+      gap: 3.5rem;
+      align-items: start;
+    }
+    /* Critical: prevents grid children from overflowing their columns */
+    .content, .sidebar { min-width: 0; }
+    @media (max-width: 800px) { .layout { grid-template-columns: 1fr; } }
+
+    /* ── CONTENT SECTIONS ── */
+    .overview-section { margin-bottom: 3rem; }
+    .overview-section:last-child { margin-bottom: 0; }
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 1.25rem; color: var(--text);
+      margin-bottom: 1.25rem;
+      padding-bottom: .6rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    /* ── OBJECTIVES ── */
+    .objectives-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .objectives-list li { display: flex; gap: .75rem; align-items: flex-start; font-size: .95rem; }
+    .obj-num {
+      flex-shrink: 0; width: 22px; height: 22px;
+      background: var(--accent); color: white;
+      border-radius: 50%; font-size: .72rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 2px;
+    }
+
+    /* ── TAGS ── */
+    .tag-row { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .tag {
+      font-size: .75rem; font-weight: 500;
+      padding: .2rem .6rem; border-radius: 99px;
+      background: var(--accent-light); color: var(--accent);
+    }
+
+    /* ── CONCEPT CARDS ── */
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    @media (max-width: 500px) { .concept-grid { grid-template-columns: 1fr; } }
+    .concept-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.25rem;
+      box-shadow: var(--shadow);
+    }
+    .concept-name {
+      font-family: var(--font-serif);
+      font-size: 1rem; color: var(--accent);
+      margin-bottom: .4rem;
+    }
+    .concept-body { font-size: .875rem; color: #374151; line-height: 1.55; }
+
+    /* ── PHASE TIMELINE ── */
+    .phase-timeline { display: flex; flex-direction: column; gap: .5rem; }
+    .phase-block {
+      display: flex; align-items: center; gap: 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .75rem 1rem;
+    }
+    .phase-time {
+      font-size: .75rem; font-weight: 700; font-family: monospace;
+      color: var(--muted); flex-shrink: 0; width: 42px;
+    }
+    .phase-content { flex: 1; display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; }
+    .phase-name { font-size: .9rem; font-weight: 600; flex: 1; min-width: 120px; }
+    .phase-meta { display: flex; align-items: center; gap: .5rem; flex-shrink: 0; }
+    .phase-type {
+      font-size: .68rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+      padding: .2rem .55rem; border-radius: 4px;
+    }
+    .type-warmup     { background: #FEF3C7; color: #92400E; }
+    .type-concept    { background: #DBEAFE; color: #1E40AF; }
+    .type-explain    { background: #EDE9FE; color: #4C1D95; }
+    .type-activity   { background: #D1FAE5; color: #065F46; }
+    .type-bridge     { background: #F3F4F6; color: #4B5563; }
+    .type-wrapup     { background: #DBEAFE; color: #1E40AF; }
+    .type-discussion { background: #F3F4F6; color: #4B5563; }
+    .type-other      { background: #F3F4F6; color: #4B5563; }
+    .phase-duration  { font-size: .78rem; color: var(--muted); white-space: nowrap; }
+
+    /* ── TOOLS CHECKLIST ── */
+    .tools-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .tools-list li { display: flex; align-items: flex-start; gap: .65rem; font-size: .9rem; }
+    .check-icon {
+      flex-shrink: 0; width: 20px; height: 20px;
+      background: var(--accent-light); color: var(--accent);
+      border-radius: 50%; font-size: .7rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 1px;
+    }
+
+    /* ── ACTIVITY CARDS ── */
+    .activity-cards { display: flex; flex-direction: column; gap: .875rem; }
+    .activity-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1rem 1.25rem;
+    }
+    .activity-label {
+      font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: .25rem;
+    }
+    .activity-name { font-size: .95rem; font-weight: 700; margin-bottom: .4rem; }
+    .activity-body { font-size: .875rem; color: #374151; line-height: 1.55; }
+
+    /* ── MARKDOWN BODY (script + learnings) ── */
+    .md-body h1, .md-body h2 {
+      font-family: var(--font-serif);
+      margin: 1.75rem 0 .6rem; line-height: 1.25;
+    }
+    .md-body h1 { font-size: 1.5rem; }
+    .md-body h2 { font-size: 1.2rem; color: var(--accent); }
+    .md-body h3 { font-size: 1rem; font-weight: 700; margin: 1.25rem 0 .4rem; color: #1f2937; }
+    .md-body h4 { font-size: .9rem; font-weight: 700; margin: 1rem 0 .3rem; }
+    .md-body p  { margin: .5rem 0; font-size: .95rem; }
+    .md-body ul, .md-body ol { margin: .5rem 0 .5rem 1.4rem; }
+    .md-body li { margin: .25rem 0; font-size: .95rem; }
+    .md-body blockquote {
+      border-left: 3px solid var(--accent);
+      margin: 1rem 0; padding: .5rem 1rem;
+      background: var(--accent-light);
+      border-radius: 0 6px 6px 0;
+      font-style: italic; color: #374151;
+    }
+    .md-body code {
+      background: #F3F4F6; border-radius: 4px;
+      padding: .1rem .35rem; font-size: .85em;
+      font-family: 'Fira Code', monospace;
+    }
+    .md-body pre {
+      background: #1E293B; color: #E2E8F0;
+      border-radius: 8px; padding: 1rem 1.25rem;
+      overflow-x: auto; margin: 1rem 0;
+    }
+    .md-body pre code { background: none; color: inherit; padding: 0; font-size: .85rem; }
+    .md-body hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+    .md-body a  { color: var(--accent); }
+    .md-body .md-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .875rem; }
+    .md-body .md-table th, .md-body .md-table td {
+      border: 1px solid var(--border); padding: .5rem .75rem; text-align: left;
+    }
+    .md-body .md-table th { background: var(--accent-light); font-weight: 600; }
+    .md-body .md-table tr:nth-child(even) { background: #FAFAF9; }
+
+    /* ── LEARNINGS TABS ── */
+    .learnings-tabs { display: flex; gap: .25rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+    .tab-btn {
+      font-family: var(--font-sans);
+      font-size: .8rem; font-weight: 600;
+      padding: .35rem .85rem;
+      border: 1.5px solid var(--border);
+      border-radius: 99px;
+      background: transparent; color: var(--muted);
+      cursor: pointer; transition: all .15s;
+    }
+    .tab-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .tab-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      display: flex; flex-direction: column; gap: 1.25rem;
+      position: sticky; top: 72px;
+      max-height: calc(100vh - 88px);
+      overflow-y: auto;
+    }
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+    }
+    .sidebar-card h3 {
+      font-size: .75rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .08em;
+      color: var(--muted); margin-bottom: .875rem;
+    }
+    .prereq-list { list-style: none; display: flex; flex-direction: column; gap: .4rem; }
+    .prereq-list li { font-size: .875rem; display: flex; gap: .5rem; align-items: flex-start; }
+    .prereq-list li::before { content: "→"; color: var(--accent); flex-shrink: 0; }
+
+    /* CrossRef */
+    .crossref-card {
+      display: flex; align-items: flex-start; gap: .75rem;
+      padding: .65rem .75rem;
+      border-radius: 7px; margin-bottom: .5rem;
+      text-decoration: none; color: var(--text);
+      border: 1px solid var(--border); transition: box-shadow .15s;
+    }
+    .crossref-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+    .crossref-card:last-child { margin-bottom: 0; }
+    .rel-badge {
+      font-size: .65rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+      padding: .15rem .45rem; border-radius: 4px; white-space: nowrap; flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .rel-requires  .rel-badge { background: #FEF3C7; color: #92400E; }
+    .rel-uses      .rel-badge { background: #DBEAFE; color: #1E40AF; }
+    .rel-extends   .rel-badge { background: #D1FAE5; color: #065F46; }
+    .rel-companion .rel-badge { background: #EDE9FE; color: #4C1D95; }
+    .crossref-title { font-size: .85rem; font-weight: 500; line-height: 1.3; }
+    .crossref-type  { font-size: .75rem; color: var(--muted); margin-top: .1rem; }
+
+    /* Related */
+    .related-card {
+      display: block; padding: .65rem .75rem;
+      border: 1px solid var(--border); border-radius: 7px;
+      margin-bottom: .5rem; text-decoration: none; color: var(--text);
+      transition: box-shadow .15s;
+    }
+    .related-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+    .related-card:last-child { margin-bottom: 0; }
+    .related-title { font-size: .85rem; font-weight: 500; }
+    .related-meta  { font-size: .75rem; color: var(--muted); margin-top: .1rem; }
+
+    /* ── SLIDE DECK CARD ── */
+    .slide-deck-card {
+      background: linear-gradient(135deg, #EEF2F8 0%, #E4EBF5 100%);
+      border-color: var(--accent-light);
+    }
+    .slide-deck-link {
+      display: flex; align-items: center; gap: .6rem;
+      padding: .65rem .75rem;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      text-decoration: none; color: var(--text);
+      margin-top: .5rem;
+      transition: box-shadow .15s, transform .15s;
+    }
+    .slide-deck-link:hover {
+      box-shadow: 0 3px 12px rgba(59,91,140,.15);
+      transform: translateY(-1px);
+    }
+    .slide-icon {
+      font-size: .7rem; color: white;
+      background: var(--accent); border-radius: 50%;
+      width: 22px; height: 22px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .slide-deck-name {
+      font-size: .83rem; font-weight: 500; flex: 1; line-height: 1.3;
+    }
+    .slide-open-label {
+      font-size: .75rem; color: var(--accent);
+      font-weight: 600; white-space: nowrap; flex-shrink: 0;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 2rem;
+      font-size: .8rem; color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../../index.html" class="nav-back">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M10 3L5 8l5 5"/>
+      </svg>
+      Library
+    </a>
+    <span class="nav-title">Synthesis & Problem Definition in UX</span>
+    <span class="nav-type-badge">Lesson</span>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-meta">
+        <span class="badge badge-type">Lesson</span>
+        <span class="badge badge-program">Both</span>
+        <span class="badge badge-audience">Intermediate</span>
+      </div>
+      <h1>Synthesis & Problem Definition in UX</h1>
+      <p class="hero-desc">How to move from raw research findings to actionable insights using Affinity Mapping and How Might We statements. Includes a practice dataset and AI integration exercises.</p>
+      <div class="hero-stats">
+        <div class="hero-stat"><strong>90–120 min</strong>Duration</div>
+        <div class="hero-stat"><strong>Apr 2026</strong>Last updated</div>
+        <div class="hero-stat"><strong>3</strong>Objectives</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <main class="content">
+
+      <section class="overview-section">
+        <h2 class="section-title">Learning Objectives</h2>
+        <ul class="objectives-list"><li><span class="obj-num">1</span><span>Apply affinity mapping to organise raw research findings into themes</span></li><li><span class="obj-num">2</span><span>Write effective How Might We statements that reframe problems as opportunities</span></li><li><span class="obj-num">3</span><span>Distinguish between a data point, an insight, and a problem statement</span></li></ul>
+      </section>
+
+      
+
+      
+        <section class="overview-section">
+          <h2 class="section-title">Learnings</h2>
+          <div class="learnings-tabs"><button class="tab-btn active" data-tab="teaching-script">Teaching Script</button></div>
+          <div class="tab-panel active" id="tab-teaching-script"><div class="md-body"><h1>Session 3 · Synthesis & Problem Definition</h1>
+
+<p><strong>Winnie Nguyen</strong> — Senior Product Designer at NAB</p>
+
+<hr>
+
+<h2>Session 2 Recap</h2>
+
+<p><strong>Last session: Customer Understanding</strong></p>
+
+<p>What you learned:</p>
+<ul>
+<li>How to surface and challenge assumptions</li>
+<li>How to write a user interview discussion guide</li>
+<li>How to run structured user interviews</li>
+<li>How to log raw notes without interpretation</li>
+</ul>
+
+<p>Your assignment was to:</p>
+<ul>
+<li>Run user interviews on your live project</li>
+<li>Log raw notes in your Research Log within 24 hours</li>
+<li>Start mapping Jobs-to-Be-Done from what you heard</li>
+<li>Begin your Design Decision Log</li>
+</ul>
+
+<blockquote>Today we take those raw notes and turn them into something actionable.</blockquote>
+
+<hr>
+
+<h2>What We're Building Today</h2>
+
+<p>Turn raw interview data into a problem the whole team can align on.</p>
+
+<ol>
+<li><strong>Affinity Mapping</strong> — Organise chaos into themes</li>
+<li><strong>Insight Statements</strong> — Find the real "so what"</li>
+<li><strong>How Might We</strong> — Turn insights into design opportunities</li>
+<li><strong>Problem Statement</strong> — Land on what to solve</li>
+</ol>
+
+<hr>
+
+<h2>Mindset Shift</h2>
+
+<blockquote><strong>Research without synthesis is just noise.</strong></blockquote>
+<p>></p>
+<blockquote>You have the raw data. This session is about making it mean something.</blockquote>
+
+<table class="md-table">
+<tr><th>Before</th><th>After</th></tr>
+<tr><td>"I have interview notes… let me start designing."</td><td>"I have interview notes. Now I'll find the patterns, name the insights, define the real problem."</td></tr>
+</table>
+
+<hr>
+
+<h2>Part 1 — Affinity Mapping</h2>
+
+<h3>What is Affinity Mapping?</h3>
+
+<p>A method for clustering raw research observations into themes — so patterns emerge instead of staying buried in your notes.</p>
+
+<p><strong>01 · One note, one observation</strong></p>
+<p>Each quote, behaviour, or data point lives on its own sticky. No grouping yet.</p>
+
+<p><strong>02 · Move notes that feel related</strong></p>
+<p>Group silently first — don't discuss, just feel. Let the clusters find themselves.</p>
+
+<p><strong>03 · Name the cluster</strong></p>
+<p>Write a header that captures what unites that group. That header is your theme.</p>
+
+<h3>How to run it</h3>
+
+<ol>
+<li>Dump everything — one observation per sticky note (FigJam, Miro, or physical)</li>
+<li>Read each note — don't sort yet, just absorb the full weight of the data</li>
+<li>Start moving — cluster notes that feel related, without labelling first</li>
+<li>Name each cluster — the header should answer: "what unites these notes?"</li>
+<li>Stand back — look for super-themes, outliers, and surprises</li>
+</ol>
+
+<blockquote>🤖 <strong>AI Task:</strong> Paste your raw notes into Claude and ask: "Cluster these into themes. What patterns are emerging?" Compare AI groupings to your own.</blockquote>
+
+<hr>
+
+<h3>🤖 AI in Practice — Affinity Mapping</h3>
+
+<p><strong>Try this prompt:</strong></p>
+
+<pre><code>Here are my raw interview notes:
+[paste your notes]
+
+Cluster these into themes.
+Give each theme a short name
+and explain what connects
+the notes in it.</code></pre>
+
+<p><strong>Watch out for:</strong> AI groups by keywords, not meaning. It may lump a usability problem and an emotional reaction into the same cluster. Always split and rename clusters yourself.</p>
+
+<p><strong>Reflect:</strong> Did AI surface a theme you hadn't noticed? Did it miss one that only made sense from being in the room?</p>
+
+<p><em>Rule: try it with AI first, then verify with your own judgment before using the output.</em></p>
+
+<hr>
+
+<h3>Activity 1 · 10 min</h3>
+
+<blockquote>Walk me through the findings from your interviews. What surprised you the most?</blockquote>
+
+<hr>
+
+<h2>Part 2 — Insight Statements</h2>
+
+<h3>What is an Insight Statement?</h3>
+
+<p><strong>Insight = Observation + Implication</strong></p>
+
+<table class="md-table">
+<tr><th></th><th></th></tr>
+<tr><td><strong>Observation</strong></td><td>What you saw or heard — a direct quote, a behaviour, a pattern from the research</td></tr>
+<tr><td><strong>Implication</strong></td><td>The "so what" — why this matters for your design decisions</td></tr>
+</table>
+
+<p><strong>Example:</strong></p>
+
+<p><em>Observation:</em> "Users kept abandoning the checkout flow after the payment step — even when the transaction went through."</p>
+
+<p><em>Implication:</em> "This means the app fails to confirm the transaction clearly — users don't know it worked, which breaks trust at the most critical moment."</p>
+
+<hr>
+
+<h3>Strong vs Weak Insight</h3>
+
+<table class="md-table">
+<tr><th>Weak</th><th>Strong</th></tr>
+<tr><td>"Users find the app confusing"</td><td>"Users can't locate booking status after submission, which causes them to call support — revealing a gap in post-action feedback design"</td></tr>
+<tr><td>"Users want a simpler interface"</td><td>"Hospitality managers visit the app 3–5x per shift to monitor requests but must navigate 4 screens each time — suggesting a need for a persistent dashboard view"</td></tr>
+<tr><td>"Users liked the new feature"</td><td>"3 of 4 users completed the booking flow faster with the new layout, but all 4 got stuck at the date picker — pointing to a specific interaction failure, not a layout issue"</td></tr>
+</table>
+
+<hr>
+
+<h3>🤖 AI in Practice — Writing Insights</h3>
+
+<p><strong>Try this prompt:</strong></p>
+
+<pre><code>Here is a raw observation from my research:
+[paste note]
+
+Help me write this as an insight statement:
+what was observed, and what does it imply
+for design?</code></pre>
+
+<p><strong>Watch out for:</strong> AI often writes generic implications. If the implication could apply to any product, it's not specific enough — push it further.</p>
+
+<p><strong>Reflect:</strong> Did the AI version capture the emotional tension from the interview? What did you have to add or correct?</p>
+
+<p><em>Rule: try it with AI first, then verify with your own judgment before using the output.</em></p>
+
+<hr>
+
+<h3>Activity 2 · 10 min</h3>
+
+<blockquote>Pick one moment from your interviews. Write the insight: what did you observe, and what does it mean for the design?</blockquote>
+
+<hr>
+
+<h2>Part 3 — How Might We</h2>
+
+<h3>What is "How Might We"?</h3>
+
+<p>A framing technique that turns an insight into a design opportunity — without jumping straight to a solution.</p>
+
+<p><strong>How</strong> — Assumes it's solvable. Not "can we" or "should we" — it's already a given that it can be done.</p>
+
+<p><strong>Might</strong> — Leaves the solution open. "Might" invites exploration. No single right answer yet.</p>
+
+<p><strong>We</strong> — It's a team challenge, not one person's burden to solve alone. It builds shared ownership.</p>
+
+<hr>
+
+<h3>From Insight to HMW</h3>
+
+<p><strong>Insight:</strong></p>
+<blockquote>"Users abandon after checkout even when the transaction succeeds — because there is no clear confirmation — breaking trust at the most critical moment in the flow."</blockquote>
+
+<p><strong>How Might We...</strong></p>
+<ul>
+<li>...make it immediately clear that a transaction was successful, without requiring the user to check?</li>
+<li>...reduce user anxiety at the moment between action and confirmation?</li>
+<li>...design a post-payment experience that builds trust instead of doubt?</li>
+</ul>
+
+<hr>
+
+<h3>🤖 AI in Practice — How Might We</h3>
+
+<p><strong>Try this prompt:</strong></p>
+
+<pre><code>Here is my insight statement:
+[paste insight]
+
+Generate 5 'How Might We' questions based on this.
+Vary the scope — some broad, some narrow.</code></pre>
+
+<p><strong>Watch out for:</strong> AI HMWs can sound polished but be too vague to act on. Check: can you actually design something to answer each one?</p>
+
+<p><strong>Reflect:</strong> Which AI question was most useful? Which was most surprising? Did any make you reframe your insight?</p>
+
+<p><em>Rule: try it with AI first, then verify with your own judgment before using the output.</em></p>
+
+<hr>
+
+<h3>Activity 3 · 8 min</h3>
+
+<blockquote>Take the insight you wrote. Turn it into 3 different "How Might We" questions.</blockquote>
+
+<hr>
+
+<h2>Part 4 — Problem Statement</h2>
+
+<h3>What makes a strong Problem Statement?</h3>
+
+<p><strong>01 · User-centred</strong></p>
+<p>It describes a real person's problem — not a business goal, not a feature request, not a technical constraint.</p>
+
+<p><strong>02 · Specific, not vague</strong></p>
+<p>"Users struggle to track booking status" beats "users find the product confusing." Precision makes it testable.</p>
+
+<p><strong>03 · Open to multiple solutions</strong></p>
+<p>A good problem statement doesn't hint at the answer. It opens possibility instead of closing it down.</p>
+
+<hr>
+
+<h3>The Formula</h3>
+
+<pre><code>[User type]  needs a way to  [goal / need]  because  [insight / barrier]</code></pre>
+
+<p><strong>Example:</strong></p>
+<blockquote>"First-time online shoppers need a way to know their order was confirmed immediately after payment because the current delay and lack of feedback causes them to abandon — and sometimes re-order — thinking the transaction failed."</blockquote>
+
+<p><strong>Before you finalise, ask:</strong></p>
+<ul>
+<li>✓ Does it describe a person, not a system or a feature?</li>
+<li>✓ Could you solve this problem in more than one way?</li>
+<li>✓ Is it grounded in something real you heard from users?</li>
+</ul>
+
+<hr>
+
+<h3>Strong vs Weak Problem Statement</h3>
+
+<table class="md-table">
+<tr><th>Weak</th><th>Why weak</th><th>Strong</th></tr>
+<tr><td>"We need to redesign the checkout flow"</td><td>Solution, not a problem</td><td>"First-time buyers need a way to confirm their order was placed because the current lack of feedback after payment causes them to re-submit, creating duplicate orders"</td></tr>
+<tr><td>"Users don't trust the app"</td><td>Too vague to act on</td><td>"New users need a way to verify their account is set up correctly because there is no onboarding confirmation — leading them to contact support before completing their first action"</td></tr>
+<tr><td>"The app needs better notifications"</td><td>Solution, not user-centred</td><td>"Frequent users need a way to know when a status change happens without opening the app because they currently miss time-sensitive updates — causing delays and frustration"</td></tr>
+</table>
+
+<hr>
+
+<h3>🤖 AI in Practice — Problem Statement</h3>
+
+<p><strong>Try this prompt:</strong></p>
+
+<pre><code>Here is my research finding:
+[paste insight or HMW]
+
+Help me write a problem statement using this formula:
+[User] needs a way to [goal]
+because [barrier].</code></pre>
+
+<p><strong>Watch out for:</strong> AI often fills the "because" with logical-sounding assumptions. Make sure the barrier comes from what users actually said — not what seems reasonable.</p>
+
+<p><strong>Reflect:</strong> Would a designer who wasn't in your sessions understand exactly who you're designing for from this statement alone?</p>
+
+<p><em>Rule: try it with AI first, then verify with your own judgment before using the output.</em></p>
+
+<hr>
+
+<h3>Activity 4 · 15 min</h3>
+
+<blockquote>Draft the problem statement for your project. Use the formula. Ground it in what you actually heard.</blockquote>
+
+<hr>
+
+<h2>Your Assignment — Before Session 4</h2>
+
+<ol>
+<li>Run affinity mapping on all your interview notes — use FigJam, Miro, or physical sticky notes</li>
+<li>Write 3 insight statements from your research. Use the Observation + Implication formula for each</li>
+<li>Share your problem statement with one stakeholder — a PM, engineer, or team lead — and note how they respond</li>
+</ol>
+
+<blockquote>🤖 <strong>AI Challenge:</strong> Paste your raw notes into Claude. Ask it to cluster themes. Compare its groupings to yours — where did it help? Where did it miss context only you had?</blockquote>
+
+<hr>
+
+<p><em>"After today, you should have one thing: a problem worth solving."</em></p>
+</div></div>
+        </section>
+
+    </main>
+
+    <aside class="sidebar">
+
+      <div class="sidebar-card slide-deck-card"><h3>🎯 Slide Deck</h3>
+            <a href="session-3-synthesis-slide.html" target="_blank" class="slide-deck-link">
+              <span class="slide-icon">▶</span>
+              <span class="slide-deck-name">Session 3 Synthesis Slide</span>
+              <span class="slide-open-label">Open →</span>
+            </a></div>
+
+      <div class="sidebar-card"><h3>Tags</h3><div class="tag-row"><span class="tag">Research</span><span class="tag">Synthesis</span><span class="tag">HMW</span></div></div>
+
+      <div class="sidebar-card">
+        <h3>Prerequisites</h3>
+        <ul class="prereq-list"><li>Basic familiarity with user interviews or observation</li></ul>
+      </div>
+
+      <div class="sidebar-card"><h3>Building on</h3>
+        <a href="../../slides/intro-to-ux-research-methods/intro-to-ux-research-methods.html" class="crossref-card rel-requires">
+          <span class="rel-badge">Prerequisite</span>
+          <span>
+            <div class="crossref-title">Intro to UX Research Methods</div>
+            <div class="crossref-type">Slides</div>
+          </span>
+        </a>
+        <a href="../../frameworks/journey-mapping-workshop-guide/journey-mapping-workshop-guide.html" class="crossref-card rel-uses">
+          <span class="rel-badge">Uses</span>
+          <span>
+            <div class="crossref-title">Journey Mapping Workshop Guide</div>
+            <div class="crossref-type">Framework</div>
+          </span>
+        </a>
+        <a href="../../guides/interviewing-users-effectively/interviewing-users-effectively.html" class="crossref-card rel-companion">
+          <span class="rel-badge">Pair with</span>
+          <span>
+            <div class="crossref-title">Interviewing Users Effectively</div>
+            <div class="crossref-type">Guide</div>
+          </span>
+        </a></div>
+
+      
+
+    </aside>
+  </div>
+
+  <footer>
+    <p>Winnie Nguyen · UX Mentoring Hub · Apr 2026</p>
+    <p style="margin-top:.25rem">
+      <a href="../../index.html" style="color:var(--accent)">← Back to Library</a>
+    </p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.tab;
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        const panel = document.getElementById('tab-' + target);
+        if (panel) panel.classList.add('active');
+      });
+    });
+  </script>
+
+</body>
+</html>

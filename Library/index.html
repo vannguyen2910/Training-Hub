@@ -1,0 +1,1711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Knowledge Library — Winnie Nguyen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <!-- ── Your library data lives in library-data.js ── -->
+  <script src="library-data.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #FFFFFF;
+      --off-white: #F9F7F4;
+      --warm-gray: #EDEBE7;
+      --text-primary: #1A1A1A;
+      --text-secondary: #6B6B6B;
+      --text-tertiary: #9A9A9A;
+      --accent: #3B5B8C;
+      --accent-light: #EEF2F8;
+      --accent-mid: #C4D0E6;
+      --rule: #E0DDD9;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'Instrument Sans', system-ui, sans-serif;
+      --lesson-bg: #EEF2F8;   --lesson-color: #3B5B8C;
+      --framework-bg: #F5E6D8; --framework-color: #7B4F2E;
+      --slides-bg: #D8F3DC;   --slides-color: #2D6A4F;
+      --guide-bg: #EDE8F5;    --guide-color: #5A3E8A;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--white);
+      color: var(--text-primary);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── ANIMATIONS ─────────────────── */
+    @keyframes fadeUp  { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeIn  { from { opacity:0; } to { opacity:1; } }
+    @keyframes lineGrow{ from { transform:scaleX(0); } to { transform:scaleX(1); } }
+    @keyframes slideDown { from { opacity:0; transform:translateY(-10px); } to { opacity:1; transform:translateY(0); } }
+
+    .animate { opacity:0; animation: fadeUp .6s ease forwards; }
+    .d1{animation-delay:.05s} .d2{animation-delay:.15s}
+    .d3{animation-delay:.25s} .d4{animation-delay:.35s}
+
+    /* ── NAV ─────────────────────────── */
+    nav {
+      position:sticky; top:0; z-index:100;
+      background:rgba(255,255,255,.92);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--rule);
+      padding:0 48px; height:64px;
+      display:flex; align-items:center; justify-content:space-between;
+      animation: fadeIn .4s ease forwards;
+    }
+    .nav-logo { font-family:var(--serif); font-size:1.05rem; color:var(--text-primary); text-decoration:none; }
+    .nav-right { display:flex; align-items:center; gap:12px; }
+
+    .nav-back {
+      font-size:.82rem; font-weight:500; color:var(--text-secondary);
+      text-decoration:none; display:flex; align-items:center; gap:6px;
+      padding:7px 14px; border-radius:6px; border:1.5px solid var(--rule);
+      transition:all .2s;
+    }
+    .nav-back::before { content:'←'; transition:transform .2s; }
+    .nav-back:hover { color:var(--accent); border-color:var(--accent-mid); }
+    .nav-back:hover::before { transform:translateX(-3px); }
+
+    .btn-export {
+      font-family:var(--sans); font-size:.82rem; font-weight:500;
+      color:var(--text-secondary); background:var(--off-white);
+      padding:7px 14px; border-radius:6px; border:1.5px solid var(--rule);
+      cursor:pointer; transition:all .2s;
+    }
+    .btn-export:hover { border-color:var(--accent-mid); color:var(--accent); }
+
+    .btn-add {
+      font-family:var(--sans); font-size:.82rem; font-weight:600;
+      color:var(--white); background:var(--accent);
+      padding:8px 18px; border-radius:6px; border:none; cursor:pointer;
+      display:flex; align-items:center; gap:7px; transition:opacity .2s, transform .2s;
+    }
+    .btn-add:hover { opacity:.88; transform:translateY(-1px); }
+    .btn-add svg { width:14px; height:14px; }
+
+    /* ── PAGE HEADER ─────────────────── */
+    .page-header {
+      padding:60px 48px 40px;
+      max-width:1200px; margin:0 auto;
+    }
+    .page-eyebrow {
+      font-size:.72rem; font-weight:600; letter-spacing:.12em;
+      text-transform:uppercase; color:var(--accent);
+      margin-bottom:16px; display:flex; align-items:center; gap:10px;
+    }
+    .page-eyebrow::before {
+      content:''; display:inline-block; width:28px; height:1.5px;
+      background:var(--accent); transform-origin:left;
+      animation: lineGrow .5s ease .2s both;
+    }
+    .page-title {
+      font-family:var(--serif);
+      font-size:clamp(2.2rem,4vw,3.2rem);
+      line-height:1.1; letter-spacing:-.02em; margin-bottom:14px;
+    }
+    .page-title em { font-style:italic; color:var(--accent); }
+    .page-desc { font-size:.95rem; color:var(--text-secondary); line-height:1.75; max-width:500px; }
+
+    /* ── STATS BAR ───────────────────── */
+    .stats-bar {
+      background:var(--off-white);
+      border-top:1px solid var(--rule);
+      border-bottom:1px solid var(--rule);
+      padding:24px 48px; margin-top:24px;
+    }
+    .stats-inner {
+      max-width:1200px; margin:0 auto;
+      display:flex; gap:40px; align-items:center; flex-wrap:wrap;
+    }
+    .stat-item { text-align:center; min-width:56px; }
+    .stat-num { font-family:var(--serif); font-size:1.9rem; line-height:1; margin-bottom:3px; }
+    .stat-lbl { font-size:.68rem; font-weight:600; text-transform:uppercase; letter-spacing:.08em; color:var(--text-tertiary); }
+    .stat-divider { width:1px; height:36px; background:var(--rule); }
+
+    /* ── CONTROLS ────────────────────── */
+    .controls {
+      max-width:1200px; margin:0 auto;
+      padding:36px 48px 28px;
+      display:flex; justify-content:space-between; align-items:center;
+      gap:20px; flex-wrap:wrap;
+    }
+    .filter-group { display:flex; gap:8px; flex-wrap:wrap; }
+
+    .filter-btn {
+      font-size:.78rem; font-weight:500; padding:7px 16px;
+      border-radius:100px; border:1.5px solid var(--rule);
+      background:var(--white); color:var(--text-secondary);
+      cursor:pointer; transition:all .18s;
+      display:flex; align-items:center; gap:6px;
+    }
+    .filter-btn .count {
+      font-size:.68rem; font-weight:600;
+      background:var(--warm-gray); color:var(--text-tertiary);
+      padding:1px 7px; border-radius:100px; transition:all .18s;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background:var(--accent); color:var(--white); border-color:var(--accent);
+    }
+    .filter-btn.active .count, .filter-btn:hover .count {
+      background:rgba(255,255,255,.25); color:var(--white);
+    }
+    .filter-btn[data-type="lesson"].active   { background:var(--lesson-color);    border-color:var(--lesson-color);    }
+    .filter-btn[data-type="framework"].active{ background:var(--framework-color);  border-color:var(--framework-color); }
+    .filter-btn[data-type="slides"].active   { background:var(--slides-color);     border-color:var(--slides-color);    }
+    .filter-btn[data-type="guide"].active    { background:var(--guide-color);      border-color:var(--guide-color);     }
+
+    /* Program filter */
+    .program-filter { display:flex; gap:6px; }
+    .prog-btn {
+      font-size:.72rem; font-weight:500; padding:5px 12px;
+      border-radius:100px; border:1.5px solid var(--rule);
+      background:transparent; color:var(--text-tertiary);
+      cursor:pointer; transition:all .18s;
+    }
+    .prog-btn.active, .prog-btn:hover { border-color:var(--accent-mid); color:var(--accent); background:var(--accent-light); }
+
+    .controls-right { display:flex; align-items:center; gap:10px; }
+    .search-wrap { position:relative; }
+    .search-input {
+      font-family:var(--sans); font-size:.85rem; color:var(--text-primary);
+      background:var(--off-white); border:1.5px solid var(--rule);
+      border-radius:8px; padding:9px 16px 9px 36px;
+      width:220px; outline:none; transition:all .2s;
+    }
+    .search-input:focus { border-color:var(--accent-mid); background:var(--white); }
+    .search-input::placeholder { color:var(--text-tertiary); }
+    .search-icon { position:absolute; left:11px; top:50%; transform:translateY(-50%); color:var(--text-tertiary); pointer-events:none; }
+
+    /* ── GRID ────────────────────────── */
+    .grid-wrap { max-width:1200px; margin:0 auto; padding:0 48px 80px; }
+    .library-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+
+    /* ── CARD ────────────────────────── */
+    .lib-card {
+      background:var(--white); border:1px solid var(--rule);
+      border-radius:10px; padding:24px;
+      position:relative; overflow:hidden;
+      transition:transform .22s, box-shadow .22s;
+      animation: fadeUp .5s ease forwards; opacity:0;
+      display:flex; flex-direction:column; gap:0;
+    }
+    .lib-card::before {
+      content:''; position:absolute; top:0; left:0;
+      width:3px; height:100%;
+      transform:scaleY(0); transform-origin:top; transition:transform .22s;
+    }
+    .lib-card:hover { transform:translateY(-4px); box-shadow:0 12px 36px rgba(59,91,140,.09); }
+    .lib-card:hover::before { transform:scaleY(1); }
+
+    .lib-card[data-type="lesson"]::before    { background:var(--lesson-color); }
+    .lib-card[data-type="framework"]::before { background:var(--framework-color); }
+    .lib-card[data-type="slides"]::before    { background:var(--slides-color); }
+    .lib-card[data-type="guide"]::before     { background:var(--guide-color); }
+
+    /* Card header row */
+    .card-header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:14px; gap:8px; }
+
+    .card-type-badge {
+      display:inline-flex; align-items:center; gap:5px;
+      font-size:.67rem; font-weight:600; letter-spacing:.07em;
+      text-transform:uppercase; padding:4px 10px;
+      border-radius:100px; white-space:nowrap; flex-shrink:0;
+    }
+    [data-type="lesson"]   .card-type-badge { color:var(--lesson-color);    background:var(--lesson-bg);    }
+    [data-type="framework"].card-type-badge { color:var(--framework-color); background:var(--framework-bg); }
+    [data-type="slides"]   .card-type-badge { color:var(--slides-color);    background:var(--slides-bg);    }
+    [data-type="guide"]    .card-type-badge { color:var(--guide-color);     background:var(--guide-bg);     }
+
+    .card-audience {
+      font-size:.67rem; font-weight:500;
+      padding:4px 10px; border-radius:100px;
+      border:1px solid var(--rule); color:var(--text-tertiary);
+      white-space:nowrap; flex-shrink:0;
+    }
+
+    .card-title { font-family:var(--serif); font-size:1.05rem; line-height:1.3; margin-bottom:8px; }
+    .card-desc  { font-size:.83rem; color:var(--text-secondary); line-height:1.65; flex:1; }
+
+    /* Objectives */
+    .card-objectives {
+      margin-top:14px; padding-top:14px;
+      border-top:1px solid var(--rule);
+    }
+    .card-objectives-label {
+      font-size:.65rem; font-weight:600; letter-spacing:.08em;
+      text-transform:uppercase; color:var(--text-tertiary); margin-bottom:8px;
+    }
+    .card-objectives ul {
+      list-style:none; display:flex; flex-direction:column; gap:5px;
+    }
+    .card-objectives ul li {
+      font-size:.78rem; color:var(--text-secondary); line-height:1.45;
+      padding-left:14px; position:relative;
+    }
+    .card-objectives ul li::before {
+      content:''; position:absolute; left:0; top:7px;
+      width:5px; height:5px; border-radius:50%;
+      background:var(--accent-mid);
+    }
+
+    /* Prerequisites */
+    .card-prereqs {
+      margin-top:10px;
+      display:flex; align-items:baseline; gap:6px; flex-wrap:wrap;
+    }
+    .card-prereqs-label {
+      font-size:.65rem; font-weight:600; letter-spacing:.07em;
+      text-transform:uppercase; color:var(--text-tertiary); flex-shrink:0;
+    }
+    .card-prereq-tag {
+      font-size:.7rem; color:var(--text-tertiary);
+      background:var(--off-white); border:1px solid var(--rule);
+      padding:2px 8px; border-radius:100px;
+    }
+
+    /* Footer */
+    .card-footer {
+      display:flex; align-items:center;
+      justify-content:space-between; gap:8px;
+      margin-top:16px; padding-top:14px;
+      border-top:1px solid var(--rule);
+    }
+    .card-tags { display:flex; gap:5px; flex-wrap:wrap; }
+    .card-tag {
+      font-size:.67rem; font-weight:500; color:var(--accent);
+      background:var(--accent-light); padding:3px 8px; border-radius:100px;
+    }
+    .card-meta { display:flex; flex-direction:column; align-items:flex-end; gap:2px; flex-shrink:0; }
+    .card-date     { font-size:.72rem; color:var(--text-tertiary); }
+    .card-duration { font-size:.68rem; font-weight:500; color:var(--text-tertiary); white-space:nowrap; }
+
+    /* Program badge */
+    .card-program {
+      display:inline-block; font-size:.62rem; font-weight:600;
+      letter-spacing:.06em; text-transform:uppercase;
+      padding:2px 8px; border-radius:100px; margin-top:12px;
+      width:fit-content;
+    }
+    .prog-ux-class  { color:#2D6A4F; background:#D8F3DC; }
+    .prog-private   { color:#7B4F2E; background:#F5E6D8; }
+    .prog-both      { color:var(--accent); background:var(--accent-light); }
+
+    /* Open file link */
+    .card-open {
+      display:inline-flex; align-items:center; gap:5px;
+      font-size:.75rem; font-weight:500; color:var(--accent);
+      text-decoration:none; margin-top:14px;
+      padding:7px 12px; border-radius:6px;
+      border:1.5px solid var(--accent-mid);
+      background:var(--accent-light); width:fit-content;
+      transition:all .2s;
+    }
+    .card-open:hover { background:var(--accent); color:var(--white); border-color:var(--accent); }
+    .card-open::after { content:'→'; transition:transform .2s; }
+    .card-open:hover::after { transform:translateX(3px); }
+
+    /* Card actions (edit/delete) */
+    .card-actions { position:absolute; top:14px; right:14px; display:none; gap:5px; }
+    .lib-card:hover .card-actions { display:flex; }
+    .card-action-btn {
+      width:28px; height:28px; border-radius:6px;
+      border:1px solid var(--rule); background:var(--white);
+      cursor:pointer; display:flex; align-items:center;
+      justify-content:center; font-size:.75rem; color:var(--text-tertiary);
+      transition:all .18s;
+    }
+    .card-action-btn:hover { background:var(--warm-gray); color:var(--text-primary); }
+    .card-action-btn.delete:hover { background:#FEE2E2; color:#B91C1C; border-color:#FECACA; }
+
+    /* ── EMPTY STATE ─────────────────── */
+    .empty-state {
+      grid-column:1/-1; text-align:center; padding:80px 24px;
+      animation: fadeIn .4s ease forwards;
+    }
+    .empty-icon { font-size:2.2rem; margin-bottom:18px; opacity:.4; }
+    .empty-state h3 { font-family:var(--serif); font-size:1.4rem; margin-bottom:8px; }
+    .empty-state p  { font-size:.88rem; color:var(--text-secondary); max-width:300px; margin:0 auto; }
+
+    /* ── MODAL SHARED ────────────────── */
+    .modal-overlay {
+      display:none; position:fixed; inset:0;
+      background:rgba(26,26,26,.55); backdrop-filter:blur(4px);
+      z-index:200; align-items:center; justify-content:center; padding:24px;
+    }
+    .modal-overlay.open { display:flex; animation: fadeIn .25s ease forwards; }
+    .modal {
+      background:var(--white); border-radius:14px; padding:36px;
+      width:100%; max-width:580px; max-height:92vh; overflow-y:auto;
+      position:relative; animation: slideDown .28s ease forwards;
+    }
+    .modal-close {
+      position:absolute; top:18px; right:18px;
+      background:none; border:none; color:var(--text-tertiary);
+      cursor:pointer; font-size:1.1rem;
+      width:30px; height:30px; display:flex; align-items:center;
+      justify-content:center; border-radius:50%; transition:all .2s;
+    }
+    .modal-close:hover { background:var(--warm-gray); color:var(--text-primary); }
+    .modal h2 { font-family:var(--serif); font-size:1.5rem; margin-bottom:6px; }
+    .modal-sub { font-size:.84rem; color:var(--text-secondary); margin-bottom:28px; line-height:1.6; }
+
+    /* ── ADD / EDIT MODAL ────────────── */
+    .form-row { margin-bottom:18px; }
+    .form-row label {
+      display:block; font-size:.74rem; font-weight:600;
+      text-transform:uppercase; letter-spacing:.08em;
+      color:var(--text-secondary); margin-bottom:7px;
+    }
+    .form-row input, .form-row select, .form-row textarea {
+      font-family:var(--sans); font-size:.88rem; color:var(--text-primary);
+      width:100%; border:1.5px solid var(--rule); border-radius:7px;
+      padding:9px 12px; background:var(--off-white); outline:none;
+      transition:all .2s; appearance:none;
+    }
+    .form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+      border-color:var(--accent-mid); background:var(--white);
+    }
+    .form-row textarea { resize:vertical; min-height:72px; line-height:1.6; }
+    .form-hint { font-size:.72rem; color:var(--text-tertiary); margin-top:5px; line-height:1.5; }
+    .form-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .form-grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
+
+    .form-section-label {
+      font-size:.68rem; font-weight:700; letter-spacing:.1em;
+      text-transform:uppercase; color:var(--accent);
+      border-bottom:1px solid var(--accent-mid);
+      padding-bottom:8px; margin:24px 0 16px;
+    }
+
+    .form-actions {
+      display:flex; gap:10px; margin-top:28px;
+      padding-top:24px; border-top:1px solid var(--rule);
+    }
+    .btn-submit {
+      font-family:var(--sans); font-size:.88rem; font-weight:600;
+      color:var(--white); background:var(--accent); border:none;
+      padding:11px 28px; border-radius:6px; cursor:pointer; flex:1;
+      transition:opacity .2s, transform .2s;
+    }
+    .btn-submit:hover { opacity:.88; transform:translateY(-1px); }
+    .btn-cancel {
+      font-family:var(--sans); font-size:.88rem; font-weight:500;
+      color:var(--text-secondary); background:var(--off-white);
+      border:1.5px solid var(--rule); padding:11px 20px;
+      border-radius:6px; cursor:pointer; transition:all .2s;
+    }
+    .btn-cancel:hover { border-color:var(--text-secondary); color:var(--text-primary); }
+
+    /* ── EXPORT MODAL ────────────────── */
+    .export-modal { max-width:680px; }
+    .export-intro {
+      font-size:.84rem; color:var(--text-secondary);
+      line-height:1.7; margin-bottom:20px;
+    }
+    .export-intro strong { color:var(--text-primary); }
+    .export-steps {
+      background:var(--off-white); border:1px solid var(--rule);
+      border-radius:8px; padding:16px 18px; margin-bottom:20px;
+    }
+    .export-steps ol { padding-left:18px; }
+    .export-steps li { font-size:.82rem; color:var(--text-secondary); margin-bottom:6px; line-height:1.5; }
+    .export-steps li:last-child { margin-bottom:0; }
+    .export-steps code {
+      font-family:monospace; font-size:.8rem;
+      background:var(--warm-gray); padding:1px 5px;
+      border-radius:3px; color:var(--text-primary);
+    }
+
+    .export-code-wrap { position:relative; }
+    .export-code {
+      font-family:monospace; font-size:.75rem; line-height:1.7;
+      background:#1A1A1A; color:#E8E8E8;
+      border-radius:8px; padding:20px;
+      width:100%; height:260px; resize:none;
+      border:none; outline:none; overflow:auto;
+    }
+    .btn-copy {
+      position:absolute; top:12px; right:12px;
+      font-family:var(--sans); font-size:.75rem; font-weight:600;
+      color:var(--white); background:rgba(255,255,255,.15);
+      border:1px solid rgba(255,255,255,.2);
+      padding:5px 12px; border-radius:5px; cursor:pointer;
+      transition:all .2s;
+    }
+    .btn-copy:hover { background:rgba(255,255,255,.25); }
+    .btn-copy.copied { background:var(--slides-color); border-color:var(--slides-color); }
+
+    .export-notice {
+      margin-top:14px; padding:12px 14px;
+      background:var(--accent-light); border:1px solid var(--accent-mid);
+      border-radius:7px; font-size:.78rem; color:var(--accent); line-height:1.6;
+    }
+
+    /* ── TOAST ───────────────────────── */
+    .toast {
+      position:fixed; bottom:24px; right:24px;
+      background:var(--text-primary); color:var(--white);
+      padding:12px 18px; border-radius:8px;
+      font-size:.82rem; display:flex; align-items:center; gap:9px;
+      z-index:300; opacity:0; transform:translateY(10px);
+      transition:opacity .3s, transform .3s; pointer-events:none;
+    }
+    .toast.show { opacity:1; transform:translateY(0); }
+
+    /* ── FOOTER ──────────────────────── */
+    footer { background:var(--text-primary); padding:36px 48px; }
+    .footer-inner {
+      max-width:1200px; margin:0 auto;
+      display:flex; justify-content:space-between; align-items:center; gap:20px;
+    }
+    .footer-inner p    { font-size:.76rem; color:rgba(255,255,255,.3); }
+    .footer-inner span { font-size:.76rem; color:rgba(255,255,255,.2); }
+
+    /* ── DETAIL OVERLAY ─────────────── */
+    @keyframes detailIn {
+      from { opacity:0; transform:scale(.97); }
+      to   { opacity:1; transform:scale(1); }
+    }
+
+    .detail-overlay {
+      display:none; position:fixed; inset:0;
+      background:rgba(26,26,26,.65);
+      backdrop-filter:blur(6px);
+      z-index:400; overflow-y:auto;
+      padding:32px 24px;
+    }
+    .detail-overlay.open { display:block; animation: fadeIn .2s ease forwards; }
+
+    .detail-modal {
+      background:var(--white); border-radius:16px;
+      max-width:1080px; margin:0 auto;
+      overflow:hidden; position:relative;
+      animation: detailIn .28s ease forwards;
+      box-shadow:0 24px 80px rgba(0,0,0,.18);
+    }
+
+    /* Header band */
+    .detail-header {
+      padding:36px 48px 28px;
+      border-bottom:1px solid var(--rule);
+      position:relative;
+    }
+    .detail-header-top {
+      display:flex; align-items:center;
+      gap:10px; margin-bottom:16px; flex-wrap:wrap;
+    }
+    .detail-close {
+      position:absolute; top:20px; right:20px;
+      background:var(--off-white); border:1px solid var(--rule);
+      color:var(--text-secondary); cursor:pointer;
+      width:36px; height:36px; border-radius:50%;
+      font-size:1.1rem; display:flex; align-items:center;
+      justify-content:center; transition:all .2s; z-index:2;
+    }
+    .detail-close:hover { background:var(--warm-gray); color:var(--text-primary); }
+
+    .detail-title {
+      font-family:var(--serif);
+      font-size:clamp(1.6rem,3vw,2.2rem);
+      line-height:1.15; letter-spacing:-.02em;
+      padding-right:48px;
+    }
+    .detail-desc {
+      font-size:.95rem; color:var(--text-secondary);
+      line-height:1.75; max-width:680px; margin-top:12px;
+    }
+    .detail-meta-row {
+      display:flex; gap:20px; flex-wrap:wrap;
+      margin-top:18px; align-items:center;
+    }
+    .detail-meta-item {
+      display:flex; align-items:center; gap:6px;
+      font-size:.78rem; color:var(--text-tertiary);
+    }
+    .detail-meta-item strong { color:var(--text-secondary); font-weight:600; }
+
+    /* Body — two columns */
+    .detail-body {
+      display:grid; grid-template-columns:1fr 300px;
+      gap:0;
+    }
+
+    /* Left — main content */
+    .detail-main {
+      padding:36px 48px; border-right:1px solid var(--rule);
+      overflow:hidden;
+    }
+
+    .detail-section { margin-bottom:32px; }
+    .detail-section:last-child { margin-bottom:0; }
+    .detail-section-title {
+      font-size:.68rem; font-weight:700; letter-spacing:.1em;
+      text-transform:uppercase; color:var(--accent);
+      margin-bottom:16px; padding-bottom:8px;
+      border-bottom:1px solid var(--accent-mid);
+    }
+
+    /* Objectives list */
+    .detail-objectives { display:flex; flex-direction:column; gap:10px; }
+    .detail-objective {
+      display:flex; gap:12px; align-items:flex-start;
+    }
+    .obj-num {
+      font-family:var(--serif); font-size:.85rem;
+      color:var(--accent); font-weight:normal;
+      min-width:20px; padding-top:1px;
+    }
+    .detail-objective p { font-size:.88rem; color:var(--text-secondary); line-height:1.55; }
+
+    /* Prereqs */
+    .detail-prereq-list { display:flex; flex-wrap:wrap; gap:8px; }
+    .detail-prereq-pill {
+      font-size:.78rem; color:var(--text-secondary);
+      background:var(--off-white); border:1px solid var(--rule);
+      padding:5px 12px; border-radius:100px;
+    }
+
+    /* ── MARKDOWN CONTENT ─────────────── */
+    .md-content { font-size:.88rem; color:var(--text-secondary); line-height:1.8; }
+    .md-content h1 { font-family:var(--serif); font-size:1.5rem; color:var(--text-primary); margin:28px 0 12px; line-height:1.2; }
+    .md-content h2 { font-family:var(--serif); font-size:1.2rem; color:var(--text-primary); margin:24px 0 10px; padding-bottom:6px; border-bottom:1px solid var(--rule); }
+    .md-content h3 { font-size:.9rem; font-weight:600; color:var(--text-primary); margin:20px 0 8px; text-transform:uppercase; letter-spacing:.04em; }
+    .md-content h1:first-child, .md-content h2:first-child { margin-top:0; }
+    .md-content p  { margin-bottom:14px; }
+    .md-content p:last-child { margin-bottom:0; }
+    .md-content strong { color:var(--text-primary); font-weight:600; }
+    .md-content em { font-style:italic; }
+    .md-content code {
+      font-family:monospace; font-size:.82rem;
+      background:var(--warm-gray); padding:1px 6px;
+      border-radius:4px; color:var(--text-primary);
+    }
+    .md-content pre {
+      background:#1A1A1A; border-radius:8px;
+      padding:18px 20px; margin:16px 0; overflow-x:auto;
+    }
+    .md-content pre code {
+      background:none; color:#E8E8E8; font-size:.8rem;
+      padding:0; border-radius:0; line-height:1.7;
+    }
+    .md-content ul, .md-content ol { padding-left:20px; margin-bottom:14px; }
+    .md-content li { margin-bottom:6px; line-height:1.6; }
+    .md-content blockquote {
+      border-left:3px solid var(--accent-mid);
+      margin:16px 0; padding:10px 18px;
+      background:var(--accent-light); border-radius:0 6px 6px 0;
+    }
+    .md-content blockquote p { color:var(--accent); margin-bottom:0; font-style:italic; }
+    .md-content hr { border:none; border-top:1px solid var(--rule); margin:24px 0; }
+    .md-content table { width:100%; border-collapse:collapse; margin:16px 0; font-size:.82rem; }
+    .md-content th { background:var(--off-white); font-weight:600; color:var(--text-primary); padding:8px 12px; border:1px solid var(--rule); text-align:left; }
+    .md-content td { padding:8px 12px; border:1px solid var(--rule); }
+    .md-content tr:nth-child(even) td { background:var(--off-white); }
+    .md-content a { color:var(--accent); text-decoration:underline; text-underline-offset:2px; }
+
+    .md-no-file {
+      background:var(--off-white); border:1px dashed var(--rule);
+      border-radius:8px; padding:28px; text-align:center;
+    }
+    .md-no-file .no-file-icon { font-size:1.8rem; margin-bottom:12px; opacity:.4; }
+    .md-no-file p { font-size:.84rem; color:var(--text-tertiary); line-height:1.6; }
+    .md-no-file code { font-family:monospace; font-size:.78rem; background:var(--warm-gray); padding:2px 6px; border-radius:3px; }
+
+    .file-open-btn {
+      display:inline-flex; align-items:center; gap:6px;
+      font-family:var(--sans); font-size:.82rem; font-weight:600;
+      color:var(--accent); background:var(--accent-light);
+      border:1.5px solid var(--accent-mid); border-radius:7px;
+      padding:9px 18px; cursor:pointer; text-decoration:none;
+      transition:all .2s; margin-top:16px;
+    }
+    .file-open-btn:hover { background:var(--accent); color:var(--white); border-color:var(--accent); }
+    .file-open-btn::after { content:'↗'; }
+
+    /* Right sidebar */
+    .detail-sidebar { padding:36px 28px; background:var(--off-white); }
+    .detail-sidebar-title {
+      font-size:.68rem; font-weight:700; letter-spacing:.1em;
+      text-transform:uppercase; color:var(--text-tertiary);
+      margin-bottom:16px;
+    }
+
+    /* Tags in sidebar */
+    .detail-tags { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:28px; }
+
+    /* Related cards */
+    .related-list { display:flex; flex-direction:column; gap:10px; }
+    .related-card {
+      background:var(--white); border:1px solid var(--rule);
+      border-radius:8px; padding:14px 16px;
+      cursor:pointer; transition:all .2s;
+    }
+    .related-card:hover {
+      border-color:var(--accent-mid);
+      box-shadow:0 4px 16px rgba(59,91,140,.08);
+      transform:translateY(-1px);
+    }
+    .related-card-type {
+      font-size:.65rem; font-weight:600; letter-spacing:.07em;
+      text-transform:uppercase; color:var(--text-tertiary);
+      margin-bottom:5px;
+    }
+    .related-card-title {
+      font-family:var(--serif); font-size:.9rem;
+      line-height:1.3; color:var(--text-primary); margin-bottom:5px;
+    }
+    .related-card-tags { display:flex; flex-wrap:wrap; gap:4px; }
+    .related-card-tag {
+      font-size:.62rem; color:var(--accent);
+      background:var(--accent-light); padding:2px 7px; border-radius:100px;
+    }
+    .related-empty {
+      font-size:.82rem; color:var(--text-tertiary);
+      font-style:italic; line-height:1.6;
+    }
+
+    /* ── CROSS-REFERENCES ───────────── */
+    .crossref-list { display:flex; flex-direction:column; gap:8px; margin-bottom:28px; }
+    .crossref-card {
+      background:var(--white); border:1px solid var(--rule);
+      border-radius:8px; padding:12px 14px;
+      cursor:pointer; transition:all .2s;
+      display:flex; gap:10px; align-items:flex-start;
+    }
+    .crossref-card:hover {
+      border-color:var(--accent-mid);
+      box-shadow:0 4px 14px rgba(59,91,140,.08);
+      transform:translateY(-1px);
+    }
+    .crossref-rel {
+      font-size:.62rem; font-weight:700; letter-spacing:.07em;
+      text-transform:uppercase; padding:3px 8px;
+      border-radius:100px; white-space:nowrap; flex-shrink:0;
+      margin-top:1px;
+    }
+    .rel-requires  { color:#B45309; background:#FEF3C7; }
+    .rel-uses      { color:var(--accent); background:var(--accent-light); }
+    .rel-extends   { color:var(--slides-color); background:var(--slides-bg); }
+    .rel-companion { color:var(--guide-color); background:var(--guide-bg); }
+
+    .crossref-info { flex:1; min-width:0; }
+    .crossref-title {
+      font-family:var(--serif); font-size:.88rem;
+      line-height:1.3; color:var(--text-primary);
+      margin-bottom:3px;
+    }
+    .crossref-type {
+      font-size:.65rem; color:var(--text-tertiary);
+      font-weight:500;
+    }
+
+    /* ── RESPONSIVE ──────────────────── */
+    @media(max-width:960px) {
+      nav,.page-header,.stats-bar,.controls,.grid-wrap { padding-left:24px; padding-right:24px; }
+      .library-grid { grid-template-columns:repeat(2,1fr); }
+      .detail-body { grid-template-columns:1fr; }
+      .detail-main { border-right:none; border-bottom:1px solid var(--rule); }
+      .detail-sidebar { background:var(--white); }
+    }
+    @media(max-width:620px) {
+      .library-grid { grid-template-columns:1fr; }
+      .controls { flex-direction:column; align-items:flex-start; }
+      .search-input { width:100%; }
+      .modal { padding:24px 20px; }
+      .form-grid-2, .form-grid-3 { grid-template-columns:1fr; }
+      .detail-header { padding:24px; }
+      .detail-main   { padding:24px; }
+      .detail-sidebar{ padding:24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="../index.html" class="nav-logo">Winnie Nguyen</a>
+    <div class="nav-right">
+      <a href="../index.html" class="nav-back">Back to Hub</a>
+      <button class="btn-export" onclick="openExport()">Export data file</button>
+      <button class="btn-add" onclick="openModal()">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/>
+        </svg>
+        Add Material
+      </button>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <p class="page-eyebrow animate d1">Knowledge Library</p>
+    <h1 class="page-title animate d2">Training <em>materials</em><br />& frameworks</h1>
+    <p class="page-desc animate d3">Every lesson, framework, slide deck, and guide — in one searchable place. Edit <strong>library-data.js</strong> to add materials permanently.</p>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar animate d4">
+    <div class="stats-inner">
+      <div class="stat-item"><div class="stat-num" id="statTotal">0</div><div class="stat-lbl">Total</div></div>
+      <div class="stat-divider"></div>
+      <div class="stat-item"><div class="stat-num" id="statLesson">0</div><div class="stat-lbl">Lessons</div></div>
+      <div class="stat-divider"></div>
+      <div class="stat-item"><div class="stat-num" id="statFramework">0</div><div class="stat-lbl">Frameworks</div></div>
+      <div class="stat-divider"></div>
+      <div class="stat-item"><div class="stat-num" id="statSlides">0</div><div class="stat-lbl">Slides</div></div>
+      <div class="stat-divider"></div>
+      <div class="stat-item"><div class="stat-num" id="statGuide">0</div><div class="stat-lbl">Guides</div></div>
+    </div>
+  </div>
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <div style="display:flex; flex-direction:column; gap:10px;">
+      <!-- Type filters -->
+      <div class="filter-group" id="filterGroup">
+        <button class="filter-btn active" data-type="all" onclick="setFilter('all',this)">All <span class="count" id="countAll">0</span></button>
+        <button class="filter-btn" data-type="lesson"    onclick="setFilter('lesson',this)">📖 Lessons <span class="count" id="countLesson">0</span></button>
+        <button class="filter-btn" data-type="framework" onclick="setFilter('framework',this)">🗺️ Frameworks <span class="count" id="countFramework">0</span></button>
+        <button class="filter-btn" data-type="slides"    onclick="setFilter('slides',this)">🎯 Slides <span class="count" id="countSlides">0</span></button>
+        <button class="filter-btn" data-type="guide"     onclick="setFilter('guide',this)">💡 Guides <span class="count" id="countGuide">0</span></button>
+      </div>
+      <!-- Program filters -->
+      <div class="program-filter">
+        <button class="prog-btn active" data-prog="all"      onclick="setProgram('all',this)">All programs</button>
+        <button class="prog-btn"        data-prog="ux-class"  onclick="setProgram('ux-class',this)">UX Class</button>
+        <button class="prog-btn"        data-prog="private"   onclick="setProgram('private',this)">Private</button>
+        <button class="prog-btn"        data-prog="both"      onclick="setProgram('both',this)">Both</button>
+      </div>
+    </div>
+    <div class="controls-right">
+      <div class="search-wrap">
+        <svg class="search-icon" width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="9" cy="9" r="6"/><line x1="13.5" y1="13.5" x2="18" y2="18"/>
+        </svg>
+        <input class="search-input" type="text" id="searchInput" placeholder="Search…" oninput="renderCards()" />
+      </div>
+    </div>
+  </div>
+
+  <!-- GRID -->
+  <div class="grid-wrap">
+    <div class="library-grid" id="libraryGrid"></div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <p>© 2026 Winnie Nguyen · Knowledge Library</p>
+      <span>Add materials permanently via library-data.js · Quick adds save to this browser</span>
+    </div>
+  </footer>
+
+
+  <!-- ══ ADD / EDIT MODAL ══════════════════════════════════════ -->
+  <div class="modal-overlay" id="addModal" onclick="handleOverlayClick(event,'addModal')">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('addModal')">×</button>
+      <h2 id="modalTitle">Add Material</h2>
+      <p class="modal-sub" id="modalSub">The card appears instantly. To make it permanent, use <strong>Export data file</strong> and save the output as <code>library-data.js</code>.</p>
+
+      <form id="materialForm" onsubmit="saveMaterial(event)">
+        <input type="hidden" id="editId" />
+
+        <p class="form-section-label">Core details</p>
+
+        <div class="form-row">
+          <label>Title *</label>
+          <input type="text" id="fTitle" placeholder="e.g. How to Run a Usability Test" required />
+        </div>
+
+        <div class="form-grid-3">
+          <div class="form-row" style="margin-bottom:0">
+            <label>Type *</label>
+            <select id="fType" required>
+              <option value="" disabled selected>Choose…</option>
+              <option value="lesson">📖 Lesson</option>
+              <option value="framework">🗺️ Framework</option>
+              <option value="slides">🎯 Slides</option>
+              <option value="guide">💡 Guide</option>
+            </select>
+          </div>
+          <div class="form-row" style="margin-bottom:0">
+            <label>Audience *</label>
+            <select id="fAudience" required>
+              <option value="" disabled selected>Choose…</option>
+              <option value="Beginner">Beginner</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Advanced">Advanced</option>
+            </select>
+          </div>
+          <div class="form-row" style="margin-bottom:0">
+            <label>Program *</label>
+            <select id="fProgram" required>
+              <option value="" disabled selected>Choose…</option>
+              <option value="ux-class">UX Class</option>
+              <option value="private">Private</option>
+              <option value="both">Both</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row" style="margin-top:18px">
+          <label>Description *</label>
+          <textarea id="fDesc" placeholder="1–2 sentences: what this covers and who it's for." required></textarea>
+        </div>
+
+        <p class="form-section-label">Learning context</p>
+
+        <div class="form-row">
+          <label>Learning objectives</label>
+          <textarea id="fObjectives" placeholder="One objective per line, e.g.&#10;Apply affinity mapping to research findings&#10;Write effective HMW statements" style="min-height:88px"></textarea>
+          <p class="form-hint">One per line. Keep to 2–4 outcomes.</p>
+        </div>
+
+        <div class="form-row">
+          <label>Prerequisites</label>
+          <input type="text" id="fPrereqs" placeholder="e.g. Basic user interviews, Intro to UX" />
+          <p class="form-hint">Comma-separated. Leave blank if none.</p>
+        </div>
+
+        <p class="form-section-label">Meta</p>
+
+        <div class="form-grid-2">
+          <div class="form-row" style="margin-bottom:0">
+            <label>Tags</label>
+            <input type="text" id="fTags" placeholder="e.g. Research, Synthesis" />
+            <p class="form-hint">Comma-separated</p>
+          </div>
+          <div class="form-row" style="margin-bottom:0">
+            <label>Duration / Format</label>
+            <input type="text" id="fDuration" placeholder="e.g. 90 min · Workshop" />
+          </div>
+        </div>
+
+        <div class="form-grid-2" style="margin-top:18px">
+          <div class="form-row" style="margin-bottom:0">
+            <label>Date</label>
+            <input type="text" id="fDate" placeholder="e.g. Apr 2026" />
+          </div>
+          <div class="form-row" style="margin-bottom:0">
+            <label>File path</label>
+            <input type="text" id="fFile" placeholder="lessons/my-lesson.md" />
+            <p class="form-hint">Relative to 01_Library/</p>
+          </div>
+        </div>
+
+        <div class="form-row" style="margin-top:18px">
+          <label>Cross-references</label>
+          <input type="text" id="fCrossRef" placeholder="e.g. 3:uses, 6:requires, 2:companion" />
+          <p class="form-hint">Format: <code>id:relationship</code>, comma-separated. Relationships: <code>requires</code> · <code>uses</code> · <code>extends</code> · <code>companion</code></p>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-submit" id="submitBtn">Add to Library</button>
+          <button type="button" class="btn-cancel" onclick="closeModal('addModal')">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ══ EXPORT MODAL ══════════════════════════════════════════ -->
+  <div class="modal-overlay" id="exportModal" onclick="handleOverlayClick(event,'exportModal')">
+    <div class="modal export-modal">
+      <button class="modal-close" onclick="closeModal('exportModal')">×</button>
+      <h2>Export data file</h2>
+      <p class="modal-sub">Copy the code below and replace the contents of <strong>library-data.js</strong> to make all your materials permanent.</p>
+
+      <div class="export-steps">
+        <ol>
+          <li>Click <strong>Copy all</strong> below</li>
+          <li>Open <code>01_Library/library-data.js</code> in any text editor</li>
+          <li>Select all → Paste → Save</li>
+          <li>Refresh this page — your library now loads from the file directly</li>
+        </ol>
+      </div>
+
+      <div class="export-code-wrap">
+        <textarea class="export-code" id="exportCode" readonly spellcheck="false"></textarea>
+        <button class="btn-copy" id="copyBtn" onclick="copyExport()">Copy all</button>
+      </div>
+
+      <div class="export-notice">
+        💡 Any materials added via the <em>Add Material</em> form are included in this export. After saving <code>library-data.js</code>, they'll load from the file — not the browser — so they'll work in any browser and survive cache clears.
+      </div>
+    </div>
+  </div>
+
+
+  <!-- TOAST -->
+  <div class="toast" id="toast">
+    <span id="toastIcon">✓</span>
+    <span id="toastMsg">Done!</span>
+  </div>
+
+
+  <!-- ══ DETAIL OVERLAY ═══════════════════════════════════════ -->
+  <div class="detail-overlay" id="detailOverlay" onclick="handleDetailOverlayClick(event)">
+    <div class="detail-modal" id="detailModal">
+
+      <!-- Header -->
+      <div class="detail-header" id="detailHeader">
+        <button class="detail-close" onclick="closeDetail()" title="Close">×</button>
+        <div class="detail-header-top" id="detailBadges"></div>
+        <h2 class="detail-title" id="detailTitle"></h2>
+        <p class="detail-desc"  id="detailDesc"></p>
+        <div class="detail-meta-row" id="detailMeta"></div>
+      </div>
+
+      <!-- Body: main + sidebar -->
+      <div class="detail-body">
+
+        <!-- Left: objectives + prereqs + file content -->
+        <div class="detail-main" id="detailMain">
+
+          <!-- Objectives -->
+          <div class="detail-section" id="detailObjSection" style="display:none">
+            <div class="detail-section-title">Students will be able to</div>
+            <div class="detail-objectives" id="detailObjectives"></div>
+          </div>
+
+          <!-- Prerequisites -->
+          <div class="detail-section" id="detailPrereqSection" style="display:none">
+            <div class="detail-section-title">Prerequisites</div>
+            <div class="detail-prereq-list" id="detailPrereqs"></div>
+          </div>
+
+          <!-- File content -->
+          <div class="detail-section" id="detailFileSection">
+            <div class="detail-section-title" id="detailFileLabel">Content</div>
+            <div id="detailFileContent"></div>
+          </div>
+
+        </div>
+
+        <!-- Right: sidebar -->
+        <div class="detail-sidebar">
+
+          <div id="detailTagsSection" style="display:none">
+            <div class="detail-sidebar-title">Topics</div>
+            <div class="detail-tags" id="detailTags"></div>
+          </div>
+
+          <!-- Cross-references (authored) -->
+          <div id="crossRefSection" style="display:none">
+            <div class="detail-sidebar-title">Building on</div>
+            <div class="crossref-list" id="crossRefList"></div>
+          </div>
+
+          <!-- Related by tags (auto) -->
+          <div class="detail-sidebar-title" id="relatedTitle">Related materials</div>
+          <div class="related-list" id="relatedList"></div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <script>
+  // ═══════════════════════════════════════════════════════
+  //  STATE
+  // ═══════════════════════════════════════════════════════
+
+  const TYPE_ICONS   = { lesson:'📖', framework:'🗺️', slides:'🎯', guide:'💡' };
+  const TYPE_LABELS  = { lesson:'Lesson', framework:'Framework', slides:'Slides', guide:'Guide' };
+  const PROG_LABELS  = { 'ux-class':'UX Class', 'private':'Private', 'both':'Both' };
+  const PROG_CLASSES = { 'ux-class':'prog-ux-class', 'private':'prog-private', 'both':'prog-both' };
+
+  let baseData      = []; // from library-data.js
+  let localAdditions= []; // from localStorage
+  let allMaterials  = []; // combined
+  let currentType   = 'all';
+  let currentProg   = 'all';
+  let nextId        = 1000;
+
+  // ═══════════════════════════════════════════════════════
+  //  INIT
+  // ═══════════════════════════════════════════════════════
+
+  function init() {
+    // Load base data from library-data.js
+    baseData = (window.LIBRARY_DATA || []).map(m => ({ ...m, _source: 'file' }));
+
+    // Load local additions from localStorage
+    try {
+      const raw = localStorage.getItem('wn_local_additions');
+      localAdditions = raw ? JSON.parse(raw) : [];
+    } catch(e) { localAdditions = []; }
+
+    // Find next safe ID
+    const allIds = [...baseData, ...localAdditions].map(m => m.id);
+    nextId = allIds.length ? Math.max(...allIds) + 1 : 1000;
+
+    allMaterials = [...localAdditions, ...baseData];
+    updateStats();
+    renderCards();
+  }
+
+  function saveLocal() {
+    localStorage.setItem('wn_local_additions', JSON.stringify(localAdditions));
+    allMaterials = [...localAdditions, ...baseData];
+  }
+
+  // ═══════════════════════════════════════════════════════
+  //  STATS
+  // ═══════════════════════════════════════════════════════
+
+  function updateStats() {
+    const c = { lesson:0, framework:0, slides:0, guide:0 };
+    allMaterials.forEach(m => { if(c[m.type]!==undefined) c[m.type]++; });
+    const total = allMaterials.length;
+    document.getElementById('statTotal').textContent     = total;
+    document.getElementById('statLesson').textContent    = c.lesson;
+    document.getElementById('statFramework').textContent = c.framework;
+    document.getElementById('statSlides').textContent    = c.slides;
+    document.getElementById('statGuide').textContent     = c.guide;
+    document.getElementById('countAll').textContent      = total;
+    document.getElementById('countLesson').textContent   = c.lesson;
+    document.getElementById('countFramework').textContent= c.framework;
+    document.getElementById('countSlides').textContent   = c.slides;
+    document.getElementById('countGuide').textContent    = c.guide;
+  }
+
+  // ═══════════════════════════════════════════════════════
+  //  FILTERS
+  // ═══════════════════════════════════════════════════════
+
+  function setFilter(type, btn) {
+    currentType = type;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderCards();
+  }
+
+  function setProgram(prog, btn) {
+    currentProg = prog;
+    document.querySelectorAll('.prog-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderCards();
+  }
+
+  function getFiltered() {
+    const q = document.getElementById('searchInput').value.toLowerCase().trim();
+    return allMaterials.filter(m => {
+      const matchType = currentType === 'all' || m.type === currentType;
+      const matchProg = currentProg === 'all' || m.program === currentProg;
+      if (!q) return matchType && matchProg;
+      const text = [m.title, m.description, ...(m.tags||[]), ...(m.objectives||[])].join(' ').toLowerCase();
+      return matchType && matchProg && text.includes(q);
+    });
+  }
+
+  // ═══════════════════════════════════════════════════════
+  //  RENDER
+  // ═══════════════════════════════════════════════════════
+
+  function renderCards() {
+    const grid     = document.getElementById('libraryGrid');
+    const filtered = getFiltered();
+
+    if (!filtered.length) {
+      grid.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">📭</div>
+          <h3>Nothing here yet</h3>
+          <p>Try a different filter or search, or add your first material using the button above.</p>
+        </div>`;
+      return;
+    }
+
+    grid.innerHTML = filtered.map((m, i) => {
+      const delay  = Math.min(i * 0.055, 0.45).toFixed(2);
+      const isLocal = m._source !== 'file';
+
+      // Objectives
+      const objHtml = m.objectives && m.objectives.length
+        ? `<div class="card-objectives">
+             <div class="card-objectives-label">Students will be able to</div>
+             <ul>${m.objectives.slice(0,3).map(o => `<li>${o}</li>`).join('')}</ul>
+           </div>`
+        : '';
+
+      // Prerequisites
+      const prereqHtml = m.prerequisites && m.prerequisites.length
+        ? `<div class="card-prereqs">
+             <span class="card-prereqs-label">Requires</span>
+             ${m.prerequisites.map(p => `<span class="card-prereq-tag">${p}</span>`).join('')}
+           </div>`
+        : '';
+
+      // Tags + meta
+      const tagsHtml = (m.tags||[]).map(t => `<span class="card-tag">${t}</span>`).join('');
+
+      // Program badge
+      const progHtml = m.program
+        ? `<span class="card-program ${PROG_CLASSES[m.program]||''}">${PROG_LABELS[m.program]||m.program}</span>`
+        : '';
+
+      // File indicator (no link on card — detail overlay handles it)
+      const fileHtml = m.file
+        ? `<div style="margin-top:12px;font-size:.72rem;color:var(--text-tertiary);display:flex;align-items:center;gap:5px;">
+             <span>📄</span> <span style="font-family:monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:200px">${m.file}</span>
+           </div>`
+        : '';
+
+      // Local badge (not yet saved to file)
+      const localBadge = isLocal
+        ? `<span style="font-size:.62rem;color:var(--framework-color);background:var(--framework-bg);padding:2px 7px;border-radius:100px;margin-left:6px;font-weight:600;">unsaved</span>`
+        : '';
+
+      return `
+        <div class="lib-card" data-type="${m.type}" style="animation-delay:${delay}s;cursor:pointer" onclick="openMaterial(${m.id})">
+          <div class="card-actions">
+            <button class="card-action-btn" title="Edit"   onclick="editMaterial(event,${m.id})">✎</button>
+            <button class="card-action-btn delete" title="Delete" onclick="deleteMaterial(event,${m.id})">✕</button>
+          </div>
+          <div class="card-header">
+            <span class="card-type-badge">${TYPE_ICONS[m.type]} ${TYPE_LABELS[m.type]}</span>
+            <span class="card-audience">${m.audience||''}</span>
+          </div>
+          <h3 class="card-title">${m.title}${localBadge}</h3>
+          <p class="card-desc">${m.description}</p>
+          ${objHtml}
+          ${prereqHtml}
+          ${progHtml}
+          <div class="card-footer">
+            <div class="card-tags">${tagsHtml}</div>
+            <div class="card-meta">
+              ${m.date     ? `<span class="card-date">${m.date}</span>` : ''}
+              ${m.duration ? `<span class="card-duration">${m.duration}</span>` : ''}
+            </div>
+          </div>
+          ${fileHtml}
+        </div>`;
+    }).join('');
+  }
+
+  // ═══════════════════════════════════════════════════════
+  //  ADD / EDIT MODAL
+  // ═══════════════════════════════════════════════════════
+
+  function openModal(editMode = false) {
+    if (!editMode) {
+      document.getElementById('modalTitle').textContent = 'Add Material';
+      document.getElementById('modalSub').innerHTML     = 'The card appears instantly. To make it permanent, use <strong>Export data file</strong> and save the output as <code>library-data.js</code>.';
+      document.getElementById('submitBtn').textContent  = 'Add to Library';
+      document.getElementById('materialForm').reset();
+      document.getElementById('editId').value = '';
+    }
+    document.getElementById('addModal').classList.add('open');
+    setTimeout(() => document.getElementById('fTitle').focus(), 80);
+  }
+
+  function editMaterial(event, id) {
+    event.stopPropagation();
+    const m = allMaterials.find(x => x.id === id);
+    if (!m) return;
+
+    document.getElementById('modalTitle').textContent = 'Edit Material';
+    document.getElementById('modalSub').innerHTML     = 'Update the details and save.';
+    document.getElementById('submitBtn').textContent  = 'Save Changes';
+    document.getElementById('editId').value           = m.id;
+
+    document.getElementById('fTitle').value      = m.title;
+    document.getElementById('fType').value       = m.type;
+    document.getElementById('fAudience').value   = m.audience  || '';
+    document.getElementById('fProgram').value    = m.program   || '';
+    document.getElementById('fDesc').value       = m.description;
+    document.getElementById('fObjectives').value = (m.objectives||[]).join('\n');
+    document.getElementById('fPrereqs').value    = (m.prerequisites||[]).join(', ');
+    document.getElementById('fTags').value       = (m.tags||[]).join(', ');
+    document.getElementById('fDuration').value   = m.duration  || '';
+    document.getElementById('fDate').value       = m.date      || '';
+    document.getElementById('fFile').value       = m.file      || '';
+    document.getElementById('fCrossRef').value  = (m.crossRef || [])
+      .map(r => `${r.id}:${r.rel}`).join(', ');
+
+    openModal(true);
+  }
+
+  function saveMaterial(e) {
+    e.preventDefault();
+    const editId     = document.getElementById('editId').value;
+    const title      = document.getElementById('fTitle').value.trim();
+    const type       = document.getElementById('fType').value;
+    const audience   = document.getElementById('fAudience').value;
+    const program    = document.getElementById('fProgram').value;
+    const desc       = document.getElementById('fDesc').value.trim();
+    const objRaw     = document.getElementById('fObjectives').value.trim();
+    const prereqRaw  = document.getElementById('fPrereqs').value.trim();
+    const tagsRaw    = document.getElementById('fTags').value.trim();
+    const duration   = document.getElementById('fDuration').value.trim();
+    const date       = document.getElementById('fDate').value.trim();
+    const file       = document.getElementById('fFile').value.trim();
+
+    const crossRefRaw   = document.getElementById('fCrossRef').value.trim();
+    const objectives    = objRaw    ? objRaw.split('\n').map(s=>s.trim()).filter(Boolean)    : [];
+    const prerequisites = prereqRaw ? prereqRaw.split(',').map(s=>s.trim()).filter(Boolean)  : [];
+    const tags          = tagsRaw   ? tagsRaw.split(',').map(s=>s.trim()).filter(Boolean)    : [];
+    const crossRef      = crossRefRaw
+      ? crossRefRaw.split(',').map(s => {
+          const [idStr, rel] = s.trim().split(':');
+          const id = parseInt(idStr);
+          return (!isNaN(id) && rel) ? { id, rel: rel.trim() } : null;
+        }).filter(Boolean)
+      : [];
+
+    if (editId) {
+      // Try local additions first
+      const localIdx = localAdditions.findIndex(m => m.id === parseInt(editId));
+      if (localIdx > -1) {
+        localAdditions[localIdx] = { ...localAdditions[localIdx], title, type, audience, program, description:desc, objectives, prerequisites, tags, duration, date, file, crossRef };
+      } else {
+        // It's a file-based entry — move edited copy to local
+        const baseIdx = baseData.findIndex(m => m.id === parseInt(editId));
+        if (baseIdx > -1) {
+          baseData[baseIdx] = { ...baseData[baseIdx], title, type, audience, program, description:desc, objectives, prerequisites, tags, duration, date, file, crossRef };
+        }
+      }
+      showToast('✎', 'Material updated! Run Export to save permanently.');
+    } else {
+      const newItem = { id: nextId++, type, title, audience, program, description:desc, objectives, prerequisites, tags, duration, date, file, crossRef, _source:'local' };
+      localAdditions.unshift(newItem);
+      showToast('✓', 'Added! Use Export data file to save it permanently.');
+    }
+
+    saveLocal();
+    updateStats();
+    renderCards();
+    closeModal('addModal');
+  }
+
+  function deleteMaterial(event, id) {
+    event.stopPropagation();
+    if (!confirm('Remove this material from the library?')) return;
+
+    const wasLocal = localAdditions.some(m => m.id === id);
+    if (wasLocal) {
+      localAdditions = localAdditions.filter(m => m.id !== id);
+      saveLocal();
+    } else {
+      baseData = baseData.filter(m => m.id !== id);
+      allMaterials = [...localAdditions, ...baseData];
+    }
+    updateStats();
+    renderCards();
+    showToast('🗑️', 'Removed.');
+  }
+
+  // ═══════════════════════════════════════════════════════
+  //  EXPORT MODAL
+  // ═══════════════════════════════════════════════════════
+
+  function openExport() {
+    // Generate library-data.js content from all current materials
+    const combined = [...localAdditions.map(m => {
+      const copy = {...m}; delete copy._source; return copy;
+    }), ...baseData.map(m => {
+      const copy = {...m}; delete copy._source; return copy;
+    })];
+
+    const lines = combined.map(m => {
+      const fmt = (val) => JSON.stringify(val, null, 2)
+        .replace(/\n/g, '\n    ');
+      const crossRefStr = (m.crossRef && m.crossRef.length)
+        ? `[\n      ${m.crossRef.map(r => `{ id: ${r.id}, rel: "${r.rel}" }`).join(',\n      ')}\n    ]`
+        : '[]';
+      return `  {
+    id: ${m.id},
+    type: ${JSON.stringify(m.type)},
+    program: ${JSON.stringify(m.program||'')},
+    title: ${JSON.stringify(m.title)},
+    description: ${JSON.stringify(m.description)},
+    audience: ${JSON.stringify(m.audience||'')},
+    duration: ${JSON.stringify(m.duration||'')},
+    tags: ${fmt(m.tags||[])},
+    objectives: ${fmt(m.objectives||[])},
+    prerequisites: ${fmt(m.prerequisites||[])},
+    date: ${JSON.stringify(m.date||'')},
+    file: ${JSON.stringify(m.file||'')},
+    crossRef: ${crossRefStr}
+  }`;
+    });
+
+    const header = `// ═══════════════════════════════════════════════════════════════
+//  WINNIE NGUYEN — KNOWLEDGE LIBRARY DATA
+//  Edit this file to manage your library.
+//  Add a new entry at the top of the array, save, and refresh.
+//
+//  FIELD REFERENCE:
+//  id          → unique number (increment from the last one)
+//  type        → "lesson" | "framework" | "slides" | "guide"
+//  program     → "ux-class" | "private" | "both"
+//  title       → display title
+//  description → 1–2 sentence summary
+//  audience    → "Beginner" | "Intermediate" | "Advanced"
+//  duration    → e.g. "90 min" or "Reference"
+//  tags        → array of short topic tags
+//  objectives  → array of learning outcomes (2–4)
+//  prerequisites → array of prior knowledge needed
+//  date        → display date, e.g. "Apr 2026"
+//  file        → relative path to .md file, e.g. "lessons/my-lesson.md"
+// ═══════════════════════════════════════════════════════════════
+
+window.LIBRARY_DATA = [
+
+${lines.join(',\n\n')}
+
+];`;
+
+    document.getElementById('exportCode').value = header;
+    document.getElementById('copyBtn').textContent = 'Copy all';
+    document.getElementById('copyBtn').classList.remove('copied');
+    document.getElementById('exportModal').classList.add('open');
+  }
+
+  function copyExport() {
+    const ta = document.getElementById('exportCode');
+    ta.select();
+    document.execCommand('copy');
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = 'Copied ✓';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy all'; btn.classList.remove('copied'); }, 2500);
+  }
+
+  // ═══════════════════════════════════════════════════════
+  //  UTILS
+  // ═══════════════════════════════════════════════════════
+
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+  function handleOverlayClick(e, id) { if (e.target === document.getElementById(id)) closeModal(id); }
+
+  let toastTimer;
+  function showToast(icon, msg) {
+    const toast = document.getElementById('toast');
+    document.getElementById('toastIcon').textContent = icon;
+    document.getElementById('toastMsg').textContent  = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      closeDetail();
+      closeModal('addModal');
+      closeModal('exportModal');
+    }
+  });
+
+  // ═══════════════════════════════════════════════════════
+  //  DETAIL OVERLAY
+  // ═══════════════════════════════════════════════════════
+
+  // Route card click: go to detail page if built, else open overlay
+  function openMaterial(id) {
+    const m = allMaterials.find(x => x.id === id);
+    if (!m) return;
+    if (m.page) {
+      window.location.href = m.page;
+    } else {
+      openDetail(id);
+    }
+  }
+
+  function openDetail(id) {
+    const m = allMaterials.find(x => x.id === id);
+    if (!m) return;
+
+    // Badges row
+    const progClass = PROG_CLASSES[m.program] || '';
+    const progLabel = PROG_LABELS[m.program]  || m.program || '';
+    document.getElementById('detailBadges').innerHTML = `
+      <span class="card-type-badge" data-type="${m.type}" style="
+        color:var(--${m.type}-color,var(--accent));
+        background:var(--${m.type}-bg,var(--accent-light));
+        display:inline-flex;align-items:center;gap:5px;
+        font-size:.67rem;font-weight:600;letter-spacing:.07em;
+        text-transform:uppercase;padding:4px 10px;border-radius:100px;">
+        ${TYPE_ICONS[m.type]} ${TYPE_LABELS[m.type]}
+      </span>
+      ${m.audience ? `<span class="card-audience">${m.audience}</span>` : ''}
+      ${progLabel  ? `<span class="card-program ${progClass}">${progLabel}</span>` : ''}
+    `;
+
+    // Title + desc
+    document.getElementById('detailTitle').textContent = m.title;
+    document.getElementById('detailDesc').textContent  = m.description;
+
+    // Meta row
+    const metaParts = [];
+    if (m.duration) metaParts.push(`<span class="detail-meta-item">⏱ <strong>${m.duration}</strong></span>`);
+    if (m.date)     metaParts.push(`<span class="detail-meta-item">📅 <strong>${m.date}</strong></span>`);
+    document.getElementById('detailMeta').innerHTML = metaParts.join('');
+
+    // Objectives
+    const objSection = document.getElementById('detailObjSection');
+    const objList    = document.getElementById('detailObjectives');
+    if (m.objectives && m.objectives.length) {
+      objSection.style.display = '';
+      objList.innerHTML = m.objectives.map((o, i) =>
+        `<div class="detail-objective">
+           <span class="obj-num">${i + 1}.</span>
+           <p>${o}</p>
+         </div>`
+      ).join('');
+    } else {
+      objSection.style.display = 'none';
+    }
+
+    // Prerequisites
+    const preSection = document.getElementById('detailPrereqSection');
+    const preList    = document.getElementById('detailPrereqs');
+    if (m.prerequisites && m.prerequisites.length) {
+      preSection.style.display = '';
+      preList.innerHTML = m.prerequisites.map(p =>
+        `<span class="detail-prereq-pill">${p}</span>`
+      ).join('');
+    } else {
+      preSection.style.display = 'none';
+    }
+
+    // Tags
+    const tagsSection = document.getElementById('detailTagsSection');
+    const tagsList    = document.getElementById('detailTags');
+    if (m.tags && m.tags.length) {
+      tagsSection.style.display = '';
+      tagsList.innerHTML = m.tags.map(t =>
+        `<span class="card-tag">${t}</span>`
+      ).join('');
+    } else {
+      tagsSection.style.display = 'none';
+    }
+
+    // File content
+    renderFileContent(m);
+
+    // Cross-references
+    renderCrossRef(m);
+
+    // Related materials
+    renderRelated(m);
+
+    // Open overlay
+    document.getElementById('detailOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+
+    // Scroll modal to top
+    document.getElementById('detailOverlay').scrollTop = 0;
+  }
+
+  function closeDetail() {
+    document.getElementById('detailOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function handleDetailOverlayClick(e) {
+    if (e.target === document.getElementById('detailOverlay')) closeDetail();
+  }
+
+  // ── File content ────────────────────
+  function renderFileContent(m) {
+    const section = document.getElementById('detailFileSection');
+    const label   = document.getElementById('detailFileLabel');
+    const content = document.getElementById('detailFileContent');
+
+    if (!m.file) {
+      label.textContent = 'Content';
+      content.innerHTML = `
+        <div class="md-no-file">
+          <div class="no-file-icon">📄</div>
+          <p>No file linked yet. Add a file path in <code>library-data.js</code> to see the content here.</p>
+        </div>`;
+      return;
+    }
+
+    label.textContent = 'File content';
+    content.innerHTML = `<p style="font-size:.82rem;color:var(--text-tertiary);">Loading…</p>`;
+
+    fetch(m.file)
+      .then(r => {
+        if (!r.ok) throw new Error('not found');
+        return r.text();
+      })
+      .then(text => {
+        content.innerHTML = `<div class="md-content">${renderMarkdown(text)}</div>`;
+        // Show "open in editor" link below rendered content
+        content.innerHTML += `<a class="file-open-btn" href="${m.file}" target="_blank" style="margin-top:20px">Open in editor</a>`;
+      })
+      .catch(() => {
+        content.innerHTML = `
+          <div class="md-no-file">
+            <div class="no-file-icon">📂</div>
+            <p>File linked: <code>${m.file}</code><br>
+            The file can't be previewed here when opened directly from Finder. Open the library via a local server to see rendered content, or open the file directly below.</p>
+            <a class="file-open-btn" href="${m.file}" target="_blank">Open file</a>
+          </div>`;
+      });
+  }
+
+  // ── Basic Markdown renderer ──────────
+  function renderMarkdown(md) {
+    let html = md
+      // Escape HTML entities first
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+
+      // Fenced code blocks  ```lang\n...\n```
+      .replace(/```[\w]*\n([\s\S]*?)```/g, (_, code) =>
+        `<pre><code>${code.trim()}</code></pre>`)
+
+      // Headings
+      .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+      .replace(/^## (.+)$/gm,  '<h2>$1</h2>')
+      .replace(/^# (.+)$/gm,   '<h1>$1</h1>')
+
+      // Horizontal rules
+      .replace(/^---+$/gm, '<hr>')
+
+      // Blockquotes
+      .replace(/^&gt; (.+)$/gm, '<blockquote><p>$1</p></blockquote>')
+
+      // Bold + italic
+      .replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>')
+      .replace(/\*\*(.+?)\*\*/g,     '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g,         '<em>$1</em>')
+
+      // Inline code (after pre blocks, so it doesn't double-process)
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+
+      // Links
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>')
+
+      // Tables (basic)
+      .replace(/\|(.+)\|\n\|[-| :]+\|\n((?:\|.+\|\n?)+)/g, (_, header, rows) => {
+        const ths = header.split('|').filter(c => c.trim()).map(c => `<th>${c.trim()}</th>`).join('');
+        const trs = rows.trim().split('\n').map(row => {
+          const tds = row.split('|').filter(c => c.trim() !== '' || row.includes('||')).slice(1,-1).map(c => `<td>${c.trim()}</td>`).join('');
+          return `<tr>${tds}</tr>`;
+        }).join('');
+        return `<table><thead><tr>${ths}</tr></thead><tbody>${trs}</tbody></table>`;
+      })
+
+      // Unordered lists  (lines starting with - or *)
+      .replace(/((?:^[-*] .+\n?)+)/gm, match => {
+        const items = match.trim().split('\n').map(l => `<li>${l.replace(/^[-*] /,'')}</li>`).join('');
+        return `<ul>${items}</ul>`;
+      })
+
+      // Ordered lists
+      .replace(/((?:^\d+\. .+\n?)+)/gm, match => {
+        const items = match.trim().split('\n').map(l => `<li>${l.replace(/^\d+\. /,'')}</li>`).join('');
+        return `<ol>${items}</ol>`;
+      })
+
+      // Paragraphs — double newline
+      .replace(/\n{2,}/g, '</p><p>')
+
+      // Single newlines inside paragraphs → space
+      .replace(/\n/g, ' ');
+
+    return `<p>${html}</p>`
+      // Clean up empty paragraphs and para-wrapping of block elements
+      .replace(/<p>\s*<\/p>/g, '')
+      .replace(/<p>(<(?:h[1-3]|ul|ol|pre|table|blockquote|hr)[^>]*>)/g, '$1')
+      .replace(/(<\/(?:h[1-3]|ul|ol|pre|table|blockquote)>)<\/p>/g, '$1');
+  }
+
+  // ── Cross-references (authored) ──────
+  const REL_LABELS = {
+    requires:  'Requires first',
+    uses:      'Uses',
+    extends:   'Goes deeper',
+    companion: 'Pair with'
+  };
+  const REL_CLASSES = {
+    requires:  'rel-requires',
+    uses:      'rel-uses',
+    extends:   'rel-extends',
+    companion: 'rel-companion'
+  };
+
+  function renderCrossRef(m) {
+    const section = document.getElementById('crossRefSection');
+    const list    = document.getElementById('crossRefList');
+
+    if (!m.crossRef || !m.crossRef.length) {
+      section.style.display = 'none';
+      return;
+    }
+
+    const items = m.crossRef
+      .map(ref => {
+        const target = allMaterials.find(x => x.id === ref.id);
+        if (!target) return null;
+        return { ...ref, target };
+      })
+      .filter(Boolean);
+
+    if (!items.length) { section.style.display = 'none'; return; }
+
+    section.style.display = '';
+    list.innerHTML = items.map(({ rel, target }) => `
+      <div class="crossref-card" onclick="openDetail(${target.id})">
+        <span class="crossref-rel ${REL_CLASSES[rel] || ''}">${REL_LABELS[rel] || rel}</span>
+        <div class="crossref-info">
+          <div class="crossref-title">${target.title}</div>
+          <div class="crossref-type">${TYPE_ICONS[target.type]} ${TYPE_LABELS[target.type]} · ${target.audience || ''}</div>
+        </div>
+      </div>`
+    ).join('');
+  }
+
+  // ── Related materials ────────────────
+  function renderRelated(m) {
+    const list = document.getElementById('relatedList');
+    const myTags = new Set((m.tags || []).map(t => t.toLowerCase()));
+
+    const related = allMaterials
+      .filter(x => x.id !== m.id)
+      .map(x => {
+        const shared = (x.tags || []).filter(t => myTags.has(t.toLowerCase()));
+        return { ...x, _sharedCount: shared.length, _sharedTags: shared };
+      })
+      .filter(x => x._sharedCount > 0)
+      .sort((a, b) => b._sharedCount - a._sharedCount)
+      .slice(0, 4);
+
+    if (!related.length) {
+      list.innerHTML = `<p class="related-empty">No related materials yet. Add more tags to your materials to surface connections.</p>`;
+      return;
+    }
+
+    list.innerHTML = related.map(r => `
+      <div class="related-card" onclick="openDetail(${r.id})">
+        <div class="related-card-type">${TYPE_ICONS[r.type]} ${TYPE_LABELS[r.type]} · ${r.audience || ''}</div>
+        <div class="related-card-title">${r.title}</div>
+        <div class="related-card-tags">
+          ${r._sharedTags.map(t => `<span class="related-card-tag">${t}</span>`).join('')}
+        </div>
+      </div>`
+    ).join('');
+  }
+
+  // ═══════════════════════════════════════════════════════
+  //  START
+  // ═══════════════════════════════════════════════════════
+  init();
+  </script>
+</body>
+</html>

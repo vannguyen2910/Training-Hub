@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Information Architecture — Winnie Nguyen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent: #3B5B8C;
+      --accent-light: #EEF2F8;
+      --bg: #F9F7F4;
+      --surface: #FFFFFF;
+      --text: #1A1A1A;
+      --muted: #6B7280;
+      --border: #E5E0D8;
+      --font-serif: 'DM Serif Display', Georgia, serif;
+      --font-sans: 'Instrument Sans', system-ui, sans-serif;
+      --radius: 10px;
+      --shadow: 0 1px 3px rgba(0,0,0,.07), 0 4px 16px rgba(0,0,0,.05);
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(249,247,244,.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex; align-items: center; gap: 1.5rem;
+      height: 56px;
+    }
+    .nav-back {
+      display: flex; align-items: center; gap: .5rem;
+      color: var(--accent); text-decoration: none;
+      font-size: .875rem; font-weight: 500; flex-shrink: 0;
+    }
+    .nav-back:hover { opacity: .75; }
+    .nav-back svg { width: 16px; height: 16px; }
+    .nav-title {
+      font-family: var(--font-serif);
+      font-size: 1rem; color: var(--text);
+      flex: 1;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .nav-type-badge {
+      font-size: .7rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+      padding: .25rem .6rem; border-radius: 99px;
+      background: var(--accent-light); color: var(--accent); flex-shrink: 0;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--accent);
+      color: white;
+      padding: 3rem 2rem 2.5rem;
+    }
+    .hero-inner { max-width: 1100px; margin: 0 auto; }
+    .hero-meta {
+      display: flex; align-items: center; gap: .75rem;
+      margin-bottom: 1rem; flex-wrap: wrap;
+    }
+    .badge {
+      font-size: .7rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+      padding: .25rem .65rem; border-radius: 99px;
+    }
+    .badge-type     { background: rgba(255,255,255,.15); color: white; }
+    .badge-program  { background: rgba(255,255,255,.1);  color: rgba(255,255,255,.85); }
+    .badge-audience { background: rgba(255,255,255,.1);  color: rgba(255,255,255,.85); }
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      line-height: 1.2; margin-bottom: .75rem;
+    }
+    .hero-desc {
+      font-size: 1.05rem; opacity: .85;
+      max-width: 620px; margin-bottom: 1.5rem; line-height: 1.6;
+    }
+    .hero-stats {
+      display: flex; gap: 0; flex-wrap: wrap;
+      border-top: 1px solid rgba(255,255,255,.2);
+      padding-top: 1.25rem; margin-top: .25rem;
+    }
+    .hero-stat {
+      font-size: .8rem; opacity: .75;
+      padding-right: 2rem; margin-right: 2rem;
+      border-right: 1px solid rgba(255,255,255,.2);
+    }
+    .hero-stat:last-child { border-right: none; padding-right: 0; margin-right: 0; }
+    .hero-stat strong { opacity: 1; display: block; font-size: 1rem; margin-bottom: .1rem; }
+
+    /* ── LAYOUT ── */
+    .layout {
+      max-width: 1100px; margin: 0 auto;
+      padding: 3rem 2rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 308px;
+      gap: 3.5rem;
+      align-items: start;
+    }
+    /* Critical: prevents grid children from overflowing their columns */
+    .content, .sidebar { min-width: 0; }
+    @media (max-width: 800px) { .layout { grid-template-columns: 1fr; } }
+
+    /* ── CONTENT SECTIONS ── */
+    .overview-section { margin-bottom: 3rem; }
+    .overview-section:last-child { margin-bottom: 0; }
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 1.25rem; color: var(--text);
+      margin-bottom: 1.25rem;
+      padding-bottom: .6rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    /* ── OBJECTIVES ── */
+    .objectives-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .objectives-list li { display: flex; gap: .75rem; align-items: flex-start; font-size: .95rem; }
+    .obj-num {
+      flex-shrink: 0; width: 22px; height: 22px;
+      background: var(--accent); color: white;
+      border-radius: 50%; font-size: .72rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 2px;
+    }
+
+    /* ── TAGS ── */
+    .tag-row { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .tag {
+      font-size: .75rem; font-weight: 500;
+      padding: .2rem .6rem; border-radius: 99px;
+      background: var(--accent-light); color: var(--accent);
+    }
+
+    /* ── CONCEPT CARDS ── */
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    @media (max-width: 500px) { .concept-grid { grid-template-columns: 1fr; } }
+    .concept-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.25rem;
+      box-shadow: var(--shadow);
+    }
+    .concept-name {
+      font-family: var(--font-serif);
+      font-size: 1rem; color: var(--accent);
+      margin-bottom: .4rem;
+    }
+    .concept-body { font-size: .875rem; color: #374151; line-height: 1.55; }
+
+    /* ── PHASE TIMELINE ── */
+    .phase-timeline { display: flex; flex-direction: column; gap: .5rem; }
+    .phase-block {
+      display: flex; align-items: center; gap: 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .75rem 1rem;
+    }
+    .phase-time {
+      font-size: .75rem; font-weight: 700; font-family: monospace;
+      color: var(--muted); flex-shrink: 0; width: 42px;
+    }
+    .phase-content { flex: 1; display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; }
+    .phase-name { font-size: .9rem; font-weight: 600; flex: 1; min-width: 120px; }
+    .phase-meta { display: flex; align-items: center; gap: .5rem; flex-shrink: 0; }
+    .phase-type {
+      font-size: .68rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+      padding: .2rem .55rem; border-radius: 4px;
+    }
+    .type-warmup     { background: #FEF3C7; color: #92400E; }
+    .type-concept    { background: #DBEAFE; color: #1E40AF; }
+    .type-explain    { background: #EDE9FE; color: #4C1D95; }
+    .type-activity   { background: #D1FAE5; color: #065F46; }
+    .type-bridge     { background: #F3F4F6; color: #4B5563; }
+    .type-wrapup     { background: #DBEAFE; color: #1E40AF; }
+    .type-discussion { background: #F3F4F6; color: #4B5563; }
+    .type-other      { background: #F3F4F6; color: #4B5563; }
+    .phase-duration  { font-size: .78rem; color: var(--muted); white-space: nowrap; }
+
+    /* ── TOOLS CHECKLIST ── */
+    .tools-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .tools-list li { display: flex; align-items: flex-start; gap: .65rem; font-size: .9rem; }
+    .check-icon {
+      flex-shrink: 0; width: 20px; height: 20px;
+      background: var(--accent-light); color: var(--accent);
+      border-radius: 50%; font-size: .7rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 1px;
+    }
+
+    /* ── ACTIVITY CARDS ── */
+    .activity-cards { display: flex; flex-direction: column; gap: .875rem; }
+    .activity-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1rem 1.25rem;
+    }
+    .activity-label {
+      font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: .25rem;
+    }
+    .activity-name { font-size: .95rem; font-weight: 700; margin-bottom: .4rem; }
+    .activity-body { font-size: .875rem; color: #374151; line-height: 1.55; }
+
+    /* ── MARKDOWN BODY (script + learnings) ── */
+    .md-body h1, .md-body h2 {
+      font-family: var(--font-serif);
+      margin: 1.75rem 0 .6rem; line-height: 1.25;
+    }
+    .md-body h1 { font-size: 1.5rem; }
+    .md-body h2 { font-size: 1.2rem; color: var(--accent); }
+    .md-body h3 { font-size: 1rem; font-weight: 700; margin: 1.25rem 0 .4rem; color: #1f2937; }
+    .md-body h4 { font-size: .9rem; font-weight: 700; margin: 1rem 0 .3rem; }
+    .md-body p  { margin: .5rem 0; font-size: .95rem; }
+    .md-body ul, .md-body ol { margin: .5rem 0 .5rem 1.4rem; }
+    .md-body li { margin: .25rem 0; font-size: .95rem; }
+    .md-body blockquote {
+      border-left: 3px solid var(--accent);
+      margin: 1rem 0; padding: .5rem 1rem;
+      background: var(--accent-light);
+      border-radius: 0 6px 6px 0;
+      font-style: italic; color: #374151;
+    }
+    .md-body code {
+      background: #F3F4F6; border-radius: 4px;
+      padding: .1rem .35rem; font-size: .85em;
+      font-family: 'Fira Code', monospace;
+    }
+    .md-body pre {
+      background: #1E293B; color: #E2E8F0;
+      border-radius: 8px; padding: 1rem 1.25rem;
+      overflow-x: auto; margin: 1rem 0;
+    }
+    .md-body pre code { background: none; color: inherit; padding: 0; font-size: .85rem; }
+    .md-body hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+    .md-body a  { color: var(--accent); }
+    .md-body .md-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .875rem; }
+    .md-body .md-table th, .md-body .md-table td {
+      border: 1px solid var(--border); padding: .5rem .75rem; text-align: left;
+    }
+    .md-body .md-table th { background: var(--accent-light); font-weight: 600; }
+    .md-body .md-table tr:nth-child(even) { background: #FAFAF9; }
+
+    /* ── LEARNINGS TABS ── */
+    .learnings-tabs { display: flex; gap: .25rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+    .tab-btn {
+      font-family: var(--font-sans);
+      font-size: .8rem; font-weight: 600;
+      padding: .35rem .85rem;
+      border: 1.5px solid var(--border);
+      border-radius: 99px;
+      background: transparent; color: var(--muted);
+      cursor: pointer; transition: all .15s;
+    }
+    .tab-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .tab-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      display: flex; flex-direction: column; gap: 1.25rem;
+      position: sticky; top: 72px;
+      max-height: calc(100vh - 88px);
+      overflow-y: auto;
+    }
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+    }
+    .sidebar-card h3 {
+      font-size: .75rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .08em;
+      color: var(--muted); margin-bottom: .875rem;
+    }
+    .prereq-list { list-style: none; display: flex; flex-direction: column; gap: .4rem; }
+    .prereq-list li { font-size: .875rem; display: flex; gap: .5rem; align-items: flex-start; }
+    .prereq-list li::before { content: "→"; color: var(--accent); flex-shrink: 0; }
+
+    /* CrossRef */
+    .crossref-card {
+      display: flex; align-items: flex-start; gap: .75rem;
+      padding: .65rem .75rem;
+      border-radius: 7px; margin-bottom: .5rem;
+      text-decoration: none; color: var(--text);
+      border: 1px solid var(--border); transition: box-shadow .15s;
+    }
+    .crossref-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+    .crossref-card:last-child { margin-bottom: 0; }
+    .rel-badge {
+      font-size: .65rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+      padding: .15rem .45rem; border-radius: 4px; white-space: nowrap; flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .rel-requires  .rel-badge { background: #FEF3C7; color: #92400E; }
+    .rel-uses      .rel-badge { background: #DBEAFE; color: #1E40AF; }
+    .rel-extends   .rel-badge { background: #D1FAE5; color: #065F46; }
+    .rel-companion .rel-badge { background: #EDE9FE; color: #4C1D95; }
+    .crossref-title { font-size: .85rem; font-weight: 500; line-height: 1.3; }
+    .crossref-type  { font-size: .75rem; color: var(--muted); margin-top: .1rem; }
+
+    /* Related */
+    .related-card {
+      display: block; padding: .65rem .75rem;
+      border: 1px solid var(--border); border-radius: 7px;
+      margin-bottom: .5rem; text-decoration: none; color: var(--text);
+      transition: box-shadow .15s;
+    }
+    .related-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+    .related-card:last-child { margin-bottom: 0; }
+    .related-title { font-size: .85rem; font-weight: 500; }
+    .related-meta  { font-size: .75rem; color: var(--muted); margin-top: .1rem; }
+
+    /* ── SLIDE DECK CARD ── */
+    .slide-deck-card {
+      background: linear-gradient(135deg, #EEF2F8 0%, #E4EBF5 100%);
+      border-color: var(--accent-light);
+    }
+    .slide-deck-link {
+      display: flex; align-items: center; gap: .6rem;
+      padding: .65rem .75rem;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      text-decoration: none; color: var(--text);
+      margin-top: .5rem;
+      transition: box-shadow .15s, transform .15s;
+    }
+    .slide-deck-link:hover {
+      box-shadow: 0 3px 12px rgba(59,91,140,.15);
+      transform: translateY(-1px);
+    }
+    .slide-icon {
+      font-size: .7rem; color: white;
+      background: var(--accent); border-radius: 50%;
+      width: 22px; height: 22px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .slide-deck-name {
+      font-size: .83rem; font-weight: 500; flex: 1; line-height: 1.3;
+    }
+    .slide-open-label {
+      font-size: .75rem; color: var(--accent);
+      font-weight: 600; white-space: nowrap; flex-shrink: 0;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 2rem;
+      font-size: .8rem; color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../../index.html" class="nav-back">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M10 3L5 8l5 5"/>
+      </svg>
+      Library
+    </a>
+    <span class="nav-title">Information Architecture</span>
+    <span class="nav-type-badge">Lesson</span>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-meta">
+        <span class="badge badge-type">Lesson</span>
+        <span class="badge badge-program">Both</span>
+        <span class="badge badge-audience">Intermediate</span>
+      </div>
+      <h1>Information Architecture</h1>
+      <p class="hero-desc">How to organise content around users — not the org chart. Covers inherited vs evidence-based IA, card sorting, sitemaps, and drawing a current-state user flow before touching a wireframe.</p>
+      <div class="hero-stats">
+        <div class="hero-stat"><strong>90–120 min</strong>Duration</div>
+        <div class="hero-stat"><strong>Apr 2026</strong>Last updated</div>
+        <div class="hero-stat"><strong>4</strong>Objectives</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <main class="content">
+
+      <section class="overview-section">
+        <h2 class="section-title">Learning Objectives</h2>
+        <ul class="objectives-list"><li><span class="obj-num">1</span><span>Distinguish between inherited IA and evidence-based IA — and audit an existing product structure</span></li><li><span class="obj-num">2</span><span>Apply card sorting to reveal how users mentally group content</span></li><li><span class="obj-num">3</span><span>Draw a current-state sitemap and identify where structure reflects business logic rather than user logic</span></li><li><span class="obj-num">4</span><span>Map a current-state user flow using correct shapes and swimlanes before wireframing</span></li></ul>
+      </section>
+
+      
+
+      
+        <section class="overview-section">
+          <h2 class="section-title">Learnings</h2>
+          <div class="learnings-tabs"><button class="tab-btn active" data-tab="teaching-script">Teaching Script</button></div>
+          <div class="tab-panel active" id="tab-teaching-script"><div class="md-body"><h1>Information Architecture</h1>
+
+<p><strong>Type:</strong> Lesson</p>
+<p><strong>Duration:</strong> 90–120 minutes</p>
+<p><strong>Audience:</strong> Intermediate</p>
+<p><strong>Methods:</strong> Card Sorting · Sitemaps · Tree Testing · User Flows</p>
+
+<hr>
+
+<h2>Key Concepts</h2>
+
+<h3>What is Information Architecture?</h3>
+<p>IA is the discipline of deciding how content is organised, labelled, and connected so that users can find what they need without thinking too hard. It determines what lives where, what things are called, and how navigation is structured. Most designers inherit an IA from whoever designed before them — and rarely question it.</p>
+
+<hr>
+
+<h3>Inherited IA vs Evidence-Based IA</h3>
+
+<p>The most important distinction in this lesson. Most product structures were built by product owners, engineers, or business stakeholders who organised things the way the <em>business</em> thinks — by feature, team, or product line. Users don't organise information that way.</p>
+
+<table class="md-table">
+<tr><th></th><th>Inherited IA</th><th>Evidence-Based IA</th></tr>
+<tr><td><strong>Source</strong></td><td>POs, stakeholders, briefs, legacy systems</td><td>User research, card sorting, tree testing</td></tr>
+<tr><td><strong>Organising logic</strong></td><td>Business structure, feature ownership, system architecture</td><td>Users' mental models, language, and task sequences</td></tr>
+<tr><td><strong>What it solves</strong></td><td>Internal alignment, delivery scope</td><td>User findability, navigation confidence</td></tr>
+<tr><td><strong>Risk</strong></td><td>"It makes sense to us" bias</td><td>Requires time and method discipline</td></tr>
+</table>
+
+<p>A navigation that mirrors the org chart is almost always inherited IA. A navigation built from card sorting and tested with tree testing is evidence-based.</p>
+
+<hr>
+
+<h3>Card Sorting</h3>
+
+<p><strong>What it is</strong></p>
+<p>A method for learning how users mentally group and label content. Users are given cards representing content items and asked to arrange them into groups that feel natural to them.</p>
+
+<p><strong>When to use it</strong></p>
+<ul>
+<li>Before building or redesigning navigation — when you don't yet know how content should be grouped</li>
+<li>When users complain they can't find things, but you're not sure which categories or labels are wrong</li>
+<li>When you've inherited a navigation structure and want to know if it matches how users actually think</li>
+</ul>
+
+<p><strong>Why to use it</strong></p>
+<p>Most navigation structures reflect internal business logic, not user logic. Card sorting reveals the gap. It gives you evidence to defend structural decisions to stakeholders — not just intuition.</p>
+
+<p><strong>How to use it</strong></p>
+<p>Two formats depending on your question:</p>
+
+<ul>
+<li><strong>Open card sort</strong> — users create their own categories and name them. Use this when you don't yet have a navigation structure. Best for discovery. Reveals the user's mental model directly.</li>
+<li><strong>Closed card sort</strong> — users sort cards into categories you've already defined. Use this to validate an existing structure. Reveals whether your labels match users' expectations.</li>
+</ul>
+
+<p>Run with 15–20 participants for reliable patterns. For a quick in-session test, even 3–5 people surfaces structural assumptions worth questioning. Look for clustering agreement, not perfect consensus — divergence is data too.</p>
+
+<p>Tools: FigJam, Miro (physical sticky notes), Optimal Workshop, or Maze for async runs.</p>
+
+<hr>
+
+<h3>Sitemaps</h3>
+
+<p><strong>What it is</strong></p>
+<p>A structural diagram showing the hierarchy and relationship between all pages or screens in a product. A sitemap is not a wireframe — it shows <em>what exists and how it connects</em>, not what anything looks like.</p>
+
+<p><strong>When to use it</strong></p>
+<ul>
+<li>At the start of a redesign, to document the current structure before changing anything</li>
+<li>After card sorting, to redesign the structure based on user evidence</li>
+<li>When onboarding onto a new product — to build a shared understanding of the current state</li>
+</ul>
+
+<p><strong>Why to use it</strong></p>
+<p>Without a sitemap, structural problems stay invisible. You can't redesign what you haven't made explicit. A sitemap also makes it possible to have an honest conversation with stakeholders about whether the current structure serves users — or the business.</p>
+
+<p><strong>How to use it</strong></p>
+<p>Draw two versions when doing IA work:</p>
+
+<ul>
+<li><strong>Inherited sitemap</strong> — drawn from the current live product. Documents reality as it is. Start here. Take screenshots, map every screen, and draw the hierarchy.</li>
+<li><strong>Evidence-based sitemap</strong> — rebuilt from card sorting results and JTBD insights. Organises content around user tasks, not business categories. This is the goal.</li>
+</ul>
+
+<p>Every box in the sitemap should be nameable and have a clear parent. If you can't define what belongs in a section without referring to the team that built it — that's an IA problem.</p>
+
+<hr>
+
+
+<h3>User Flows</h3>
+
+<p><strong>What it is</strong></p>
+<p>A diagram of the steps a user takes to complete a specific task — from their entry point to their final outcome. A user flow is not a wireframe. It's a structural map of <em>decisions, actions, and system responses</em> that happen along a task path.</p>
+
+<p><strong>When to use it</strong></p>
+<ul>
+<li>Before wireframing — to map out the structure of a flow before designing any screen</li>
+<li>When reviewing an existing product — to document what a user currently has to do to complete a task</li>
+<li>When identifying friction — steps where users drop off, get confused, or take the wrong path</li>
+</ul>
+
+<p><strong>Why user flows matter in the design process</strong></p>
+<p>Most design problems live in the flow, not in individual screens. A screen can look polished and still sit in the wrong place in a broken flow. User flows force you to think through the full task — every decision point, every error state, every branch — before committing those decisions to pixels.</p>
+
+<p>Without a user flow:</p>
+<ul>
+<li>You design screens before knowing what should come before or after them</li>
+<li>Edge cases (error states, empty states, permission gates) get discovered in development — not design</li>
+<li>Stakeholders debate screen-level details without ever agreeing on the task structure</li>
+</ul>
+
+<p>A user flow is also the most useful artefact for handing work to engineering. It tells developers not just what to build, but <em>when</em> and <em>under what conditions</em> each screen appears.</p>
+
+<p><strong>The anatomy of a user flow</strong></p>
+
+<p>A user flow is built from a small set of standard shapes. Using consistent shapes matters — it makes flows readable to anyone on the team without explanation.</p>
+
+<table class="md-table">
+<tr><th>Shape</th><th>What it represents</th><th>When to use</th></tr>
+<tr><td><strong>Rounded rectangle / Pill</strong></td><td>Start and end points</td><td>Entry points (app opens, user lands on page) and final outcomes (task complete, exit)</td></tr>
+<tr><td><strong>Rectangle</strong></td><td>User action or screen</td><td>Any step where the user does something: taps a button, fills a field, views a screen</td></tr>
+<tr><td><strong>Diamond</strong></td><td>Decision point</td><td>A yes/no or either/or branch: "Is the user logged in?", "Did the payment succeed?"</td></tr>
+<tr><td><strong>Parallelogram</strong></td><td>System input/output</td><td>What the system does automatically: sends an email, loads data, validates a field</td></tr>
+<tr><td><strong>Arrow</strong></td><td>Flow direction</td><td>Connects all shapes. Label branches on decision diamonds (Yes / No, Success / Error)</td></tr>
+</table>
+
+<p><strong>Swimlanes</strong></p>
+<p>When a flow involves more than one actor — the user, the system, and sometimes a third party like a payment provider or admin — swimlanes organise who does what. Each horizontal lane belongs to one actor. Actions are placed in the lane of whoever is responsible for that step.</p>
+
+<pre><code>┌─────────────────────────────────────────────────────┐
+│  USER      │  → Taps "Pay" → Enters card details    │
+├─────────────────────────────────────────────────────┤
+│  SYSTEM    │  → Validates card → Sends to gateway   │
+├─────────────────────────────────────────────────────┤
+│  3RD PARTY │  → Payment gateway → Returns response  │
+└─────────────────────────────────────────────────────┘</code></pre>
+
+<p>Swimlanes are especially useful for:</p>
+<ul>
+<li>Checkout flows where a payment provider is involved</li>
+<li>Onboarding flows where the system sends emails or triggers state changes</li>
+<li>Admin-facing features where a second user type (admin) acts on something the primary user initiated</li>
+</ul>
+
+<p><strong>How to draw a user flow</strong></p>
+
+<ol>
+<li><strong>Name the task</strong> — be specific. Not "checkout" but "complete a purchase as a returning user with a saved card." The more specific the task, the cleaner the flow.</li>
+<li><strong>Define the entry point</strong> — where does this task begin? Direct link, navigation tap, search result, notification?</li>
+<li><strong>Map the happy path first</strong> — the ideal sequence of steps when everything works. Use rectangles for actions, diamonds for decisions, parallelograms for system steps.</li>
+<li><strong>Add branches for errors and edge cases</strong> — what happens if the card declines? What if the user is not logged in? What if the content hasn't loaded yet? Each branch needs a destination — never leave a line unresolved.</li>
+<li><strong>Add swimlanes if multiple actors are involved</strong> — separate user actions from system actions and third-party actions into their own lanes.</li>
+<li><strong>Review for completeness</strong> — every diamond must have at least two outgoing arrows, labelled. Every path must end somewhere. No orphaned shapes.</li>
+</ol>
+
+<p><strong>What a well-drawn flow reveals</strong></p>
+<ul>
+<li>Steps that exist only because of how the system was built, not because users need them</li>
+<li>Decision points that ask users to do work the system could do automatically</li>
+<li>Flows that are longer than necessary because content is in the wrong place in the IA</li>
+<li>Missing states: what happens at empty state, error state, loading state?</li>
+</ul>
+
+<p><strong>How JTBD shapes user flows</strong></p>
+<p>Jobs-to-Be-Done gives you the lens for evaluating a flow. For each step in the flow, ask: does this step help the user progress toward their job — or is it friction the system is adding for its own reasons?</p>
+
+<p>If the functional job is "confirm my booking before I lose the slot," every step in the flow that delays confirmation is a structural problem. JTBD makes those problems visible — and defensible to stakeholders.</p>
+
+<table class="md-table">
+<tr><th>JTBD Insight</th><th>Flow Implication</th></tr>
+<tr><td>Users' primary job is confirming quickly before the slot expires</td><td>Reduce steps between intent and confirmation — no upsell screens in the critical path</td></tr>
+<tr><td>Users feel anxious about irreversible decisions</td><td>Add a review step before final commit; make "go back" always visible</td></tr>
+<tr><td>Users want to look competent when sharing work</td><td>Surface "share" at task-completion moments, not buried in settings</td></tr>
+</table>
+
+<hr>
+
+<h2>Tools & Materials</h2>
+
+<ul>
+<li>One of your own projects (bring a working product or prototype to the session)</li>
+<li>FigJam or Miro — for drawing the user flow</li>
+<li>Screenshots of the relevant screens in the flow</li>
+<li>JTBD Map from Session 2 (used to choose which task to map)</li>
+</ul>
+
+<hr>
+
+<h2>Practice Activity — Map the Current User Flow</h2>
+
+<p>Pick one real project you're working on. Choose one core task — the most important thing a user needs to do in this product. Map the flow exactly as it exists today: not how it should work, but how it actually works right now.</p>
+
+<p><strong>Steps:</strong></p>
+
+<ol>
+<li><strong>Choose your task</strong> — pick one core user job from your JTBD Map. Make it specific: not "browse products" but "find and save a product for later." This will be the scope of your flow.</li>
+</ol>
+
+<ol>
+<li><strong>Define your entry point and end point</strong> — where does the user start this task? Where are they when the task is complete? Draw a Start pill and an End pill before anything else.</li>
+</ol>
+
+<ol>
+<li><strong>Walk through the flow step by step</strong> — open your product (or prototype) and complete the task yourself, narrating every step aloud. Write each step on a sticky note as you go. Don't skip steps — include every tap, every screen load, every decision the user has to make.</li>
+</ol>
+
+<ol>
+<li><strong>Assign shapes to each step:</strong></li>
+</ol>
+<ul>
+<li>Rectangles for user actions and screens</li>
+<li>Diamonds for decision points (login check, empty state, error condition)</li>
+<li>Parallelograms for system actions (email sent, data saved, validation triggered)</li>
+</ul>
+
+<ol>
+<li><strong>Add swimlanes if needed</strong> — if the system does things independently of the user (sends a confirmation, refreshes data), separate the User lane from the System lane.</li>
+</ol>
+
+<ol>
+<li><strong>Add the error paths</strong> — for each diamond, follow both the Yes and No branches. Where does the user go if something fails? If you don't know — that's a gap in the design.</li>
+</ol>
+
+<ol>
+<li><strong>Count the decision points</strong> — how many times does a user have to make a choice before completing the task? Each decision point is a potential drop-off. Note which ones exist because of IA decisions (content is in the wrong place) vs interaction design decisions (the flow itself is poorly sequenced).</li>
+</ol>
+
+<p><strong>Debrief prompts:</strong></p>
+<ul>
+<li>Which steps surprised you — ones you didn't realise existed until you walked through it?</li>
+<li>Which steps are there because of how the system was built, not because users need them?</li>
+<li>Which decision points could the system resolve automatically, removing a step entirely?</li>
+<li>Where does the flow break down if the user takes a wrong turn?</li>
+</ul>
+
+<hr>
+
+<h2>Assignment (before next session)</h2>
+
+<p><strong>Build the current-state flow and identify one structural fix.</strong></p>
+
+<ol>
+<li>Complete the user flow for your chosen task in FigJam or Miro using the correct shapes and swimlanes</li>
+<li>Annotate every step with one of: <strong>U</strong> (user does this), <strong>S</strong> (system does this), or <strong>3P</strong> (third party does this)</li>
+<li>Highlight in red every step that exists because of an IA or system constraint — not because it serves the user</li>
+<li>Pick the single highest-friction step and write a short rationale: why does this step exist, what would need to change structurally to remove it, and what would you need to test to validate the change?</li>
+</ol>
+
+<p><strong>🤖 AI in Practice prompt:</strong></p>
+<blockquote><em>"I'm a UX designer mapping the current user flow for [describe the task in one sentence] in [describe your product briefly]. Here are the steps I've identified: [paste your list of steps]. Help me: 1. Identify which steps are likely caused by system or IA constraints rather than user needs. 2. Suggest where decision diamonds should be placed. 3. Flag any steps that appear to be missing — especially error states or edge cases I might have overlooked."</em></blockquote>
+
+<hr>
+
+<h2>Related Notion Resources</h2>
+
+<ul>
+<li><a href="https://www.notion.so/3248a6b135db810385bdf06991f4f87a" target="_blank">Design Activities by DT Stage — Reference</a> — Card sorting and tree testing in context of the full DT cycle</li>
+<li><a href="https://www.notion.so/3318a6b135db81a2a1ebf83b4ec081a5" target="_blank">Session 1 Playback — Design Thinking in Practice</a> — "Organise for users — Evidence-based sitemap, Task flows"</li>
+<li><a href="https://www.notion.so/3238a6b135db816db041d2cfbc58fa8c" target="_blank">Progress Tracker</a> — Evidence-based sitemap is the S4 artifact</li>
+</ul>
+
+<hr>
+
+<p><em>Lesson: Information Architecture · Part of the 8-session UX Mentoring Program</em></p>
+</div></div>
+        </section>
+
+    </main>
+
+    <aside class="sidebar">
+
+      <div class="sidebar-card slide-deck-card"><h3>🎯 Slide Deck</h3>
+            <a href="information-architecture-slides.html" target="_blank" class="slide-deck-link">
+              <span class="slide-icon">▶</span>
+              <span class="slide-deck-name">Information Architecture Slides</span>
+              <span class="slide-open-label">Open →</span>
+            </a></div>
+
+      <div class="sidebar-card"><h3>Tags</h3><div class="tag-row"><span class="tag">IA</span><span class="tag">Navigation</span><span class="tag">Card Sorting</span><span class="tag">Sitemaps</span><span class="tag">User Flows</span><span class="tag">JTBD</span></div></div>
+
+      <div class="sidebar-card">
+        <h3>Prerequisites</h3>
+        <ul class="prereq-list"><li>JTBD Map from Session 2</li><li>Validated Problem Statement from Session 3</li><li>Screenshots of your current product screens</li></ul>
+      </div>
+
+      
+
+      
+
+    </aside>
+  </div>
+
+  <footer>
+    <p>Winnie Nguyen · UX Mentoring Hub · Apr 2026</p>
+    <p style="margin-top:.25rem">
+      <a href="../../index.html" style="color:var(--accent)">← Back to Library</a>
+    </p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.tab;
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        const panel = document.getElementById('tab-' + target);
+        if (panel) panel.classList.add('active');
+      });
+    });
+  </script>
+
+</body>
+</html>

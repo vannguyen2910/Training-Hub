@@ -1,0 +1,35 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverrideIcon
+._*
+
+# iCloud placeholders (unsynced stubs)
+*.icloud
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Thumbnails
+Thumbs.db
+
+# Claude Code internal
+.claude/
+
+# Private student sessions
+Sessions/
+
+# Raw source assets (too large for GitHub)
+Source/
+
+# Old Templates folder (renamed to _Templates)
+Templates/
