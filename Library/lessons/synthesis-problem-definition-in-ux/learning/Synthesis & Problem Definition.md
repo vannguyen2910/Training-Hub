@@ -24,14 +24,18 @@ Your assignment was to:
 
 ---
 
-## What We're Building Today
+## The Pipeline
 
-Turn raw interview data into a problem the whole team can align on.
+Raw notes don't become a design direction on their own. There's a sequence — and each step feeds the next.
 
-1. **Affinity Mapping** — Organise chaos into themes
-2. **Insight Statements** — Find the real "so what"
-3. **How Might We** — Turn insights into design opportunities
-4. **Problem Statement** — Land on what to solve
+| Step | Method | Input | Output |
+|------|--------|-------|--------|
+| 1 | Affinity Mapping | Raw observations | Themes that reveal patterns |
+| 2 | Insight Statements | Themes | The "so what" behind each pattern |
+| 3 | How Might We | Insights | Design opportunities to explore |
+| 4 | Problem Statement | HMW questions | One problem the whole team can act on |
+
+You can't write a strong problem statement without insights. You can't find insights without clustering first. Start at the top and work down.
 
 ---
 
@@ -45,9 +49,53 @@ Turn raw interview data into a problem the whole team can align on.
 |--------|-------|
 | "I have interview notes… let me start designing." | "I have interview notes. Now I'll find the patterns, name the insights, define the real problem." |
 
+**And one more shift — how you run synthesis matters as much as whether you run it:**
+
+| Solo synthesis | Workshop synthesis |
+|----------------|-------------------|
+| You analyse alone, then present a report | The room builds meaning together |
+| Stakeholders receive findings | Stakeholders co-own the findings |
+| Buy-in happens later — if at all | Alignment is a byproduct of the process |
+| One perspective on the data | Multiple lenses catch what one person misses |
+
+> Running synthesis as a workshop isn't just more collaborative — it's more accurate. The PM notices something you normalised. The engineer flags something infeasible before it becomes a problem statement. The stakeholder stops pushing back on the output because they helped create it.
+
 ---
 
-## Part 1 — Affinity Mapping
+## Setting Up Your Workshop
+
+Before you run the pipeline, you need the right people in the room.
+
+### Who to invite
+
+- **Product Manager** — needs to align the roadmap to what users actually said
+- **Engineer** — spots technical constraints that affect what's feasible
+- **Fellow designer** — second set of eyes on what's a pattern vs. an outlier
+- **Stakeholder or lead** — makes prioritisation decisions; better if they've seen the data themselves
+
+> Keep it to 4–6 people. More than that and clustering becomes a committee.
+
+### Room setup
+
+1. **Share raw notes in advance** — give participants 15 min to read before the session, not during
+2. **One tool, one board** — FigJam or Miro, set up with all raw observations already on stickies
+3. **No titles in the room** — everyone clusters as equals; seniority distorts patterns
+
+### Your role as facilitator
+
+You are **not** the one with the answers. You are the one holding the process.
+
+- Open with the research question: *"We're here to find out what the data is telling us — not to confirm what we already think."*
+- Protect silent clustering time — resist the urge to explain notes
+- Name disagreements as useful: *"That tension is data too."*
+- Time-box each step ruthlessly
+- Close by asking: *"What surprised you most?"* — surprises are where the real insights live
+
+---
+
+## Step 1 — Affinity Mapping
+
+*Your first move in the room. Raw notes go in, themes come out.*
 
 ### What is Affinity Mapping?
 
@@ -102,7 +150,9 @@ the notes in it.
 
 ---
 
-## Part 2 — Insight Statements
+## Step 2 — Insight Statements
+
+*You have themes. Now name what each one means — not just what happened, but why it matters.*
 
 ### What is an Insight Statement?
 
@@ -158,7 +208,9 @@ for design?
 
 ---
 
-## Part 3 — How Might We
+## Step 3 — How Might We
+
+*You have insights. Now turn them into questions the team can design toward — without jumping to solutions.*
 
 ### What is "How Might We"?
 
@@ -210,7 +262,9 @@ Vary the scope — some broad, some narrow.
 
 ---
 
-## Part 4 — Problem Statement
+## Step 4 — Problem Statement
+
+*Converge. Take everything the room has built and land on one problem worth solving — one that everyone in the room can stand behind.*
 
 ### What makes a strong Problem Statement?
 
