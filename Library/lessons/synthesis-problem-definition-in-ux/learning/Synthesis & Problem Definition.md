@@ -2,6 +2,58 @@
 
 **Winnie Nguyen** — Senior Product Designer at NAB
 
+**Type:** Lesson · **Duration:** 90–120 min · **Audience:** Intermediate
+**Methods:** Affinity Mapping · Insight Statements · How Might We (HMW) · Problem Statement
+
+---
+
+## Key Concepts
+
+### Synthesis
+Moving raw data up the ladder of abstraction — turning observations into insights, and insights into a problem worth solving. Most research stops at observation. Synthesis is where direction begins.
+
+### The Pipeline
+The four-step sequence that connects raw data to a design direction: Affinity Mapping → Insight Statements → How Might We → Problem Statement. Each step has a clear input and output, and each feeds the next. You can't skip steps without losing fidelity.
+
+### Workshop Synthesis
+Running synthesis as a facilitated team session builds shared understanding and stakeholder alignment as a byproduct of the work itself. The designer acts as facilitator, not expert. Buy-in is baked in because meaning is built together, not delivered to a passive audience.
+
+### Affinity Mapping
+The first move. A method for clustering raw research observations into themes — so patterns emerge instead of staying buried in notes. One observation per sticky, silent clustering first, label after.
+
+### Insight Statements
+The second move. Insight = Observation + Implication. An observation tells you what happened; an insight tells you what it means for design. The most common mistake is stopping at the observation and calling it insight.
+
+### How Might We (HMW)
+The third move. A framing technique that turns an insight into a design opportunity without jumping to a solution. A good HMW hits the Goldilocks zone: specific enough to act on, open enough to be answered in five completely different ways.
+
+### Problem Statement
+The output of the pipeline. One clear, user-centred statement the whole team can align on. Formula: [User] needs a way to [goal] because [barrier].
+
+---
+
+## Session Structure
+
+| Time | Segment | Type | Duration |
+|------|---------|------|----------|
+| 00:00 | Open & Frame | Warm-up | 10 min |
+| 00:10 | The Pipeline | Concept | 10 min |
+| 00:20 | Mindset Shift + Workshop Setup | Concept + Facilitation | 15 min |
+| 00:35 | Step 1 — Affinity Mapping | Explain + Activity | 20 min |
+| 00:55 | Step 2 — Insight Statements | Explain + Activity | 15 min |
+| 01:10 | Step 3 — How Might We | Explain + Activity | 15 min |
+| 01:25 | Step 4 — Problem Statement | Explain + Activity | 20 min |
+| 01:45 | Wrap-up + Assignment | Close | 10 min |
+
+---
+
+## Tools & Materials
+
+- Sticky notes (physical or digital via FigJam / Miro)
+- Shared FigJam board with recipe app practice dataset pre-loaded
+- Timer
+- Whiteboard or large shared screen
+
 ---
 
 ## Session 2 Recap
@@ -146,7 +198,15 @@ the notes in it.
 
 ### Activity 1 · 10 min
 
-> Walk me through the findings from your interviews. What surprised you the most?
+*The recipe app observations are already on the shared FigJam board — one sticky per note.*
+
+**Round 1 · 6 min — Cluster silently.**
+Move notes that feel related. No talking, no explaining. Let the clusters find themselves.
+
+**Round 2 · 4 min — Label each cluster.**
+Write a header that answers: what unites these notes? Keep it to 3–5 words.
+
+> Share back: Which cluster surprised you? Did any note feel like it could belong in two places — and what does that tension tell you?
 
 ---
 
