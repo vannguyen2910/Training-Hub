@@ -1,6 +1,6 @@
 # 🔄 Workflow Rules
 
-**Last Updated:** 2026-04-30
+**Last Updated:** 2026-05-08
 **Author:** Winnie Nguyen
 **Purpose:** Rules for recurring workflow situations that sit between content creation — sourcing old material, adapting private work, handling ambiguity, and keeping content findable.
 
@@ -12,6 +12,8 @@
 - [Rule WF-2: Private → Class Adaptation](#rule-wf-2-private--class-adaptation)
 - [Rule WF-3: Claude Ambiguity Handling](#rule-wf-3-claude-ambiguity-handling)
 - [Rule WF-4: Content Tagging Vocabulary](#rule-wf-4-content-tagging-vocabulary)
+- [Rule WF-5: Content Brief Before Building](#rule-wf-5-content-brief-before-building)
+- [Rule WF-6: Inbox Processing](#rule-wf-6-inbox-processing)
 
 ---
 
@@ -236,6 +238,115 @@ If approved content needs a tag not on this list:
 
 ---
 
+## Rule WF-5: Content Brief Before Building
+
+**Status:** Active | **Priority:** High
+
+Before producing any HTML, slide deck, or design artifact, Claude must generate a **markdown content brief** and wait for approval. No build happens without a confirmed brief.
+
+### Why
+
+A full HTML slide deck costs 3,000–8,000 tokens. A brief costs 200–400. Structural or flow problems caught at brief stage cost nothing to fix — caught after a full build, they require a full rebuild.
+
+### Triggers
+
+Any request that would result in HTML, a slide deck, a lesson file, or a design output:
+- "Create a slide deck for..."
+- "Build an HTML page for..."
+- "Design a lesson on..."
+- "Make a workshop about..."
+
+### Brief format
+
+Claude always uses this structure:
+
+```markdown
+---
+title: "Artifact title"
+type: slide-deck | html-page | lesson | guide
+audience: ux-class | private-training
+level: beginner | intermediate | advanced
+duration: e.g. "90 min" (if applicable)
+---
+
+## Purpose
+One sentence: what this artifact helps the student do or understand.
+
+## Structure
+1. Section name — what it covers (1 line)
+2. Section name — what it covers
+3. ...
+
+## Key decisions
+- Tone, framing, or anything you'd want to review before Claude builds
+```
+
+### The gate
+
+1. Claude produces the brief
+2. You approve ("looks good", "go ahead") or edit inline and say "build it"
+3. Claude builds using the approved brief as the spec — never before
+
+### Brief file location
+
+Saved alongside the planned artifact with a `-brief.md` suffix (e.g. `design-thinking-101-brief.md`) so it can be referenced or reused later.
+
+### What Claude never does
+
+- Start a build without producing a brief first
+- Proceed past the brief step without explicit approval
+- Skip the brief because the request "seems straightforward"
+
+---
+
+## Rule WF-6: Inbox Processing
+
+**Status:** Active | **Priority:** High
+
+`Inbox/` is a **temporary processing zone**. Nothing stays there permanently. When you ask Claude to process inbox items, it routes each one to its permanent home and creates any structured artifacts in the correct folder.
+
+### The rule in one sentence
+
+Move the source to where it belongs, build the artifact where it will live, leave nothing in Inbox.
+
+### Processing sequence
+
+For each item in `Inbox/`, Claude:
+
+1. **Reads the item** — identifies content type and intended audience
+2. **Triages** — determines destination using the routing table below (applies WF-3 if ambiguous)
+3. **Briefs if a build is needed** — applies WF-5 before producing any HTML, slide deck, or lesson
+4. **Moves the source file** — relocates the raw input to its permanent folder
+5. **Creates the structured artifact** — saves finished output to the correct Library location
+6. **Reports** — confirms what was moved where and what was created
+
+### Routing table
+
+| Item type | Source file moved to | Structured artifact created in |
+|-----------|---------------------|-------------------------------|
+| Raw lesson notes | `Source/` | `Library/lessons/[name]/` |
+| Rough slide content | `Source/` | Brief → `Library/slides/[name]/` |
+| Private session notes | `Sessions/[mentee]/` | — (private, no published artifact) |
+| Framework or guide draft | `Source/` | `Library/guides/` or `Library/frameworks/` |
+| Reusable template | `_Templates/` | — |
+| Asset (image, export) | `Assets/` | — |
+| Ambiguous | Stop and triage (WF-3) | Confirmed by you before moving |
+
+### Triggers
+
+- "Process my inbox"
+- "Process [filename] from Inbox"
+- "Clear my inbox"
+
+### What Claude never does
+
+- Leave a processed item in `Inbox/` after routing
+- Move a file without telling you where it went
+- Skip the WF-5 brief step if the item requires a build
+- Delete anything from `Inbox/` — items are always moved, never deleted
+
+---
+
 ## Rules Summary
 
 | Rule | What It Covers | When to Apply |
@@ -244,8 +355,10 @@ If approved content needs a tag not on this list:
 | **WF-2** | Adapting private session content for class use | When private → class crossover happens |
 | **WF-3** | How Claude handles ambiguous situations | Every time Claude faces uncertainty |
 | **WF-4** | Consistent tag vocabulary for all content | When writing frontmatter in any file |
+| **WF-5** | Content brief gate before any build | Every HTML, slide deck, or design request |
+| **WF-6** | Inbox processing — route source, build artifact, clear inbox | When processing items from `Inbox/` |
 
 ---
 
-**Last updated:** 2026-04-30
+**Last updated:** 2026-05-08
 **Next review:** 2026-07-30
