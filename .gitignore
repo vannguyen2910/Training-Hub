@@ -33,3 +33,5 @@ Source/
 
 # Old Templates folder (renamed to _Templates)
 Templates/
+_Inbox/*.mp4
+Themes/assets/*.fig

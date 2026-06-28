@@ -4,27 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Winnie Nguyen — Training Hub</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+<!-- ── Design System ── -->
+  <link rel="stylesheet" href="../themes/tokens.css">
+  <link rel="stylesheet" href="../themes/components.css">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --white: #FFFFFF;
-      --off-white: #F9F7F4;
-      --warm-gray: #EDEBE7;
-      --text-primary: #1A1A1A;
-      --text-secondary: #6B6B6B;
-      --text-tertiary: #9A9A9A;
-      --accent: #3B5B8C;
-      --accent-light: #EEF2F8;
-      --accent-mid: #C4D0E6;
-      --rule: #E0DDD9;
-      --serif: 'DM Serif Display', Georgia, serif;
-      --sans: 'Instrument Sans', system-ui, sans-serif;
-    }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -38,7 +21,7 @@
 
     /* ── ANIMATIONS ─────────────────────────────── */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
+      from { opacity: 0; transform: translateY(8px); }
       to   { opacity: 1; transform: translateY(0); }
     }
     @keyframes fadeIn {
@@ -50,7 +33,7 @@
       to   { transform: scaleX(1); }
     }
 
-    .animate { opacity: 0; animation: fadeUp 0.7s ease forwards; }
+    .animate { opacity: 0; animation: fadeUp 0.5s ease forwards; }
     .d1 { animation-delay: 0.1s; }
     .d2 { animation-delay: 0.25s; }
     .d3 { animation-delay: 0.4s; }
@@ -75,17 +58,22 @@
     }
 
     .nav-logo {
-      font-family: var(--serif);
-      font-size: 1.1rem;
-      color: var(--text-primary);
+      display: flex;
+      align-items: center;
       text-decoration: none;
-      letter-spacing: -0.01em;
+    }
+
+    .nav-logo img {
+      height: 32px;
+      width: auto;
+      display: block;
     }
 
     .nav-links {
       display: flex;
       gap: 36px;
       list-style: none;
+      align-items: center;
     }
 
     .nav-links a {
@@ -124,8 +112,6 @@
       max-width: 1200px;
       margin: 0 auto;
     }
-
-    .hero-left {}
 
     .hero-eyebrow {
       font-size: 0.75rem;
@@ -221,7 +207,7 @@
     }
     .hero-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(59,91,140,0.12);
+      box-shadow: 0 12px 40px rgba(0,0,0,.08);
     }
 
     .hero-card-main {
@@ -312,6 +298,89 @@
       color: var(--text-secondary);
     }
 
+    /* ── ABOUT ──────────────────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-text p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .about-text p:last-of-type { margin-bottom: 32px; }
+
+    .about-text strong { color: var(--text-primary); font-weight: 600; }
+
+    .about-visual {
+      position: relative;
+    }
+
+    .about-photo-frame {
+      width: 100%;
+      aspect-ratio: 4/5;
+      background: var(--warm-gray);
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    .about-badge {
+      position: absolute;
+      bottom: -16px;
+      left: -20px;
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      padding: 16px 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      z-index: 2;
+    }
+
+    .about-badge-number {
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .about-badge-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    /* ── EXPERTISE PILLS ──────────────────────────── */
+    .expertise-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .pill {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-light);
+      border: 1px solid var(--accent-mid);
+      padding: 5px 14px;
+      border-radius: 100px;
+    }
+
     /* ── RULE DIVIDER ─────────────────────────────── */
     .section-divider {
       max-width: 1200px;
@@ -364,13 +433,6 @@
       padding: 80px 48px;
     }
 
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 48px;
-    }
-
     .section-label {
       font-size: 0.72rem;
       font-weight: 600;
@@ -390,286 +452,6 @@
     .section-title em {
       font-style: italic;
       color: var(--accent);
-    }
-
-    .view-all {
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--accent);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      white-space: nowrap;
-      padding-bottom: 4px;
-      transition: gap 0.2s;
-    }
-    .view-all:hover { gap: 10px; }
-    .view-all::after { content: '→'; }
-
-    /* ── ABOUT ──────────────────────────────────────── */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-
-    .about-text {}
-
-    .about-text p {
-      font-size: 1rem;
-      color: var(--text-secondary);
-      line-height: 1.8;
-      margin-bottom: 20px;
-    }
-
-    .about-text p:last-of-type { margin-bottom: 32px; }
-
-    .about-text strong { color: var(--text-primary); font-weight: 600; }
-
-    .about-visual {
-      position: relative;
-    }
-
-    .about-photo-frame {
-      width: 100%;
-      aspect-ratio: 4/5;
-      background: var(--warm-gray);
-      border-radius: 12px;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .about-photo-placeholder {
-      font-family: var(--serif);
-      font-size: 1rem;
-      color: var(--text-tertiary);
-      text-align: center;
-    }
-
-    .about-badge {
-      position: absolute;
-      bottom: -16px;
-      left: -20px;
-      background: var(--white);
-      border: 1px solid var(--rule);
-      border-radius: 10px;
-      padding: 16px 20px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-      z-index: 2;
-    }
-
-    .about-badge-number {
-      font-family: var(--serif);
-      font-size: 1.8rem;
-      color: var(--accent);
-      line-height: 1;
-    }
-
-    .about-badge-label {
-      font-size: 0.75rem;
-      color: var(--text-secondary);
-      margin-top: 2px;
-    }
-
-    /* ── EXPERTISE PILLS ──────────────────────────── */
-    .expertise-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 8px;
-    }
-
-    .pill {
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--accent);
-      background: var(--accent-light);
-      border: 1px solid var(--accent-mid);
-      padding: 5px 14px;
-      border-radius: 100px;
-    }
-
-    /* ── LIBRARY ────────────────────────────────────── */
-    .library-bg {
-      background: var(--off-white);
-      width: 100%;
-    }
-
-    .library-filters {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-    }
-
-    .filter-btn {
-      font-size: 0.78rem;
-      font-weight: 500;
-      padding: 6px 16px;
-      border-radius: 100px;
-      border: 1.5px solid var(--rule);
-      background: var(--white);
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .filter-btn.active,
-    .filter-btn:hover {
-      background: var(--accent);
-      color: var(--white);
-      border-color: var(--accent);
-    }
-
-    .library-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-
-    .lib-card {
-      background: var(--white);
-      border: 1px solid var(--rule);
-      border-radius: 10px;
-      padding: 28px;
-      transition: transform 0.25s, box-shadow 0.25s;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .lib-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 3px;
-      height: 100%;
-      background: var(--accent);
-      transform: scaleY(0);
-      transform-origin: top;
-      transition: transform 0.25s ease;
-    }
-
-    .lib-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(59,91,140,0.1);
-    }
-
-    .lib-card:hover::before { transform: scaleY(1); }
-
-    .lib-card-type {
-      display: inline-block;
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-tertiary);
-      margin-bottom: 14px;
-    }
-
-    .lib-card h3 {
-      font-family: var(--serif);
-      font-size: 1.1rem;
-      line-height: 1.3;
-      margin-bottom: 10px;
-    }
-
-    .lib-card p {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      line-height: 1.65;
-      margin-bottom: 20px;
-    }
-
-    .lib-card-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .lib-tags {
-      display: flex;
-      gap: 6px;
-    }
-
-    .lib-tag {
-      font-size: 0.68rem;
-      font-weight: 500;
-      color: var(--accent);
-      background: var(--accent-light);
-      padding: 3px 9px;
-      border-radius: 100px;
-    }
-
-    .lib-date {
-      font-size: 0.75rem;
-      color: var(--text-tertiary);
-    }
-
-    /* ── SHOWCASE ──────────────────────────────────── */
-    .showcase-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-    }
-
-    .showcase-card {
-      background: var(--off-white);
-      border: 1px solid var(--rule);
-      border-radius: 10px;
-      overflow: hidden;
-      transition: transform 0.25s, box-shadow 0.25s;
-      cursor: pointer;
-    }
-
-    .showcase-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.09);
-    }
-
-    .showcase-thumb {
-      width: 100%;
-      aspect-ratio: 16/10;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      position: relative;
-    }
-
-    .sc-blue  { background: linear-gradient(135deg, #C4D0E6, #EEF2F8); }
-    .sc-green { background: linear-gradient(135deg, #B7E4C7, #D8F3DC); }
-    .sc-warm  { background: linear-gradient(135deg, #F5D6C0, #FAE8D8); }
-    .sc-purple{ background: linear-gradient(135deg, #D4C8E8, #EBE6F4); }
-
-    .showcase-info {
-      padding: 18px 20px;
-    }
-
-    .showcase-cohort {
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-tertiary);
-      margin-bottom: 6px;
-    }
-
-    .showcase-info h4 {
-      font-family: var(--serif);
-      font-size: 0.95rem;
-      line-height: 1.3;
-      margin-bottom: 4px;
-    }
-
-    .showcase-info p {
-      font-size: 0.78rem;
-      color: var(--text-secondary);
     }
 
     /* ── FEATURED QUOTE ────────────────────────────── */
@@ -824,56 +606,18 @@
       border-color: rgba(255,255,255,0.4);
       color: var(--white);
     }
-
-    /* ── DESIGN NOTE OVERLAY ──────────────────────── */
-    .design-note {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      background: var(--text-primary);
-      color: var(--white);
-      padding: 14px 20px;
-      border-radius: 10px;
-      font-size: 0.78rem;
-      line-height: 1.5;
-      max-width: 260px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-      z-index: 999;
-      animation: fadeUp 0.6s ease 1.2s both;
-    }
-
-    .design-note strong {
-      display: block;
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--accent-mid);
-      margin-bottom: 4px;
-    }
-
-    .note-close {
-      position: absolute;
-      top: 8px; right: 10px;
-      background: none;
-      border: none;
-      color: rgba(255,255,255,0.4);
-      cursor: pointer;
-      font-size: 1rem;
-      line-height: 1;
-    }
-    .note-close:hover { color: var(--white); }
   </style>
 </head>
 <body>
 
   <!-- NAV -->
   <nav>
-    <a href="index.html" class="nav-logo">Winnie Nguyen</a>
+    <a href="index.html" class="nav-logo">
+      <img src="assets/Logo.svg" alt="Winnie Nguyen" />
+    </a>
     <ul class="nav-links">
-      <li><a href="../Library/index.html">Library</a></li>
-      <li><a href="#showcase">Showcase</a></li>
       <li><a href="#about">About</a></li>
-      <li><a href="mailto:nguyenphuctuongvan@gmail.com" class="nav-cta">Get in touch</a></li>
+      <li><a href="student-design-assessment.html" class="nav-cta">Run Self-assessment</a></li>
     </ul>
   </nav>
 
@@ -886,11 +630,11 @@
           Designing<br /><em>better</em><br />designers.
         </h1>
         <p class="hero-desc animate d3">
-          A living archive of training experiences, UX frameworks, and student outcomes — built for learning that lasts beyond the classroom.
+          A hands-on training experience built for designers who want to develop real UX intuition — not just surface-level skills.
         </p>
         <div class="hero-actions animate d4">
-          <a href="../Library/index.html" class="btn-primary">Explore the Library</a>
-          <a href="#showcase" class="btn-ghost">View Student Showcase</a>
+          <a href="student-design-assessment.html" class="btn-primary">Run Self-assessment</a>
+          <a href="https://adplist.org/mentors/winnie-nguyen" target="_blank" rel="noopener" class="btn-ghost">Connect on ADPList</a>
         </div>
       </div>
 
@@ -900,20 +644,12 @@
           <span class="card-tag">Lesson · UX Research</span>
           <h3>Mental Models in UX Design</h3>
           <p>How users build expectations — and how we design for them.</p>
-          <div class="card-meta">
-            <div class="avatar avatar-w">W</div>
-            <span>Winnie Nguyen · UX Product Class</span>
-          </div>
         </div>
         <!-- Card 2 — secondary -->
         <div class="hero-card hero-card-secondary">
-          <span class="card-tag green">Showcase · Cohort '25</span>
-          <h3>Student Artifact</h3>
-          <p>User journey mapping exercise — private training cohort.</p>
-          <div class="card-meta">
-            <div class="avatar avatar-s">S</div>
-            <span>Sarah · Private Training</span>
-          </div>
+          <span class="card-tag green">Self-assessment</span>
+          <h3>Where are you right now?</h3>
+          <p>Map your current skills and identify your next growth area.</p>
         </div>
         <!-- Card 3 — tertiary -->
         <div class="hero-card hero-card-tertiary">
@@ -921,28 +657,6 @@
           <h3>UX Design Principles</h3>
           <p>Core reference sheet — 12 principles.</p>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- STATS -->
-  <div class="stats-strip">
-    <div class="stats-inner">
-      <div class="stat animate d1">
-        <div class="stat-number">3+</div>
-        <div class="stat-label">Years Teaching</div>
-      </div>
-      <div class="stat animate d2">
-        <div class="stat-number">40+</div>
-        <div class="stat-label">Students Mentored</div>
-      </div>
-      <div class="stat animate d3">
-        <div class="stat-number">24</div>
-        <div class="stat-label">Training Resources</div>
-      </div>
-      <div class="stat animate d4">
-        <div class="stat-number">2</div>
-        <div class="stat-label">Active Programs</div>
       </div>
     </div>
   </div>
@@ -957,7 +671,7 @@
           I'm a <strong>UX educator and product trainer</strong> based in Vietnam, helping designers and teams build genuine design intuition — not just surface-level skills.
         </p>
         <p>
-          This hub is my <strong>living knowledge base</strong>: a place to consolidate frameworks, lesson materials, and the real work of students who've gone through my programs. Everything here is meant to be used, referenced, and built on.
+          With 10+ years as a UX product designer and experience mentoring 50+ designers through ADPList and private programs, I've developed a practical, human-centred approach to teaching design — one that bridges real-world product work with structured learning.
         </p>
         <div class="expertise-pills animate d2">
           <span class="pill">UX Research</span>
@@ -971,91 +685,37 @@
 
       <div class="about-visual animate d3">
         <div class="about-photo-frame">
-          <div class="about-photo-placeholder">
-            Your photo<br />goes here
-          </div>
+          <img src="assets/GV5.jpg" alt="Winnie Nguyen" />
         </div>
         <div class="about-badge">
-          <div class="about-badge-number">40+</div>
-          <div class="about-badge-label">students trained</div>
+          <div class="about-badge-number">50+</div>
+          <div class="about-badge-label">designers mentored</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- LIBRARY -->
-  <div class="library-bg">
-    <section>
-      <div class="section-header animate d1">
-        <div>
-          <p class="section-label">Knowledge Library</p>
-          <h2 class="section-title">Training <em>materials</em><br />& frameworks</h2>
-        </div>
-        <a href="../Library/index.html" class="view-all">View all resources</a>
+  <!-- STATS -->
+  <div class="stats-strip">
+    <div class="stats-inner">
+      <div class="stat animate d1">
+        <div class="stat-number">10+</div>
+        <div class="stat-label">Years in UX</div>
       </div>
-
-      <div class="library-filters animate d2">
-        <button class="filter-btn active">All</button>
-        <button class="filter-btn">UX Research</button>
-        <button class="filter-btn">Product Thinking</button>
-        <button class="filter-btn">Prototyping</button>
-        <button class="filter-btn">Design Systems</button>
-        <button class="filter-btn">Coaching</button>
+      <div class="stat animate d2">
+        <div class="stat-number">50+</div>
+        <div class="stat-label">Designers Mentored</div>
       </div>
-
-      <!-- Cards injected by JS from library-data.js, sorted newest first -->
-      <div class="library-grid" id="hub-library-grid"></div>
-    </section>
+      <div class="stat animate d3">
+        <div class="stat-number">Top 30%</div>
+        <div class="stat-label">ADPList Mentor</div>
+      </div>
+      <div class="stat animate d4">
+        <div class="stat-number">2</div>
+        <div class="stat-label">Active Programs</div>
+      </div>
+    </div>
   </div>
-
-  <!-- SHOWCASE -->
-  <section id="showcase">
-    <div class="section-header animate d1">
-      <div>
-        <p class="section-label">Student Showcase</p>
-        <h2 class="section-title">Learning made <em>visible.</em></h2>
-      </div>
-      <a href="../Showcase/" class="view-all">View all work</a>
-    </div>
-
-    <div class="showcase-grid">
-      <div class="showcase-card animate d1">
-        <div class="showcase-thumb sc-blue">🗺️</div>
-        <div class="showcase-info">
-          <p class="showcase-cohort">Cohort 2025 · UX Class</p>
-          <h4>Customer Journey Map — Banking App</h4>
-          <p>Sarah T. · Journey Mapping Project</p>
-        </div>
-      </div>
-
-      <div class="showcase-card animate d2">
-        <div class="showcase-thumb sc-green">📱</div>
-        <div class="showcase-info">
-          <p class="showcase-cohort">Private Training · 2024</p>
-          <h4>Mobile Prototype — Health Tracker</h4>
-          <p>Minh L. · Prototyping Sprint</p>
-        </div>
-      </div>
-
-      <div class="showcase-card animate d3">
-        <div class="showcase-thumb sc-warm">🧩</div>
-        <div class="showcase-info">
-          <p class="showcase-cohort">Cohort 2024 · UX Class</p>
-          <h4>Design System Audit Report</h4>
-          <p>Thao N. · Systems Thinking Module</p>
-        </div>
-      </div>
-
-      <div class="showcase-card animate d4">
-        <div class="showcase-thumb sc-purple">🔍</div>
-        <div class="showcase-info">
-          <p class="showcase-cohort">Private Training · 2025</p>
-          <h4>User Research Synthesis</h4>
-          <p>Huy P. · Research Methods</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- QUOTE -->
   <div class="quote-section">
@@ -1079,122 +739,33 @@
       <div class="footer-top">
         <div class="footer-brand">
           <h3>Winnie Nguyen</h3>
-          <p>UX Educator & Product Trainer — sharing knowledge, frameworks, and the real work of learning design.</p>
+          <p>UX Educator & Product Trainer — building genuine design intuition in every student I work with.</p>
         </div>
         <div class="footer-col">
           <h4>Navigate</h4>
           <ul>
-            <li><a href="../Library/index.html">Knowledge Library</a></li>
-            <li><a href="#showcase">Student Showcase</a></li>
             <li><a href="#about">About</a></li>
+            <li><a href="student-design-assessment.html">Self-assessment</a></li>
             <li><a href="mailto:nguyenphuctuongvan@gmail.com">Get in Touch</a></li>
           </ul>
         </div>
         <div class="footer-col">
-          <h4>Programs</h4>
+          <h4>Connect</h4>
           <ul>
-            <li><a href="../Library/index.html?filter=lesson">UX Product Class</a></li>
-            <li><a href="../Sessions/">Private Training</a></li>
-            <li><a href="../Library/index.html?filter=slides">Workshop Materials</a></li>
-            <li><a href="../Library/index.html">Resources</a></li>
+            <li><a href="https://adplist.org/mentors/winnie-nguyen" target="_blank" rel="noopener">ADPList Profile</a></li>
+            <li><a href="mailto:nguyenphuctuongvan@gmail.com">nguyenphuctuongvan@gmail.com</a></li>
           </ul>
         </div>
       </div>
       <div class="footer-bottom">
         <p>© 2026 Winnie Nguyen. All rights reserved.</p>
         <div class="social-links">
-          <a href="#" class="social-link">in</a>
-          <a href="#" class="social-link">tw</a>
-          <a href="#" class="social-link">be</a>
+          <a href="https://adplist.org/mentors/winnie-nguyen" target="_blank" rel="noopener" class="social-link" title="ADPList">adp</a>
+          <a href="mailto:nguyenphuctuongvan@gmail.com" class="social-link" title="Email">✉</a>
         </div>
       </div>
     </div>
   </footer>
 
-  <!-- Load library data then render cards sorted newest → oldest -->
-  <script src="../Library/library-data.js"></script>
-  <script>
-    // ── Built-in session entries (always available, even without library-data.js) ──
-    const BUILTIN_ENTRIES = [
-      {
-        type: 'slides',
-        title: 'Session 3 · Synthesis & Problem Definition',
-        description: 'Turn raw interview data into actionable insights. Covers affinity mapping, insight statements, How Might We, and problem statement writing — with AI practice prompts.',
-        tags: ['UX Research', 'Synthesis'],
-        date: 'Apr 2026',
-        directHref: '../synthesis-problem-definition-in-ux/session-3-synthesis.html',
-      },
-    ];
-
-    // Merge with external LIBRARY_DATA if it loaded
-    window.LIBRARY_DATA = [...(window.LIBRARY_DATA || []), ...BUILTIN_ENTRIES];
-
-    // ── Filter button interaction ──────────────────────────────────────────
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      });
-    });
-
-    // ── Library card renderer ──────────────────────────────────────────────
-    const TYPE_ICON = {
-      lesson:    '📖',
-      framework: '🗺️',
-      slides:    '🎯',
-      guide:     '💡',
-    };
-
-    const MONTH_INDEX = {
-      Jan:0, Feb:1, Mar:2,  Apr:3,  May:4,  Jun:5,
-      Jul:6, Aug:7, Sep:8,  Oct:9,  Nov:10, Dec:11
-    };
-
-    function parseLibDate(str) {
-      if (!str) return new Date(0);
-      const parts = str.trim().split(' ');
-      const mon  = MONTH_INDEX[parts[0]] ?? 0;
-      const year = parseInt(parts[1]) || 0;
-      return new Date(year, mon);
-    }
-
-    function renderHubLibrary() {
-      const grid = document.getElementById('hub-library-grid');
-      if (!grid || !window.LIBRARY_DATA) return;
-
-      const delays = ['d1','d2','d3','d4','d5','d6'];
-
-      const cards = [...window.LIBRARY_DATA]
-        .sort((a, b) => parseLibDate(b.date) - parseLibDate(a.date))
-        .slice(0, 6);
-
-      grid.innerHTML = cards.map((m, i) => {
-        const icon      = TYPE_ICON[m.type] || '📄';
-        const typeLabel = m.type.charAt(0).toUpperCase() + m.type.slice(1);
-        const tags      = (m.tags || []).slice(0, 2)
-                            .map(t => `<span class="lib-tag">${t}</span>`)
-                            .join('');
-        // directHref overrides the library-relative path — use for deck files living in Training_Hub
-        const href      = m.directHref
-                            ? m.directHref
-                            : m.page
-                              ? `../Library/${m.page}`
-                              : '../Library/index.html';
-
-        return `
-          <div class="lib-card animate ${delays[i]}" onclick="window.location.href='${href}'" style="cursor:pointer;">
-            <span class="lib-card-type">${icon} ${typeLabel}</span>
-            <h3>${m.title}</h3>
-            <p>${m.description}</p>
-            <div class="lib-card-footer">
-              <div class="lib-tags">${tags}</div>
-              <span class="lib-date">${m.date}</span>
-            </div>
-          </div>`;
-      }).join('');
-    }
-
-    renderHubLibrary();
-  </script>
 </body>
 </html>

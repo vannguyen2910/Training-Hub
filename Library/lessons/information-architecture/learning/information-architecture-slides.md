@@ -1,6 +1,6 @@
 # Session 4 · Information Architecture
 
-**Winnie Nguyen** — Senior Product Designer at NAB
+**Winnie Nguyen**
 
 ---
 
@@ -266,7 +266,7 @@ Start with the happy path. Then add one error branch.
 
 ---
 
-## Your Assignment — Before Session 5
+## Your Assignment — Before Next Session
 
 1. Complete the full current-state user flow for your chosen task in FigJam or Miro — correct shapes, correct swimlanes
 2. Annotate every step: **U** (user), **S** (system), or **3P** (third party)
@@ -276,3 +276,11 @@ Start with the happy path. Then add one error branch.
 ---
 
 *"Organise for users — not for the org chart."*
+
+---
+
+## Thank You
+
+**Winnie Nguyen**
+
+📧 nguyenphuctuongvan@gmail.com

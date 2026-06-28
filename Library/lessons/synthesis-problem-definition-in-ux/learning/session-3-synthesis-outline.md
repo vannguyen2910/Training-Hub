@@ -224,25 +224,6 @@ VISUAL DESIGN DIRECTION — apply globally to every slide:
 
 ---
 
-### AI PROMPT CARD — Affinity mapping
-- Kicker: 🤖 AI in practice · Affinity Mapping
-- Title: Try this\nprompt
-- Prompt text:
-  ```
-  Here are my raw interview notes:
-  [paste your notes]
-
-  Cluster these into themes.
-  Give each theme a short name
-  and explain what connects
-  the notes in it.
-  ```
-- Warning callout: AI groups by keywords, not meaning. It may lump a usability problem and an emotional reaction into the same cluster. Always split and rename clusters yourself.
-- Reflect callout: Did AI surface a theme you hadn't noticed? Did it miss one that only made sense from being in the room?
-- Rule line: Try it with AI first, then verify with your own judgment before using the output.
-
----
-
 ### MILESTONE — Activity 1
 - Kicker: Activity 01
 - Num: 10
@@ -280,24 +261,6 @@ VISUAL DESIGN DIRECTION — apply globally to every slide:
 
 ---
 
-### AI PROMPT CARD — Insight statements
-- Kicker: 🤖 AI in practice · Insight Statements
-- Title: Try this\nprompt
-- Prompt text:
-  ```
-  Here is a raw observation from my research:
-  [paste note]
-
-  Help me write this as an insight statement:
-  what was observed, and what does it imply
-  for design?
-  ```
-- Warning callout: AI often writes generic implications. If the implication could apply to any product, it's not specific enough — push it further.
-- Reflect callout: Did the AI version capture the emotional tension from the interview? What did you have to add or correct?
-- Rule line: Try it with AI first, then verify with your own judgment before using the output.
-
----
-
 ### MILESTONE — Activity 2
 - Kicker: Activity 02
 - Num: 10
@@ -332,23 +295,6 @@ VISUAL DESIGN DIRECTION — apply globally to every slide:
   - How might we reduce user anxiety at the moment between action and confirmation?
   - How might we design a post-payment experience that builds trust instead of doubt?
 - 🎨 Visual hint: Show the insight in a distinct callout box (dark --ink background, --paper text) at the top. Below it, draw a downward arrow into 3 HMW cards arranged horizontally — each card in --paper-deeper with a --sienna "HMW →" label. Visually show the transformation from one insight to multiple opportunities.
-
----
-
-### AI PROMPT CARD — How Might We
-- Kicker: 🤖 AI in practice · How Might We
-- Title: Try this\nprompt
-- Prompt text:
-  ```
-  Here is my insight statement:
-  [paste insight]
-
-  Generate 5 'How Might We' questions based on this.
-  Vary the scope — some broad, some narrow.
-  ```
-- Warning callout: AI HMWs can sound polished but be too vague to act on. Check: can you actually design something to answer each one?
-- Reflect callout: Which AI question was most useful? Which was most surprising? Did any make you reframe your insight?
-- Rule line: Try it with AI first, then verify with your own judgment before using the output.
 
 ---
 
@@ -399,24 +345,6 @@ VISUAL DESIGN DIRECTION — apply globally to every slide:
 
 ---
 
-### AI PROMPT CARD — Problem statement
-- Kicker: 🤖 AI in practice · Problem Statement
-- Title: Try this\nprompt
-- Prompt text:
-  ```
-  Here is my research finding:
-  [paste insight or HMW]
-
-  Help me write a problem statement using this formula:
-  [User] needs a way to [goal]
-  because [barrier].
-  ```
-- Warning callout: AI often fills the "because" with logical-sounding assumptions. Make sure the barrier comes from what users actually said — not what seems reasonable.
-- Reflect callout: Would a designer who wasn't in your sessions understand exactly who you're designing for from this statement alone?
-- Rule line: Try it with AI first, then verify with your own judgment before using the output.
-
----
-
 ### MILESTONE — Activity 4
 - Kicker: Activity 04
 - Num: 15
@@ -440,11 +368,6 @@ VISUAL DESIGN DIRECTION — apply globally to every slide:
   - Share it with one stakeholder — a PM, engineer, or team lead
   - Note how they respond
   - Update the statement if they were confused about who or why
-- AI Challenge callout (note, not a card):
-  - Paste your raw notes into Claude
-  - Ask it to cluster themes
-  - Compare its groupings to yours — where did it help? Where did it miss context only you had?
-
 ---
 
 ### END — Closing

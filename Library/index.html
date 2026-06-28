@@ -4,31 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Knowledge Library — Winnie Nguyen</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
-  <!-- ── Your library data lives in library-data.js ── -->
+<!-- ── Your library data lives in library-data.js ── -->
   <script src="library-data.js"></script>
+  <!-- ── Design System ── -->
+  <link rel="stylesheet" href="../themes/tokens.css">
+  <link rel="stylesheet" href="../themes/components.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --white: #FFFFFF;
-      --off-white: #F9F7F4;
-      --warm-gray: #EDEBE7;
-      --text-primary: #1A1A1A;
-      --text-secondary: #6B6B6B;
-      --text-tertiary: #9A9A9A;
-      --accent: #3B5B8C;
-      --accent-light: #EEF2F8;
-      --accent-mid: #C4D0E6;
-      --rule: #E0DDD9;
-      --serif: 'DM Serif Display', Georgia, serif;
-      --sans: 'Instrument Sans', system-ui, sans-serif;
-      --lesson-bg: #EEF2F8;   --lesson-color: #3B5B8C;
-      --framework-bg: #F5E6D8; --framework-color: #7B4F2E;
-      --slides-bg: #D8F3DC;   --slides-color: #2D6A4F;
-      --guide-bg: #EDE8F5;    --guide-color: #5A3E8A;
+  /* ── All variables inherited from Themes/tokens.css legacy aliases ── */
     }
 
     html { scroll-behavior: smooth; }
@@ -202,7 +187,7 @@
       width:3px; height:100%;
       transform:scaleY(0); transform-origin:top; transition:transform .22s;
     }
-    .lib-card:hover { transform:translateY(-4px); box-shadow:0 12px 36px rgba(59,91,140,.09); }
+    .lib-card:hover { transform:translateY(-4px); box-shadow:0 12px 36px rgba(0,0,0,.07); }
     .lib-card:hover::before { transform:scaleY(1); }
 
     .lib-card[data-type="lesson"]::before    { background:var(--lesson-color); }
@@ -650,7 +635,7 @@
     }
     .related-card:hover {
       border-color:var(--accent-mid);
-      box-shadow:0 4px 16px rgba(59,91,140,.08);
+      box-shadow:0 4px 16px rgba(0,0,0,.07);
       transform:translateY(-1px);
     }
     .related-card-type {
@@ -682,7 +667,7 @@
     }
     .crossref-card:hover {
       border-color:var(--accent-mid);
-      box-shadow:0 4px 14px rgba(59,91,140,.08);
+      box-shadow:0 4px 14px rgba(0,0,0,.07);
       transform:translateY(-1px);
     }
     .crossref-rel {

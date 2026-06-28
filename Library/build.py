@@ -531,17 +531,18 @@ def get_css():
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --accent: #3B5B8C;
-      --accent-light: #EEF2F8;
-      --bg: #F9F7F4;
-      --surface: #FFFFFF;
-      --text: #1A1A1A;
-      --muted: #6B7280;
-      --border: #E5E0D8;
-      --font-serif: 'DM Serif Display', Georgia, serif;
-      --font-sans: 'Instrument Sans', system-ui, sans-serif;
-      --radius: 10px;
-      --shadow: 0 1px 3px rgba(0,0,0,.07), 0 4px 16px rgba(0,0,0,.05);
+      /* ── Mapped to unified design system (Themes/tokens.css) ── */
+      --accent:       var(--purple);
+      --accent-light: var(--purple-tint);
+      --bg:           var(--surface-page);
+      --surface:      var(--surface-base);
+      --text:         var(--text-primary);
+      --muted:        var(--text-secondary);
+      --border:       var(--border-default);
+      --font-serif:   var(--font-display);
+      --font-sans:    var(--font-body);
+      --radius:       var(--radius-lg);
+      --shadow:       var(--shadow-z4);
     }
 
     body {
@@ -870,7 +871,7 @@ def get_css():
       transition: box-shadow .15s, transform .15s;
     }
     .slide-deck-link:hover {
-      box-shadow: 0 3px 12px rgba(59,91,140,.15);
+      box-shadow: 0 3px 12px rgba(0,0,0,.09);
       transform: translateY(-1px);
     }
     .slide-icon {
@@ -916,6 +917,8 @@ def generate_detail_page(material, all_materials, bundle_path):
 
     library_root  = "../../"
     library_index = library_root + "index.html"
+    tokens_path     = "../../../Themes/tokens.css"
+    components_path = "../../../Themes/components.css"
 
     def mat_link(m):
         return mat_link_from_root(m, library_root)
@@ -1064,8 +1067,9 @@ def generate_detail_page(material, all_materials, bundle_path):
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{material["title"]} — Winnie Nguyen</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- ── Design System ── -->
+  <link rel="stylesheet" href="{tokens_path}">
+  <link rel="stylesheet" href="{components_path}">
   <style>
 {get_css()}
   </style>
