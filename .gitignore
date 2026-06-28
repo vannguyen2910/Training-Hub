@@ -35,3 +35,7 @@ Source/
 Templates/
 _Inbox/*.mp4
 Themes/assets/*.fig
+
+# Private client/coaching material (now in Training-Hub-Private repo)
+Private Training/
+Operations/
