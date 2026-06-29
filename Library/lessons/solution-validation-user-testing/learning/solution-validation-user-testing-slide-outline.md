@@ -17,6 +17,15 @@ Using the outline in this file, create an HTML slide deck for Solution Validatio
 Follow the rules in _Config/rules/SLIDE_DECK_RULES.md exactly.
 Save the file to Library/lessons/solution-validation-user-testing/materials/deck.html.
 
+REAL IMAGES — embed these at the slides marked with 📷 in this outline:
+- ../assets/Unmoderated testing.png → DIAGRAM: Moderated vs Unmoderated slide (shows a real Maze test report — task completion rate, success rate, navigation overview)
+- ../assets/Research plan.png → NUMBERED: Test plan components slide (shows a real research plan document from Go1)
+- ../assets/Recording.png → NUMBERED: Six facilitation principles slide (shows a moderated interview recording with video + transcript in Dovetail)
+- ../assets/Interview Notes.png → DIAGRAM: Feedback Capture Grid slide (shows raw FigJam sticky notes from Go1 interviews, organised by participant)
+- ../assets/Research report.png → DIAGRAM: From observation to finding slide (shows a finished research report with insights and supporting quotes)
+
+For each 📷 image: embed it as a framed screenshot beside or below the main slide content. Add a small italic caption from the slide spec. Images should feel like real-world examples, not decorative — give them visual weight alongside the diagram or text.
+
 VISUAL DESIGN DIRECTION — apply globally to every slide:
 - Prefer diagrams, frameworks, and tables over bullet lists.
 - Use inline SVG for all diagrams. Clean, flat shapes using only token colours.
@@ -156,7 +165,8 @@ VISUAL DESIGN DIRECTION — apply globally to every slide:
   - LEFT — MODERATED: Gives you the *why*. You observe, follow up, probe. Slower. Requires scheduling. Best when you need to understand behaviour and motivation.
   - RIGHT — UNMODERATED: Gives you the *what* at scale. Faster, cheaper. Task completion rates, drop-off, click patterns. Best for validating specific flows.
 - Note below: *The 5-user rule applies to moderated qualitative testing only. Unmoderated and A/B tests need larger samples.*
-- 🎨 Visual hint: Two large cards side by side. LEFT (--sage tint): "WHY" in large display type, sub-description below. RIGHT (--ochre tint): "WHAT" in large display type, sub-description below. Simple, bold contrast.
+- 📷 Real image: `../assets/Unmoderated testing.png` — Maze test report for Pinbus App showing task completion rate, success rate, navigation overview. Use as a live example of what unmoderated results look like.
+- 🎨 Visual hint: Two large cards side by side. LEFT (--sage tint): "WHY" in large display type, sub-description below. RIGHT (--ochre tint): "WHAT" in large display type, sub-description below. Below the two cards, embed the Maze screenshot as a captioned example on the right side.
 
 ---
 
@@ -182,6 +192,7 @@ VISUAL DESIGN DIRECTION — apply globally to every slide:
 ### NUMBERED — Test plan components
 - Kicker: Part 3 · What goes in
 - Title: Five components.\nOne page.
+- 📷 Real image: `../assets/Research plan.png` — Research plan document from Go1 Content Curation project. Show as a framed example beside or above the components list.
 - 5 components:
   1. **Goal** — What question does this test answer? One sentence. Link to the hypothesis.
   2. **Participant profile** — Who are you testing with? Key characteristics that matter for this prototype.
@@ -257,6 +268,7 @@ VISUAL DESIGN DIRECTION — apply globally to every slide:
 ### NUMBERED — Six facilitation principles
 - Kicker: Part 4 · How to run it
 - Title: Six principles.
+- 📷 Real image: `../assets/Recording.png` — Moderated interview recording from Go1 with video + timestamped transcript in Dovetail. Use as a header image or inset to show what a recorded moderated session looks like in practice.
 - 6 principles (numbered cards):
   1. **Ask before you show** — Context questions before the prototype. Build rapport and a baseline.
   2. **Test on the right people** — Not colleagues. Real potential users. Consider extreme users.
@@ -290,6 +302,7 @@ VISUAL DESIGN DIRECTION — apply globally to every slide:
 ### DIAGRAM — Feedback Capture Grid
 - Kicker: Part 5 · Capture first
 - Title: Separate observations\nfrom interpretations.
+- 📷 Real image: `../assets/Interview Notes.png` — FigJam sticky note board from Go1 Content Curation research showing raw interview notes organised by participant across columns. Show as a "before synthesis" example alongside or above the Feedback Capture Grid diagram.
 - Lead: The Feedback Capture Grid organises raw observations into four quadrants. Fill it in during or immediately after the session — before interpretation happens.
 - 4 quadrants:
   - TOP LEFT — **Likes ✓** — What worked. What users responded positively to.
@@ -304,6 +317,7 @@ VISUAL DESIGN DIRECTION — apply globally to every slide:
 ### DIAGRAM — From observation to finding
 - Kicker: Part 5 · Translate
 - Title: What users did →\n*what it means.*
+- 📷 Real image: `../assets/Research report.png` — Research report from Go1 showing key insights translated from raw interview data, with supporting quotes and screenshots. Show as an example of the finished "finding" format.
 - Lead: Move from raw observations to findings using this formula.
 - Formula: *"[User] did [X]" → "Users struggle to [Y] because [Z]"*
 - Example:

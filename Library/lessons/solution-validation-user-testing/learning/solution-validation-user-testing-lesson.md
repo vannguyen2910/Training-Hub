@@ -140,6 +140,9 @@ At the prototype stage, moderated and unmoderated usability testing are the most
 - **Moderated:** Gives you the *why* — you can follow up, probe, and observe. Slower, requires scheduling. Best when you have specific questions about behaviour and motivation.
 - **Unmoderated:** Gives you the *what* at scale — task completion rates, drop-off points, click patterns. Faster and cheaper. Best for validating specific tasks or flows.
 
+![Unmoderated test report showing task completion rates and navigation overview in Maze](../assets/Unmoderated%20testing.png)
+*Example: unmoderated test report in Maze — shows task completion rate, success rate, and step-by-step drop-off in a single view*
+
 #### The "5 users" rule
 
 For moderated qualitative testing, 5 participants is the standard starting point. Research by Nielsen Norman Group showed that 5 users uncover ~85% of usability issues in a single round. Beyond 5, you start seeing diminishing returns.
@@ -151,6 +154,9 @@ This rule applies to qualitative testing only. Unmoderated tests, A/B tests, and
 ---
 
 ### Phase 3 — Write Your Test Plan
+
+![Research plan document from Go1 Content Curation project](../assets/Research%20plan.png)
+*Real example: research plan document from the Go1 Content Curation project*
 
 #### Test plan components
 
@@ -245,6 +251,9 @@ Brief participants at the start: *"As you go through this, please say out loud w
 
 Not all participants take to this naturally. If they go quiet, use a neutral prompt: "What's going through your mind right now?"
 
+![Recorded moderated user interview with video and timestamped transcript in Dovetail](../assets/Recording.png)
+*Real example: moderated interview recording from Go1 Content Curation research — video + auto-timestamped transcript in a research repository tool*
+
 #### Six facilitation principles
 
 Based on IDF's feedback-gathering best practices:
@@ -265,6 +274,9 @@ Debrief: What did the moderator do well? What was hard to resist? What did obser
 ---
 
 ### Phase 5 — Synthesise & Prioritise
+
+![FigJam board with sticky notes from Go1 Content Curation user interviews, organised by participant and theme](../assets/Interview%20Notes.png)
+*Real example: raw interview notes from Go1 Content Curation research — sticky notes organised by participant across the board before themes are drawn out*
 
 #### Feedback Capture Grid
 
@@ -293,6 +305,9 @@ Once observations are captured, move from the *what* to the *why*:
 - Finding: "Users expect the logo to be a home button — the current navigation doesn't have a clear home action."
 
 This is the format to use when writing up findings for stakeholders or your own design decisions.
+
+![Research report from Go1 showing key insights from user interviews on search result signals](../assets/Research%20report.png)
+*Real example: research report output from Go1 — raw observations translated into structured findings with supporting quotes and screenshots*
 
 #### Severity framing
 
