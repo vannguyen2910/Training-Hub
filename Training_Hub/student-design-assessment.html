@@ -375,6 +375,99 @@
     .cf-link  { font-size: 12px; color: var(--purple); text-decoration: none; display: flex; align-items: center; gap: 4px; padding: 5px 10px; border: 1px solid var(--purple-tint); border-radius: 100px; }
     .cf-link:hover { background: var(--purple-tint); }
 
+    .olu-note {
+      margin-top: 14px;
+      padding: 12px 16px;
+      background: var(--success-tint);
+      border-radius: var(--radius-md);
+      font-size: var(--text-sm);
+      color: var(--success-deep);
+      line-height: 1.55;
+    }
+
+    /* ════════════════════════════════════════════════════
+       SCREEN DIRECTION
+    ════════════════════════════════════════════════════ */
+    .direction-intro {
+      font-size: var(--text-base);
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 28px;
+    }
+    .direction-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+    .direction-card {
+      border: 1.5px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      padding: 18px 16px;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      background: #fff;
+      user-select: none;
+    }
+    .direction-card:hover   { border-color: var(--purple-mid); background: var(--purple-tint); }
+    .direction-card.selected { border-color: var(--purple); background: var(--purple-tint); }
+    .dc-emoji { font-size: 22px; margin-bottom: 8px; }
+    .dc-name  { font-family: var(--font-display); font-size: var(--text-base); font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+    .dc-desc  { font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.5; }
+    .direction-card.selected .dc-name { color: var(--purple); }
+    .direction-card.selected .dc-desc { color: var(--purple-deep); }
+    .direction-card.dim { opacity: 0.4; pointer-events: none; }
+
+    .depr-section { border-top: 1.5px solid var(--border-default); padding-top: 24px; }
+    .depr-heading { font-family: var(--font-display); font-size: var(--text-lg); font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
+    .depr-sub     { font-size: var(--text-sm); color: var(--text-secondary); margin-bottom: 16px; line-height: 1.6; }
+    .depr-chips   { display: flex; flex-wrap: wrap; gap: 8px; }
+    .depr-chip {
+      padding: 7px 16px;
+      border: 1.5px solid var(--border-default);
+      border-radius: 100px;
+      font-size: var(--text-sm);
+      font-family: var(--font-body);
+      cursor: pointer;
+      background: #fff;
+      color: var(--text-secondary);
+      transition: all 0.15s;
+    }
+    .depr-chip:hover { border-color: var(--border-strong); color: var(--text-primary); }
+    .depr-chip.selected {
+      border-color: var(--error);
+      background: var(--error-tint);
+      color: var(--error-deep);
+      text-decoration: line-through;
+    }
+
+    /* Outside focus block in results */
+    .outside-focus {
+      margin-top: 14px;
+      background: var(--surface-page);
+      border: 1.5px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+    }
+    .of-label { font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-tertiary); margin-bottom: 10px; }
+    .of-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+    .of-chip  { display: flex; align-items: center; gap: 6px; padding: 5px 12px; background: #fff; border: 1.5px solid var(--border-default); border-radius: 100px; font-size: 12px; }
+    .of-chip-name { color: var(--text-secondary); font-weight: 600; }
+    .of-chip-gap  { color: var(--text-tertiary); }
+    .of-note  { font-size: 12px; color: var(--text-tertiary); font-style: italic; line-height: 1.55; }
+
+    /* Direction tag in results hero */
+    .rh-direction {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 10px;
+      padding: 4px 12px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 100px;
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
     .loading-spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.35); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; margin-right: 4px; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -395,7 +488,7 @@
     .archetype-tag span { opacity: 0.6; font-weight: 400; margin-right: 4px; }
 
     /* ── Insight: Stat pair row ─────────────────────────── */
-    .insight-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+    .insight-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 14px; }
     .insight-stat {
       background: #fff; border: 1.5px solid var(--border-default);
       border-radius: var(--radius-lg); padding: 18px 20px;
@@ -444,7 +537,7 @@
 
     @media (max-width: 700px) {
       .insight-cards { grid-template-columns: 1fr; }
-      .insight-stats  { grid-template-columns: 1fr; }
+      .insight-stats  { grid-template-columns: 1fr 1fr; }
       .welcome-wrap { grid-template-columns: 1fr; gap: 40px; padding: 40px 24px 60px; }
       .skill-options { grid-template-columns: 1fr; }
       .beh-options   { grid-template-columns: 1fr; }
@@ -487,13 +580,13 @@
           <div style="font-size:var(--text-sm);font-weight:500;">nguyenphuctuongvan@gmail.com</div>
         </div>
       </a>
-      <a href="https://www.linkedin.com/in/winnienguyen/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border:1.5px solid var(--border-default);border-radius:var(--radius-md);text-decoration:none;color:var(--text-primary);transition:var(--transition);" onmouseover="this.style.borderColor='var(--purple)';this.style.background='var(--purple-subtle)'" onmouseout="this.style.borderColor='var(--border-default)';this.style.background=''">
+      <a href="https://www.linkedin.com/in/winnienguyen2910/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border:1.5px solid var(--border-default);border-radius:var(--radius-md);text-decoration:none;color:var(--text-primary);transition:var(--transition);" onmouseover="this.style.borderColor='var(--purple)';this.style.background='var(--purple-subtle)'" onmouseout="this.style.borderColor='var(--border-default)';this.style.background=''">
         <span style="width:36px;height:36px;border-radius:var(--radius-sm);background:var(--purple-tint);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
           <svg width="16" height="16" fill="var(--purple)" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
         </span>
         <div>
           <div style="font-size:var(--text-xs);font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-tertiary);margin-bottom:2px;">LinkedIn</div>
-          <div style="font-size:var(--text-sm);font-weight:500;">linkedin.com/in/winnienguyen</div>
+          <div style="font-size:var(--text-sm);font-weight:500;">linkedin.com/in/winnienguyen2910</div>
         </div>
       </a>
       <a href="https://adplist.org/mentors/winnie-nguyen" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border:1.5px solid var(--border-default);border-radius:var(--radius-md);text-decoration:none;color:var(--text-primary);transition:var(--transition);" onmouseover="this.style.borderColor='var(--purple)';this.style.background='var(--purple-subtle)'" onmouseout="this.style.borderColor='var(--border-default)';this.style.background=''">
@@ -577,7 +670,7 @@
           </div>
         </div>
 
-        <div class="form-meta">Takes about 10–15 minutes · Progress saved automatically</div>
+        <div class="form-meta">Takes about 15–20 minutes · Progress saved automatically</div>
 
         <button class="btn btn-primary btn-full" onclick="startAssessment()">Start assessment &nbsp;›</button>
       </div>
@@ -619,6 +712,39 @@
 
 
 <!-- ════════════════════════════════════════════════════════
+     SCREEN DIRECTION
+════════════════════════════════════════════════════════ -->
+<div id="screen-direction" class="screen">
+  <div class="q-wrap">
+
+    <div class="q-meta">
+      <div class="q-eyebrow">Career Direction</div>
+      <div class="q-counter">Almost there</div>
+    </div>
+
+    <h2 class="q-section-title">Where do you want to go?</h2>
+    <p class="direction-intro">Your skill gaps tell you what's missing — but not all gaps matter equally. Pick up to 3 directions you want to develop toward so we can focus your results on what's actually relevant to your path.</p>
+
+    <div class="direction-grid" id="directionGrid"></div>
+
+    <div class="depr-section">
+      <div class="depr-heading">Anything you're intentionally not focusing on?</div>
+      <div class="depr-sub">Optional — select skills you're deliberately deprioritising right now. They'll still appear in your full breakdown, but won't drive your recommendations.</div>
+      <div class="depr-chips" id="deprChips"></div>
+    </div>
+
+    <div class="nav-row" style="margin-top:32px;">
+      <button class="btn-ghost" onclick="backToQuestions()">← Back</button>
+      <button class="btn btn-primary" id="dirNextBtn" onclick="submitDirection()" disabled>
+        See my results &nbsp;›
+      </button>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════
      SCREEN RESULTS
 ════════════════════════════════════════════════════════ -->
 <div id="screen-results" class="screen">
@@ -629,6 +755,7 @@
       <div class="rh-name" id="heroName">—</div>
       <div class="rh-meta" id="heroMeta">—</div>
       <div class="rh-date" id="heroDate">—</div>
+      <div id="heroDirection"></div>
     </div>
 
     <!-- ── New: Archetype + stats + insight cards ── -->
@@ -636,6 +763,7 @@
     <div class="insight-stats">
       <div class="insight-stat" id="insightReadiness"></div>
       <div class="insight-stat" id="insightCalibration"></div>
+      <div class="insight-stat" id="insightAIReadiness"></div>
     </div>
     <div class="insight-cards" id="insightCards"></div>
 
@@ -650,15 +778,15 @@
     <!-- ── New: One-level-up plan ── -->
     <div id="insightOneLevelUp"></div>
 
-    <div class="res-section-head">
-      <h3>Your top 3 focus areas</h3>
-      <p>Ranked by gap between your current rating and your target level.</p>
+    <div class="res-section-head" id="focusAreasHead">
+      <h3>Your top focus areas</h3>
+      <p id="focusAreasDesc">Ranked by gap size within your chosen direction.</p>
     </div>
     <div id="priorityGaps"></div>
 
     <div class="res-section-head">
       <h3>Your personalised learning pathway</h3>
-      <p>Curated resources matched to your skill gaps.</p>
+      <p>Resources matched to your skill gaps on your chosen path.</p>
     </div>
     <div id="learningPathway" class="pathway-wrap"></div>
 
@@ -700,7 +828,7 @@
 const SKILLS = [
   {
     id: 'user-research', name: 'User Research',
-    desc: 'Leave the description for User research here',
+    desc: 'Rate your ability to understand customers and uncover meaningful insights.',
     levels: {
       aware:   'Understand the Design Process (Design Thinking, Double Diamond) and when to apply it.',
       capable: 'Plan and lead user research activities and interviews. Synthesise research insights with a team.',
@@ -787,6 +915,46 @@ const SKILLS = [
       strong:  'Act as steward for a design system. Drive improvements to design system and tooling.',
       expert:  'An industry-renowned system designer. Oversee large scale projects serving broad design goals at scale.'
     }
+  },
+  {
+    id: 'ai-workflow', name: 'AI-Assisted Workflow',
+    desc: 'Rate your ability to integrate AI tools meaningfully into your design process.',
+    levels: {
+      aware:   'Aware that AI tools can accelerate design tasks. Has experimented with at least one AI tool in a design context (research synthesis, copy, ideation).',
+      capable: 'Actively integrates AI tools across multiple stages of the design process — generating options faster, synthesising notes, drafting copy — with appropriate review.',
+      strong:  'Has a repeatable AI-integrated workflow. Evaluates when AI output is good enough vs. needs rework. Coaches others on practical AI tool use in design.',
+      expert:  'Defines team-wide AI workflow standards. Stays current with emerging AI capabilities and identifies new leverage points. Shapes how the organisation uses AI in design.'
+    }
+  },
+  {
+    id: 'ai-features', name: 'Designing for AI Features',
+    desc: 'Rate your ability to design products and interfaces that contain AI-powered functionality.',
+    levels: {
+      aware:   'Understands that AI-powered features have different design constraints. Aware of concepts like confidence levels, errors, and model limitations.',
+      capable: 'Can design core states for AI features: empty, loading, low-confidence output, error, and fallback. Considers how users build trust with AI over time.',
+      strong:  'Designs end-to-end AI feature experiences — onboarding, progressive disclosure, recovery flows, and human override patterns. Tests with users to validate mental models.',
+      expert:  'Sets standards for AI feature design across the product. Leads conversations with engineering and product on capability, reliability, and user trust. Shapes responsible AI UX for the organisation.'
+    }
+  },
+  {
+    id: 'stakeholder-management', name: 'Stakeholder Management',
+    desc: 'Rate your ability to manage relationships, expectations, and alignment with key stakeholders.',
+    levels: {
+      aware:   'Knows who the key stakeholders are for their project. Keeps them informed at appropriate intervals.',
+      capable: 'Proactively manages stakeholder expectations — sets scope, flags risks early, and avoids surprises at review. Handles feedback constructively.',
+      strong:  'Builds trust with difficult or senior stakeholders. Navigates competing priorities across functions. Brings stakeholders into alignment without escalation.',
+      expert:  'Manages stakeholder relationships at an executive level. Shapes expectations before projects begin. Creates the conditions for design to be heard at the strategic level.'
+    }
+  },
+  {
+    id: 'storytelling', name: 'Storytelling',
+    desc: 'Rate your ability to frame and communicate design work in a compelling, audience-appropriate narrative.',
+    levels: {
+      aware:   'Can describe what they designed and why in a clear sequence. Uses "problem → solution → outcome" structure.',
+      capable: 'Frames design work as a narrative — sets context, builds tension around the problem, lands the solution with evidence. Adapts the story for different audiences.',
+      strong:  'Uses storytelling to shift perspectives and build alignment in high-stakes moments. Makes complex, ambiguous work feel clear and credible.',
+      expert:  'Shapes how the team and organisation talks about design work. Creates the narratives that get design a seat in strategic conversations. Inspires others to communicate with more intention.'
+    }
   }
 ];
 
@@ -844,6 +1012,15 @@ const BEHAVIOURS = [
       practising: 'Actively contribute to team rituals. Make the complex clear in writing and speaking.',
       consistent: 'Use storytelling to communicate work. Influence product and org leaders\' thinking and decisions.'
     }
+  },
+  {
+    id: 'learning-agility', name: 'Learning Agility',
+    desc: 'How proactively do you grow your skills and adapt to new tools, methods, and contexts?',
+    levels: {
+      developing: 'Tries new tools or methods when directed. Completes learning when assigned. Shows curiosity about the craft.',
+      practising: 'Proactively seeks out new skills relevant to their role. Picks up unfamiliar tools without needing a course first. Reflects and adjusts.',
+      consistent: 'Continuously self-directed in learning. Shares what they\'ve learned with the team. Adapts quickly when methods, tools, or context shift — including AI.'
+    }
   }
 ];
 
@@ -856,16 +1033,53 @@ const SKILL_RESOURCES = {
   'service-design':           [{ title: 'Journey Mapping Workshop Guide' }, { title: 'Synthesis & Problem Definition in UX' }],
   'prototyping':              [{ title: 'Product Thinking Foundations' }, { title: 'Figma Prototyping — Official Learning' }],
   'frontend-development':     [{ title: 'Frontend for Designers (CareerFoundry)' }, { title: 'MDN Web Docs — HTML & CSS for Designers' }],
-  'system-design':            [{ title: 'How to Give Design Critique' }, { title: 'Product Thinking Foundations' }]
+  'system-design':            [{ title: 'How to Give Design Critique' }, { title: 'Product Thinking Foundations' }],
+  'ai-workflow':              [{ title: 'AI Tools for Designers — Getting Started' }, { title: 'Prompt Engineering for Design Tasks' }],
+  'ai-features':              [{ title: 'Designing for AI — Patterns & Principles' }, { title: 'Google PAIR Guidebook — Human-AI Interaction' }],
+  'stakeholder-management':   [{ title: 'Influencing Without Authority' }, { title: 'Design Critique & Stakeholder Feedback' }],
+  'storytelling':             [{ title: 'Presenting Design Work to Stakeholders' }, { title: 'Storytelling in Product Design' }]
 };
+
+const DIRECTIONS = [
+  {
+    id: 'e2e-service', emoji: '🗺️', name: 'E2E / Service Designer',
+    desc: 'Design end-to-end experiences across touchpoints — research through to service blueprints and systems.',
+    skills: ['user-research', 'service-design', 'information-architecture', 'prototyping', 'interaction-design']
+  },
+  {
+    id: 'product-specialist', emoji: '🎨', name: 'Product Specialist',
+    desc: 'Go deep on craft — shipping polished, well-considered product experiences.',
+    skills: ['visual-design', 'interaction-design', 'prototyping', 'system-design', 'user-research']
+  },
+  {
+    id: 'research-led', emoji: '🔍', name: 'Research-led Designer',
+    desc: 'Lead with evidence — drive product decisions through deep user understanding and insight strategy.',
+    skills: ['user-research', 'service-design', 'writing', 'information-architecture', 'stakeholder-management']
+  },
+  {
+    id: 'design-lead', emoji: '🎤', name: 'Design Lead / Manager',
+    desc: 'Move from maker to multiplier — build influence, coach others, and connect design to business strategy.',
+    skills: ['storytelling', 'stakeholder-management', 'system-design', 'user-research', 'service-design']
+  },
+  {
+    id: 'design-engineering', emoji: '⚙️', name: 'Design × Engineering',
+    desc: 'Work at the boundary between design and code — building systems, components, and interactive experiences.',
+    skills: ['frontend-development', 'system-design', 'prototyping', 'interaction-design', 'ai-workflow']
+  },
+  {
+    id: 'ai-integrated', emoji: '🤖', name: 'AI-integrated Designer',
+    desc: 'Build an AI-native practice — integrate AI tools into your workflow and design intelligent AI features.',
+    skills: ['ai-workflow', 'ai-features', 'user-research', 'prototyping', 'storytelling']
+  }
+];
 
 const TARGET_LEVELS = { Associate: 1.5, Mid: 2, Senior: 3, Lead: 3.5, Principal: 4 };
 const LEVEL_NAMES   = ['', 'Aware', 'Capable', 'Strong', 'Expert'];
 const TOTAL_Q = SKILLS.length + BEHAVIOURS.length; // 15
 
 // ── STATE ────────────────────────────────────────────────────────
-const STORAGE_KEY = 'winnie_assessment_v3';
-let state = { name:'', email:'', experience:'', target:'', skills:{}, behaviours:{} };
+const STORAGE_KEY = 'winnie_assessment_v4';
+let state = { name:'', email:'', experience:'', target:'', skills:{}, behaviours:{}, directions:[], deprioritised:[] };
 let questionIndex = 0;
 let currentScreenId = 'screen-0';
 
@@ -902,7 +1116,7 @@ function restoreForm() {
 function clearAndRestart() {
   if (!confirm('Clear all saved answers and start fresh?')) return;
   localStorage.removeItem(STORAGE_KEY);
-  state = { name:'', email:'', experience:'', target:'', skills:{}, behaviours:{} };
+  state = { name:'', email:'', experience:'', target:'', skills:{}, behaviours:{}, directions:[], deprioritised:[] };
   questionIndex = 0;
   restoreForm();
   document.getElementById('resumeBanner').style.display = 'none';
@@ -1031,9 +1245,9 @@ function nextQuestion() {
     renderQuestion(questionIndex);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   } else {
-    buildResults();
-    showScreen('screen-results');
-    setGlobalProgress(100);
+    renderDirectionScreen();
+    showScreen('screen-direction');
+    setGlobalProgress(95);
   }
 }
 
@@ -1048,6 +1262,82 @@ function prevQuestion() {
   }
 }
 
+function backToQuestions() {
+  renderQuestion(TOTAL_Q - 1);
+  showScreen('screen-q');
+  setGlobalProgress(5 + ((TOTAL_Q - 1) / TOTAL_Q) * 90);
+}
+
+function renderDirectionScreen() {
+  // Direction cards
+  const grid = document.getElementById('directionGrid');
+  grid.innerHTML = DIRECTIONS.map(d => `
+    <div class="direction-card${(state.directions||[]).includes(d.id) ? ' selected' : ''}" data-dir="${d.id}" onclick="selectDirection('${d.id}')">
+      <div class="dc-emoji">${d.emoji}</div>
+      <div class="dc-name">${d.name}</div>
+      <div class="dc-desc">${d.desc}</div>
+    </div>`).join('');
+
+  // Deprioritise chips
+  const chips = document.getElementById('deprChips');
+  chips.innerHTML = SKILLS.map(s => `
+    <button class="depr-chip${(state.deprioritised||[]).includes(s.id) ? ' selected' : ''}"
+      onclick="toggleDepr('${s.id}', this)">${s.name}</button>`).join('');
+
+  updateDirCounter();
+}
+
+function updateDirCounter() {
+  const n = (state.directions||[]).length;
+  document.getElementById('dirNextBtn').disabled = n === 0;
+  // Dim cards that can't be selected once 3 chosen
+  document.querySelectorAll('.direction-card').forEach(el => {
+    const isSel = (state.directions||[]).includes(el.dataset.dir);
+    el.classList.toggle('dim', n >= 3 && !isSel);
+  });
+}
+
+function selectDirection(id) {
+  state.directions = state.directions || [];
+  if (state.directions.includes(id)) {
+    // Deselect
+    state.directions = state.directions.filter(d => d !== id);
+  } else if (state.directions.length < 3) {
+    state.directions.push(id);
+  }
+  saveState();
+  document.querySelectorAll('.direction-card').forEach(el => {
+    el.classList.toggle('selected', state.directions.includes(el.dataset.dir));
+  });
+  updateDirCounter();
+}
+
+function toggleDepr(skillId, el) {
+  state.deprioritised = state.deprioritised || [];
+  if (state.deprioritised.includes(skillId)) {
+    state.deprioritised = state.deprioritised.filter(id => id !== skillId);
+    el.classList.remove('selected');
+  } else {
+    state.deprioritised.push(skillId);
+    el.classList.add('selected');
+  }
+  saveState();
+}
+
+function submitDirection() {
+  saveState();
+  buildResults();
+  showScreen('screen-results');
+  setGlobalProgress(100);
+}
+
+// Returns union of skills across all selected directions, or null if none selected
+function getDirectionSkills() {
+  const dirs = (state.directions||[]).map(id => DIRECTIONS.find(d => d.id === id)).filter(Boolean);
+  if (!dirs.length) return null;
+  return [...new Set(dirs.flatMap(d => d.skills))];
+}
+
 // ── RESULTS ──────────────────────────────────────────────────────
 let radarChart = null;
 
@@ -1056,6 +1346,17 @@ function buildResults() {
   document.getElementById('heroName').textContent = state.name;
   document.getElementById('heroMeta').textContent = state.experience + ' experience · Targeting ' + state.target + ' level';
   document.getElementById('heroDate').textContent = 'Completed ' + date;
+  const selDirs = (state.directions||[]).map(id => DIRECTIONS.find(d => d.id === id)).filter(Boolean);
+  document.getElementById('heroDirection').innerHTML = selDirs.length
+    ? selDirs.map(d => `<span class="rh-direction">${d.emoji} ${d.name}</span>`).join('')
+    : '';
+  if (selDirs.length) {
+    document.querySelector('#focusAreasHead h3').textContent = 'Your top focus areas on your path';
+    document.getElementById('focusAreasDesc').textContent = `Ranked by gap size within your chosen direction${selDirs.length > 1 ? 's' : ''}. Skills outside your focus are shown separately.`;
+  } else {
+    document.querySelector('#focusAreasHead h3').textContent = 'Your top 3 focus areas';
+    document.getElementById('focusAreasDesc').textContent = 'Ranked by gap between your current rating and your target level.';
+  }
   buildInsights();
   buildRadar();
   buildPriorityGaps();
@@ -1080,8 +1381,12 @@ const ARCHETYPES = [
     blindspot:'Can get stuck in concepts without shipping tangible work.' },
   { id:'communicator', name:'The Communicator', emoji:'💬',
     color:'#C2185B', bg:'#FCE4EC', border:'#F48FB1',
-    superpower:'Makes complex work feel clear and earns stakeholder trust easily.',
-    blindspot:'May underestimate the need to level up core execution skills.' },
+    superpower:'Turns complex work into clear, compelling narratives that earn trust.',
+    blindspot:'May underestimate the need to level up core execution and craft skills.' },
+  { id:'influencer', name:'The Influencer', emoji:'🎤',
+    color:'#0891B2', bg:'#ECFEFF', border:'#67E8F9',
+    superpower:'Leads through story and relationships — gets alignment where others hit friction.',
+    blindspot:'Can rely too much on communication and under-deliver on execution depth.' },
   { id:'allrounder', name:'The All-Rounder', emoji:'⚡',
     color:'#6B3FEE', bg:'#EAE0FF', border:'#C4B5FD',
     superpower:'Adaptable across any team, brief, or product challenge.',
@@ -1090,17 +1395,20 @@ const ARCHETYPES = [
 
 function getArchetype() {
   const s = state.skills;
-  const craft    = ((s['visual-design']||0) + (s['interaction-design']||0)) / 2;
-  const research = ((s['user-research']||0) + (s['service-design']||0)) / 2;
-  const strategy = ((s['system-design']||0) + (s['information-architecture']||0)) / 2;
   const bMap = { developing:1, practising:2, consistent:3 };
-  const comms = ((s['writing']||0) + (bMap[state.behaviours['transparency']]||1) / 3 * 4) / 2;
-  const scores = { craftsperson:craft, researcher:research, strategist:strategy, communicator:comms };
+  const craft      = ((s['visual-design']||0) + (s['interaction-design']||0)) / 2;
+  const research   = ((s['user-research']||0) + (s['service-design']||0)) / 2;
+  const strategy   = ((s['system-design']||0) + (s['information-architecture']||0)) / 2;
+  // Communicator: writing craft + transparency behaviour
+  const comms      = ((s['writing']||0) + (bMap[state.behaviours['transparency']]||1) / 3 * 4) / 2;
+  // Influencer: storytelling + stakeholder management — lead-through-influence profile
+  const influencer = ((s['storytelling']||0) + (s['stakeholder-management']||0)) / 2;
+  const scores = { craftsperson:craft, researcher:research, strategist:strategy, communicator:comms, influencer };
   const vals = Object.values(scores);
   const range = Math.max(...vals) - Math.min(...vals);
   if (range < 0.7) return ARCHETYPES.find(a => a.id === 'allrounder');
   const winner = Object.entries(scores).sort((a,b) => b[1]-a[1])[0][0];
-  return ARCHETYPES.find(a => a.id === winner) || ARCHETYPES[4];
+  return ARCHETYPES.find(a => a.id === winner) || ARCHETYPES[5];
 }
 
 function getReadinessScore() {
@@ -1129,9 +1437,26 @@ function getStrengthSkills() {
 }
 
 function getCriticalGap() {
-  const tv = TARGET_LEVELS[state.target] || 2;
-  return SKILLS.map(s => ({ skill:s, gap:tv-(state.skills[s.id]||0), self:state.skills[s.id]||0 }))
-    .filter(g => g.gap > 0).sort((a,b) => b.gap-a.gap)[0] || null;
+  const tv        = TARGET_LEVELS[state.target] || 2;
+  const dirSkills = getDirectionSkills();
+  const depr      = state.deprioritised || [];
+  let candidates  = SKILLS.map(s => ({ skill:s, gap:tv-(state.skills[s.id]||0), self:state.skills[s.id]||0 }))
+    .filter(g => g.gap > 0);
+  if (dirSkills) {
+    const onPath = candidates.filter(g => dirSkills.includes(g.skill.id) && !depr.includes(g.skill.id));
+    if (onPath.length) candidates = onPath;
+  } else if (depr.length) {
+    const active = candidates.filter(g => !depr.includes(g.skill.id));
+    if (active.length) candidates = active;
+  }
+  return candidates.sort((a,b) => b.gap-a.gap)[0] || null;
+}
+
+function getAIReadiness() {
+  const avg = ((state.skills['ai-workflow']||0) + (state.skills['ai-features']||0)) / 2;
+  if (avg >= 3) return { label:'AI Ready', dot:'#16A34A', msg:'You\'re integrating AI into your practice — this puts you ahead of most designers right now.' };
+  if (avg >= 2) return { label:'AI Growing', dot:'#D97706', msg:'You\'re building AI skills. Deepening your practice here will become a clear differentiator.' };
+  return { label:'AI Early', dot:'#6B3FEE', msg:'AI fluency is fast becoming a baseline expectation. This is a high-leverage area to build next.' };
 }
 
 function getSkillVsBehaviourBalance() {
@@ -1150,6 +1475,7 @@ function buildInsights() {
   const archetype  = getArchetype();
   const readiness  = getReadinessScore();
   const calib      = getCalibration();
+  const aiRead     = getAIReadiness();
   const strengths  = getStrengthSkills();
   const critGap    = getCriticalGap();
   const balance    = getSkillVsBehaviourBalance();
@@ -1193,6 +1519,15 @@ function buildInsights() {
       <strong style="font-size:var(--text-base);">${calib === 'calibrated' ? 'Well calibrated' : calib === 'under' ? 'Possibly under-rated' : 'Check your ratings'}</strong>
     </div>
     <div class="is-sub">${calibContent.msg}</div>`;
+
+  // ── AI Readiness stat ───────────────────────────────
+  document.getElementById('insightAIReadiness').innerHTML = `
+    <div class="is-label">AI readiness</div>
+    <div class="is-signal" style="margin-bottom:6px;">
+      <div class="is-signal-dot" style="background:${aiRead.dot};"></div>
+      <strong style="font-size:var(--text-base);">${aiRead.label}</strong>
+    </div>
+    <div class="is-sub">${aiRead.msg}</div>`;
 
   // ── 3 Insight cards ─────────────────────────────────
   // Card 1: Strengths
@@ -1255,6 +1590,7 @@ function buildInsights() {
     'iteration':              'Set a rule: test with a real user before any design goes hi-fi',
     'shared-responsibility':  'Schedule a working session with your PM or engineer before the next kickoff',
     'transparency':           'Write a 5-sentence decision log the next time you make a major design call',
+    'learning-agility':       'Spend 30 minutes a week exploring one new tool or method — then share what you found with someone',
     'custom-focus':           'Ask your manager what \'great\' looks like for your current role'
   };
 
@@ -1288,18 +1624,40 @@ function buildInsights() {
       </div>
     </div>` : '';
 
+  const learningAgility = state.behaviours['learning-agility'];
+  const agilityNote = learningAgility === 'consistent' ? `
+    <div class="olu-note">
+      🚀 <strong>Your advantage:</strong> Your learning agility is strong — you tend to close skill gaps faster than average. Use that.
+    </div>` : '';
+
   const items = [practiceItem, behItem, quickWinItem].filter(Boolean);
   if (items.length) {
     document.getElementById('insightOneLevelUp').innerHTML = `
       <div class="one-level-up">
         <div class="olu-head">If you only do 3 things</div>
         <div class="olu-items">${items.join('')}</div>
+        ${agilityNote}
       </div>`;
   }
 }
 
 function buildRadar() {
-  const labels = SKILLS.map(s => s.name.split(' / ')[0].split(' ').slice(0,2).join(' '));
+  const SHORT_LABELS = {
+    'user-research':            'User Research',
+    'information-architecture': 'Info Arch',
+    'interaction-design':       'Interaction',
+    'visual-design':            'Visual Design',
+    'writing':                  'Writing',
+    'service-design':           'Service Design',
+    'prototyping':              'Prototyping',
+    'frontend-development':     'Frontend Dev',
+    'system-design':            'Systems',
+    'ai-workflow':              'AI Workflow',
+    'ai-features':              'AI Features',
+    'stakeholder-management':   'Stakeholders',
+    'storytelling':             'Storytelling'
+  };
+  const labels = SKILLS.map(s => SHORT_LABELS[s.id] || s.name.split(' ').slice(0,2).join(' '));
   const selfData = SKILLS.map(s => state.skills[s.id] || 0);
   const tv = TARGET_LEVELS[state.target] || 2;
   if (radarChart) radarChart.destroy();
@@ -1322,20 +1680,54 @@ function buildRadar() {
 }
 
 function buildPriorityGaps() {
-  const tv = TARGET_LEVELS[state.target] || 2;
-  const gaps = SKILLS.map(s => ({ skill:s, self:state.skills[s.id]||0, gap:tv-(state.skills[s.id]||0) }))
-    .filter(g => g.gap > 0).sort((a,b) => b.gap-a.gap).slice(0,3);
-  const el = document.getElementById('priorityGaps');
-  if (!gaps.length) { el.innerHTML = '<div style="background:#fff;border:1.5px solid var(--border-default);border-radius:var(--radius-lg);padding:24px;text-align:center;box-shadow:var(--shadow-z4)"><div style="font-size:32px;margin-bottom:8px">🎉</div><strong>You\'re at or above target in all skills!</strong></div>'; return; }
-  el.innerHTML = gaps.map((g,i) => `
+  const tv        = TARGET_LEVELS[state.target] || 2;
+  const dirSkills = getDirectionSkills();
+  const depr      = state.deprioritised || [];
+  const el        = document.getElementById('priorityGaps');
+
+  const allGaps = SKILLS.map(s => ({ skill:s, self:state.skills[s.id]||0, gap:tv-(state.skills[s.id]||0) }))
+    .filter(g => g.gap > 0).sort((a,b) => b.gap-a.gap);
+
+  if (!allGaps.length) {
+    el.innerHTML = '<div style="background:#fff;border:1.5px solid var(--border-default);border-radius:var(--radius-lg);padding:24px;text-align:center;box-shadow:var(--shadow-z4)"><div style="font-size:32px;margin-bottom:8px">🎉</div><strong>You\'re at or above target in all skills!</strong></div>';
+    return;
+  }
+
+  // Split into on-path and outside-focus
+  const onPath = dirSkills
+    ? allGaps.filter(g => dirSkills.includes(g.skill.id) && !depr.includes(g.skill.id))
+    : allGaps.filter(g => !depr.includes(g.skill.id));
+  const outsideFocus = allGaps.filter(g => !onPath.find(p => p.skill.id === g.skill.id));
+
+  const tv_label = LEVEL_NAMES[Math.round(tv)];
+  let html = onPath.slice(0,3).map((g,i) => `
     <div class="priority-card">
       <div class="p-rank">${i+1}</div>
       <div>
         <div class="p-name">${g.skill.name}</div>
-        <div class="p-gap">Currently ${LEVEL_NAMES[g.self]||'Not rated'} → Target ${LEVEL_NAMES[Math.round(TARGET_LEVELS[state.target])]}</div>
+        <div class="p-gap">Currently ${LEVEL_NAMES[g.self]||'Not rated'} → Target ${tv_label}</div>
         <div class="p-why">${getRationale(g.skill.id)}</div>
       </div>
     </div>`).join('');
+
+  if (!onPath.length) {
+    html = '<div style="padding:16px;text-align:center;color:var(--text-secondary);font-size:var(--text-sm)">No gaps in your chosen direction — great position to be in. See full breakdown below.</div>';
+  }
+
+  if (outsideFocus.length && dirSkills) {
+    html += `<div class="outside-focus">
+      <div class="of-label">Outside your current focus</div>
+      <div class="of-chips">${outsideFocus.map(g => `
+        <div class="of-chip">
+          <span class="of-chip-name">${g.skill.name}</span>
+          <span class="of-chip-gap">${LEVEL_NAMES[g.self]||'—'} → ${tv_label}</span>
+        </div>`).join('')}
+      </div>
+      <div class="of-note">These gaps exist but sit outside your stated direction. You can revisit them later.</div>
+    </div>`;
+  }
+
+  el.innerHTML = html;
 }
 
 function getRationale(id) {
@@ -1348,15 +1740,33 @@ function getRationale(id) {
     'service-design':          'Connecting user journeys across touchpoints is essential for senior and lead-level work.',
     'prototyping':             'The ability to make ideas tangible fast accelerates every phase of product development.',
     'frontend-development':    'Designers who can speak in code build significantly stronger relationships with engineering teams.',
-    'system-design':           'Design systems thinking is a force multiplier — one decision scales to hundreds of components.'
+    'system-design':           'Design systems thinking is a force multiplier — one decision scales to hundreds of components.',
+    'ai-workflow':             'AI fluency is fast becoming a baseline expectation. Designers who use AI well ship more and learn faster.',
+    'ai-features':             'Most products now include AI-powered functionality. Knowing how to design for it is a distinct, in-demand skill.',
+    'stakeholder-management':  'Your ability to manage stakeholders often determines whether great design actually ships — or gets deprioritised.',
+    'storytelling':            'The ability to frame your work as a narrative is what gets design a seat at the table in high-stakes decisions.'
   })[id] || 'Closing this gap will directly support your growth toward your target level.';
 }
 
 function buildPathway() {
-  const tv = TARGET_LEVELS[state.target] || 2;
-  const skills = SKILLS.filter(s => (state.skills[s.id]||0) < tv).sort((a,b) => (tv-(state.skills[b.id]||0))-(tv-(state.skills[a.id]||0))).slice(0,5);
-  const el = document.getElementById('learningPathway');
-  if (!skills.length) { el.innerHTML = '<div style="padding:20px;text-align:center;font-size:14px;color:var(--text-secondary)">No skill gaps detected.</div>'; return; }
+  const tv        = TARGET_LEVELS[state.target] || 2;
+  const dirSkills = getDirectionSkills();
+  const depr      = state.deprioritised || [];
+  const el        = document.getElementById('learningPathway');
+
+  let skills = SKILLS.filter(s => (state.skills[s.id]||0) < tv);
+  if (dirSkills) {
+    const onPath = skills.filter(s => dirSkills.includes(s.id) && !depr.includes(s.id));
+    skills = onPath.length ? onPath : skills.filter(s => !depr.includes(s.id));
+  } else {
+    skills = skills.filter(s => !depr.includes(s.id));
+  }
+  skills = skills.sort((a,b) => (tv-(state.skills[b.id]||0))-(tv-(state.skills[a.id]||0))).slice(0,5);
+
+  if (!skills.length) {
+    el.innerHTML = '<div style="padding:20px;text-align:center;font-size:14px;color:var(--text-secondary)">No skill gaps in your chosen direction.</div>';
+    return;
+  }
   el.innerHTML = skills.map(s => `
     <div class="pw-group">
       <div class="pw-label">${s.name}</div>
@@ -1381,74 +1791,297 @@ async function downloadPDF() {
   try {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF({ orientation:'portrait', unit:'mm', format:'a4' });
-    const W=210,H=297,m=18,cW=W-m*2;
-    const tv = TARGET_LEVELS[state.target]||2;
-    const pu=[107,63,238],ye=[245,208,40],g8=[45,37,70],g6=[107,96,132],g2=[224,220,233];
+    const W=210, H=297, m=18, cW=W-m*2;
+    const tv  = TARGET_LEVELS[state.target] || 2;
+    const pu=[107,63,238], ye=[245,208,40], g8=[45,37,70], g6=[107,96,132], g2=[224,220,233];
+    const gr=[16,185,129], or_=[217,119,6];
 
-    // Page 1
+    // ── Pre-compute insights ────────────────────────────────────
+    const archetype = getArchetype();
+    const readiness = getReadinessScore();
+    const calib     = getCalibration();
+    const aiRead    = getAIReadiness();
+    const strengths = getStrengthSkills();
+    const critGap   = getCriticalGap();
+    const balance   = getSkillVsBehaviourBalance();
+    const bRank     = { developing:0, practising:1, consistent:2 };
+    const lowestBeh = [...BEHAVIOURS].sort((a,b)=>(bRank[state.behaviours[a.id]]||0)-(bRank[state.behaviours[b.id]]||0))[0];
+    const quickWin  = SKILLS.map(s=>({s,gap:tv-(state.skills[s.id]||0)})).filter(g=>g.gap>0&&g.gap<=1).sort((a,b)=>a.gap-b.gap)[0];
+    const topGaps   = SKILLS.map(s=>({skill:s,self:state.skills[s.id]||0,gap:tv-(state.skills[s.id]||0)})).filter(g=>g.gap>0).sort((a,b)=>b.gap-a.gap).slice(0,3);
+    const pwSkills  = SKILLS.filter(s=>(state.skills[s.id]||0)<tv).sort((a,b)=>(tv-(state.skills[b.id]||0))-(tv-(state.skills[a.id]||0))).slice(0,5);
+
+    // ── Helpers ────────────────────────────────────────────────
+    const archetypeRgb = {
+      craftsperson:{ bg:[255,253,232], bd:[245,208,40],  tx:[180,140,0]   },
+      researcher:  { bg:[219,234,254], bd:[147,197,253], tx:[37,99,235]   },
+      strategist:  { bg:[220,252,231], bd:[134,239,172], tx:[22,163,74]   },
+      communicator:{ bg:[252,228,236], bd:[244,143,177], tx:[194,24,91]   },
+      influencer:  { bg:[236,254,255], bd:[103,232,249], tx:[8,145,178]   },
+      allrounder:  { bg:[234,224,255], bd:[196,181,253], tx:[107,63,238]  }
+    };
+    function pHead(title) {
+      doc.setFillColor(...pu); doc.rect(0,0,W,10,'F');
+      doc.setFont('helvetica','bold'); doc.setFontSize(9); doc.setTextColor(255,255,255);
+      doc.text(title, m, 7);
+    }
+    function secHead(label, yPos) {
+      doc.setFont('helvetica','bold'); doc.setFontSize(10); doc.setTextColor(...g8);
+      doc.text(label, m, yPos);
+      doc.setDrawColor(...g2); doc.line(m, yPos+2, W-m, yPos+2);
+      return yPos+8;
+    }
+    const behHints = {
+      'customer-understanding':'Talk to one user about a problem you\'re currently designing for',
+      'define-success':'Involve cross-functional partners in your next discovery session',
+      'measure-outcomes':'Track the metric your next design decision is meant to move',
+      'iterate':'Test with a real user before any design goes hi-fi',
+      'shared-responsibility':'Schedule a working session with your PM or engineer',
+      'transparency':'Write a decision log the next time you make a major design call',
+      'learning-agility':'Spend 30 min/week on a new tool or method — then share it'
+    };
+
+    // ════════════════════════════════════════════════════════════
+    // PAGE 1 — Cover + Radar + Skill Snapshot
+    // ════════════════════════════════════════════════════════════
     doc.setFillColor(...pu); doc.rect(0,0,W,38,'F');
     doc.setFont('helvetica','bold'); doc.setFontSize(18); doc.setTextColor(255,255,255);
-    doc.text('Product Designer Self-Assessment',m,17);
+    doc.text('Product Designer Self-Assessment', m, 17);
     doc.setFont('helvetica','normal'); doc.setFontSize(10);
-    doc.text('Prepared by Winnie Nguyen · UX Product Designer & Mentor',m,28);
+    doc.text('Prepared by Winnie Nguyen · UX Product Designer & Mentor', m, 28);
     let y=50;
     doc.setFont('helvetica','bold'); doc.setFontSize(22); doc.setTextColor(...g8);
-    doc.text(state.name,m,y); y+=9;
+    doc.text(state.name, m, y); y+=9;
     doc.setFont('helvetica','normal'); doc.setFontSize(11); doc.setTextColor(...g6);
-    doc.text(state.experience+' experience  ·  Targeting '+state.target+' level',m,y); y+=6;
-    doc.setFontSize(9); doc.text('Completed '+new Date().toLocaleDateString('en-AU',{day:'numeric',month:'long',year:'numeric'}),m,y); y+=12;
-    const img=document.getElementById('radarChart').toDataURL('image/png',1);
-    doc.addImage(img,'PNG',m+(cW-130)/2,y,130,90); y+=98;
+    doc.text(state.experience+' experience  ·  Targeting '+state.target+' level', m, y); y+=6;
+    doc.setFontSize(9); doc.text('Completed '+new Date().toLocaleDateString('en-AU',{day:'numeric',month:'long',year:'numeric'}), m, y); y+=12;
+    const img = document.getElementById('radarChart').toDataURL('image/png',1);
+    doc.addImage(img,'PNG', m+(cW-130)/2, y, 130, 90); y+=98;
     doc.setFillColor(...pu); doc.circle(m+3,y-1,2,'F');
     doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(...g6);
-    doc.text('Your rating',m+7,y);
+    doc.text('Your rating', m+7, y);
     doc.setFillColor(...ye); doc.circle(m+45,y-1,2,'F');
-    doc.text('Target ('+state.target+')',m+49,y); y+=12;
-    doc.setFont('helvetica','bold'); doc.setFontSize(10); doc.setTextColor(...g8);
-    doc.text('Skill Snapshot',m,y); y+=5;
-    doc.setDrawColor(...g2); doc.line(m,y,W-m,y); y+=4;
-    const colW=cW/3;
+    doc.text('Target ('+state.target+')', m+49, y); y+=12;
+    y = secHead('Skill Snapshot', y);
+    const colW = cW/3;
     SKILLS.forEach((s,i)=>{
-      const sv=state.skills[s.id]||0,gap=tv-sv,xC=m+(i%3)*colW;
+      const sv=state.skills[s.id]||0, gap=tv-sv, xC=m+(i%3)*colW;
       if(i%3===0&&i>0) y+=10;
       doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(...g6);
-      doc.text(s.name.substring(0,18),xC,y);
+      doc.text(s.name.substring(0,20), xC, y);
       doc.setFont('helvetica','bold'); doc.setFontSize(9);
-      doc.setTextColor(...(gap>0?pu:[16,185,129]));
-      doc.text(LEVEL_NAMES[sv]+(gap>0?' ↑':' ✓'),xC,y+4.5);
+      doc.setTextColor(...(gap>0?pu:gr));
+      doc.text(LEVEL_NAMES[sv]+(gap>0?' ↑':' ✓'), xC, y+4.5);
     }); y+=16;
     footer(doc,1,W,H,m,g6,pu);
 
-    // Page 2
+    // ════════════════════════════════════════════════════════════
+    // PAGE 2 — Insights Dashboard
+    // ════════════════════════════════════════════════════════════
     doc.addPage(); y=m;
-    doc.setFillColor(...pu); doc.rect(0,0,W,10,'F');
-    doc.setFont('helvetica','bold'); doc.setFontSize(9); doc.setTextColor(255,255,255);
-    doc.text('Core Skills — Full Assessment',m,7); y=18;
-    [['SKILL',m],['SELF',m+80],['TARGET',m+115],['GAP',m+150]].forEach(([t,x])=>{
+    pHead('Insights Dashboard');
+    y=18;
+
+    // — Archetype card —
+    const ac = archetypeRgb[archetype.id] || archetypeRgb.allrounder;
+    doc.setFillColor(...ac.bg); doc.setDrawColor(...ac.bd);
+    doc.roundedRect(m, y, cW, 38, 3, 3, 'FD');
+    doc.setFont('helvetica','normal'); doc.setFontSize(7); doc.setTextColor(...ac.tx);
+    doc.text('YOUR DESIGNER PROFILE', m+6, y+8);
+    doc.setFont('helvetica','bold'); doc.setFontSize(15); doc.setTextColor(...ac.tx);
+    doc.text(archetype.name, m+6, y+17);
+    // Superpower
+    doc.setFont('helvetica','bold'); doc.setFontSize(7); doc.setTextColor(...ac.tx);
+    doc.text('Superpower:', m+6, y+26);
+    doc.setFont('helvetica','normal');
+    const spLines = doc.splitTextToSize(archetype.superpower, cW/2-14);
+    doc.text(spLines[0]||'', m+6, y+31);
+    // Blindspot
+    const bsX = m + cW/2 + 2;
+    doc.setFont('helvetica','bold'); doc.setFontSize(7); doc.setTextColor(...ac.tx);
+    doc.text('Watch out for:', bsX, y+26);
+    doc.setFont('helvetica','normal');
+    const bsLines = doc.splitTextToSize(archetype.blindspot, cW/2-14);
+    doc.text(bsLines[0]||'', bsX, y+31);
+    y+=44;
+
+    // — 3 stat boxes —
+    const sw = (cW-8)/3;
+    const calibLabel = calib==='calibrated'?'Calibrated ✓':calib==='under'?'Under-rated':'Check ratings';
+    const calibSub   = calib==='calibrated'?'Ratings match your experience':calib==='under'?'You may be selling yourself short':'Some ratings may be aspirational';
+    [
+      { label:'CAREER READINESS', value:readiness+'%', sub:'Ready for '+state.target+' level' },
+      { label:'EXPERIENCE SIGNAL', value:calibLabel, sub:calibSub },
+      { label:'AI READINESS', value:aiRead.label, sub:aiRead.msg.substring(0,55)+'…' }
+    ].forEach((st,i)=>{
+      const sx = m + i*(sw+4);
+      doc.setFillColor(248,247,251); doc.setDrawColor(...g2);
+      doc.roundedRect(sx, y, sw, 28, 2, 2, 'FD');
+      doc.setFont('helvetica','bold'); doc.setFontSize(7); doc.setTextColor(...g6);
+      doc.text(st.label, sx+4, y+7);
+      doc.setFont('helvetica','bold'); doc.setFontSize(11); doc.setTextColor(...pu);
+      doc.text(st.value, sx+4, y+17);
+      doc.setFont('helvetica','normal'); doc.setFontSize(7); doc.setTextColor(...g6);
+      doc.text(doc.splitTextToSize(st.sub, sw-8)[0]||'', sx+4, y+23);
+    });
+    y+=34;
+
+    // — 3 insight cards —
+    y = secHead('Key Insights', y);
+    const cw3 = (cW-8)/3;
+
+    // Card 1: Where you shine
+    doc.setFillColor(240,253,244); doc.setDrawColor(134,239,172);
+    doc.roundedRect(m, y, cw3, 40, 2, 2, 'FD');
+    doc.setFont('helvetica','bold'); doc.setFontSize(8); doc.setTextColor(22,163,74);
+    doc.text('WHERE YOU SHINE', m+4, y+8);
+    let cy2=y+16;
+    strengths.forEach(s=>{
+      doc.setFont('helvetica','bold'); doc.setFontSize(8); doc.setTextColor(...g8);
+      doc.text(s.name.substring(0,22), m+4, cy2); cy2+=5;
+      doc.setFont('helvetica','normal'); doc.setFontSize(7); doc.setTextColor(...g6);
+      const atTgt = (state.skills[s.id]||0) >= tv;
+      doc.text(LEVEL_NAMES[state.skills[s.id]||0]+(atTgt?' · At target ✓':' · Strongest'), m+4, cy2); cy2+=7;
+    });
+
+    // Card 2: Biggest unlock
+    const c2x = m+cw3+4;
+    doc.setFillColor(255,251,235); doc.setDrawColor(253,230,138);
+    doc.roundedRect(c2x, y, cw3, 40, 2, 2, 'FD');
+    doc.setFont('helvetica','bold'); doc.setFontSize(8); doc.setTextColor(...or_);
+    doc.text('BIGGEST UNLOCK', c2x+4, y+8);
+    if(critGap){
+      doc.setFont('helvetica','bold'); doc.setFontSize(9); doc.setTextColor(...g8);
+      doc.text(critGap.skill.name.substring(0,20), c2x+4, y+17);
+      doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(...or_);
+      doc.text((LEVEL_NAMES[critGap.self]||'—')+' → '+(LEVEL_NAMES[Math.round(tv)]||'—'), c2x+4, y+24);
+      doc.setFont('helvetica','normal'); doc.setFontSize(7); doc.setTextColor(...g6);
+      const rLines = doc.splitTextToSize(getRationale(critGap.skill.id), cw3-8);
+      doc.text(rLines.slice(0,2), c2x+4, y+31);
+    }
+
+    // Card 3: Skills vs Behaviours
+    const c3x = m+(cw3+4)*2;
+    doc.setFillColor(239,246,255); doc.setDrawColor(147,197,253);
+    doc.roundedRect(c3x, y, cw3, 40, 2, 2, 'FD');
+    doc.setFont('helvetica','bold'); doc.setFontSize(8); doc.setTextColor(37,99,235);
+    doc.text('SKILLS VS BEHAVIOURS', c3x+4, y+8);
+    const barW = cw3-12;
+    doc.setFont('helvetica','normal'); doc.setFontSize(7); doc.setTextColor(...g6);
+    doc.text('Craft', c3x+4, y+17);
+    doc.setFillColor(...g2); doc.rect(c3x+4, y+19, barW, 3, 'F');
+    doc.setFillColor(...pu); doc.rect(c3x+4, y+19, barW*(balance.skillPct/100), 3, 'F');
+    doc.setFont('helvetica','bold'); doc.setFontSize(7); doc.setTextColor(...pu);
+    doc.text(balance.skillPct+'%', c3x+cw3-4, y+21, {align:'right'});
+    doc.setFont('helvetica','normal'); doc.setFontSize(7); doc.setTextColor(...g6);
+    doc.text('Behaviours', c3x+4, y+28);
+    doc.setFillColor(...g2); doc.rect(c3x+4, y+30, barW, 3, 'F');
+    doc.setFillColor(245,208,40); doc.rect(c3x+4, y+30, barW*(balance.behPct/100), 3, 'F');
+    doc.setFont('helvetica','bold'); doc.setFontSize(7); doc.setTextColor(180,140,0);
+    doc.text(balance.behPct+'%', c3x+cw3-4, y+32, {align:'right'});
+    const bMsg = {'high-skills':'Craft ahead — build influence.','high-behaviours':'Maturity strong — close craft gaps.','both-low':'Focus on fundamentals first.','both-high':'Strong across both — ready to level up.','balanced':'Good balance — keep building both.'}[balance.type];
+    doc.setFont('helvetica','normal'); doc.setFontSize(7); doc.setTextColor(...g6);
+    doc.text(doc.splitTextToSize(bMsg, cw3-8)[0]||'', c3x+4, y+38);
+    y+=46;
+
+    // — One-level-up plan —
+    y = secHead('If You Only Do 3 Things', y);
+    const plans = [
+      critGap   ? { icon:'📚', type:'Practice this skill',       text:critGap.skill.name,  hint:(SKILL_RESOURCES[critGap.skill.id]||[])[0]?.title||'Take on one focused project in this area' } : null,
+      lowestBeh ? { icon:'🎯', type:'Strengthen this behaviour',  text:lowestBeh.name,      hint:behHints[lowestBeh.id]||'Make this a deliberate habit in your next sprint' } : null,
+      quickWin  ? { icon:'⚡', type:'Quick win',                  text:quickWin.s.name,     hint:'You\'re close — one real project will close this gap' } : null
+    ].filter(Boolean);
+    const pw3 = (cW-8)/3;
+    plans.forEach((p,i)=>{
+      const px = m + i*(pw3+4);
+      doc.setFillColor(248,247,251); doc.setDrawColor(...g2);
+      doc.roundedRect(px, y, pw3, 26, 2, 2, 'FD');
+      doc.setFont('helvetica','bold'); doc.setFontSize(7); doc.setTextColor(...pu);
+      doc.text(p.type.toUpperCase(), px+4, y+7);
+      doc.setFont('helvetica','bold'); doc.setFontSize(9); doc.setTextColor(...g8);
+      doc.text(p.text.substring(0,22), px+4, y+14);
+      doc.setFont('helvetica','normal'); doc.setFontSize(7); doc.setTextColor(...g6);
+      doc.text(doc.splitTextToSize(p.hint, pw3-8)[0]||'', px+4, y+20);
+    });
+    y+=32;
+    footer(doc,2,W,H,m,g6,pu);
+
+    // ════════════════════════════════════════════════════════════
+    // PAGE 3 — Learning Pathway
+    // ════════════════════════════════════════════════════════════
+    doc.addPage(); y=m;
+    pHead('Your Personalised Learning Pathway');
+    y=18;
+
+    // — Top 3 priority gaps —
+    y = secHead('Top Areas to Focus', y);
+    topGaps.forEach((g,i)=>{
+      doc.setFillColor(248,247,251); doc.setDrawColor(...g2);
+      doc.roundedRect(m, y, cW, 24, 2, 2, 'FD');
+      // rank circle
+      doc.setFillColor(...pu); doc.circle(m+7, y+12, 4.5, 'F');
+      doc.setFont('helvetica','bold'); doc.setFontSize(9); doc.setTextColor(255,255,255);
+      doc.text(String(i+1), m+7, y+15, {align:'center'});
+      // skill + gap
+      doc.setFont('helvetica','bold'); doc.setFontSize(10); doc.setTextColor(...g8);
+      doc.text(g.skill.name, m+16, y+9);
+      doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(...pu);
+      doc.text((LEVEL_NAMES[g.self]||'Not rated')+'  →  '+(LEVEL_NAMES[Math.round(tv)]||'')+' needed', m+16, y+16);
+      // rationale — right column
+      doc.setFont('helvetica','normal'); doc.setFontSize(7); doc.setTextColor(...g6);
+      const rLines = doc.splitTextToSize(getRationale(g.skill.id), cW-100);
+      rLines.slice(0,2).forEach((ln,li)=> doc.text(ln, m+100, y+9+li*5));
+      y+=28;
+    });
+    y+=6;
+
+    // — Resources —
+    y = secHead('Recommended Resources', y);
+    pwSkills.forEach(s=>{
+      const resources = SKILL_RESOURCES[s.id]||[];
+      if(!resources.length) return;
+      doc.setFont('helvetica','bold'); doc.setFontSize(9); doc.setTextColor(...pu);
+      doc.text(s.name, m, y); y+=5;
+      resources.forEach(r=>{
+        doc.setFillColor(234,224,255); doc.roundedRect(m, y, cW, 8, 1, 1, 'F');
+        doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(...g8);
+        doc.text('› '+r.title, m+4, y+5.5);
+        y+=10;
+      });
+      y+=4;
+    });
+    footer(doc,3,W,H,m,g6,pu);
+
+    // ════════════════════════════════════════════════════════════
+    // PAGE 4 — Full Skill Breakdown + Behaviours
+    // ════════════════════════════════════════════════════════════
+    doc.addPage(); y=m;
+    pHead('Core Skills — Full Assessment');
+    y=18;
+    [['SKILL',m],['SELF',m+90],['TARGET',m+125],['GAP',m+158]].forEach(([t,x])=>{
       doc.setFont('helvetica','bold'); doc.setFontSize(8); doc.setTextColor(...g6); doc.text(t,x,y);
     }); y+=3;
     doc.setDrawColor(...g2); doc.line(m,y,W-m,y); y+=5;
     SKILLS.forEach((s,i)=>{
-      const sv=state.skills[s.id]||0,gap=tv-sv;
-      if(i%2===0){doc.setFillColor(248,247,251);doc.rect(m-2,y-3.5,cW+4,9,'F');}
+      const sv=state.skills[s.id]||0, gap=tv-sv;
+      if(i%2===0){doc.setFillColor(248,247,251); doc.rect(m-2,y-3.5,cW+4,9,'F');}
       doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(...g8);
-      doc.text(s.name,m,y); doc.text(LEVEL_NAMES[sv]||'—',m+80,y); doc.text(LEVEL_NAMES[Math.round(tv)]||'—',m+115,y);
-      doc.setTextColor(...(gap>0?pu:[16,185,129])); doc.text(gap>0?'+'+gap.toFixed(1):'✓',m+150,y); y+=9;
+      doc.text(s.name, m, y); doc.text(LEVEL_NAMES[sv]||'—', m+90, y); doc.text(LEVEL_NAMES[Math.round(tv)]||'—', m+125, y);
+      doc.setTextColor(...(gap>0?pu:gr)); doc.text(gap>0?'+'+gap.toFixed(1):'✓', m+158, y); y+=9;
     });
     y+=8; doc.setDrawColor(...g2); doc.line(m,y,W-m,y); y+=8;
     doc.setFont('helvetica','bold'); doc.setFontSize(11); doc.setTextColor(...g8);
-    doc.text('Operating Behaviours',m,y); y+=6;
+    doc.text('Operating Behaviours', m, y); y+=6;
     BEHAVIOURS.forEach((b,i)=>{
       const v=state.behaviours[b.id]||'developing';
-      if(i%2===0){doc.setFillColor(248,247,251);doc.rect(m-2,y-3.5,cW+4,9,'F');}
+      if(i%2===0){doc.setFillColor(248,247,251); doc.rect(m-2,y-3.5,cW+4,9,'F');}
       doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(...g8); doc.text(b.name,m,y);
       doc.setFont('helvetica','bold'); doc.setTextColor(...pu);
-      doc.text({developing:'Developing',practising:'Practising',consistent:'Consistent'}[v],m+100,y); y+=9;
+      doc.text({developing:'Developing',practising:'Practising',consistent:'Consistent'}[v], m+100, y); y+=9;
     });
-    footer(doc,2,W,H,m,g6,pu);
+    footer(doc,4,W,H,m,g6,pu);
 
     doc.save('design-assessment-'+(state.name||'results').replace(/[^a-z0-9]/gi,'-').toLowerCase()+'.pdf');
-  } catch(e) { console.error(e); alert('PDF failed. Try again.'); }
+  } catch(e) { console.error(e); alert('PDF generation failed. Try again.'); }
   finally { btn.innerHTML='⬇ Save My Results — Download PDF'; btn.disabled=false; }
 }
 
